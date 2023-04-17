@@ -1,0 +1,17 @@
+# Script dirs
+.scripts
+.hooks
+
+# ENV
+.env
+.env.dist
+.release-it.js
+
+# Build
+dist-transpiled
+
+# Config
+.eslintrc
+
+# Test data
+coverage

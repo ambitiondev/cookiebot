@@ -1,0 +1,13 @@
+# NODE
+node_modules
+
+# ENV
+.env
+
+# Build
+dist
+dist-transpiled
+
+# Test
+coverage
+junit.xml
