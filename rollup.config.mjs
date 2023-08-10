@@ -11,7 +11,9 @@ const outputConfigs = {
 		entryFileNames: '[name].cjs.js',
 		chunkFileNames: '[name]-[hash].cjs.js',
 		format: 'cjs',
-		preferConst: true,
+		generatedCode: {
+			constBindings: true,
+		},
 		sourcemap: true,
 	},
 };
@@ -19,6 +21,7 @@ const outputConfigs = {
 const createConfig = (_, output) => {
 	return {
 		input: 'dist-transpiled/index.js',
+		external: ['@netvlies/utility-collection', 'vue'],
 		output,
 	};
 };
