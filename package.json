@@ -23,7 +23,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@git.netvlies.nl:netvlies/frontend/utility-collection.git"
+		"url": "https://github.com/ambitiondev/vue-cookiebot"
 	},
 	"keywords": [
 		"web",
