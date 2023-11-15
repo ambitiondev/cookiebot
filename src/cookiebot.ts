@@ -14,7 +14,7 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 
 	// Composable
 	const { createScriptWithOptions, removeScript } = useScriptHelper();
-	const { error } = useLogger('Cookiebot plugin');
+	const { info, error } = useLogger('Cookiebot plugin');
 
 	// Computed
 	const cbUrlSetings = computed(
@@ -25,6 +25,10 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 	);
 
 	async function consentBanner() {
+		if (document.getElementById(CookiebotConsentBannerId) !== null) {
+			return info('Consent banner already initialized. Skipping...');
+		}
+
 		const script = await createScriptWithOptions(
 			[
 				{
@@ -35,7 +39,7 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 			`https://consent.cookiebot.com/uc.js?${cbUrlSetings.value}`
 		);
 
-		document.body.appendChild(script);
+		return await document.body.appendChild(script);
 	}
 
 	async function consentPage(ref: HTMLElement) {
@@ -43,7 +47,19 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 			return error('No HTML element ref is given. Aborting...');
 		}
 
-		const _settings = [];
+		if (
+			document.getElementById(CookiebotConsentPageId) !== null ||
+			document.querySelector(`[data-cp-id=${CookiebotConsentPageId}]`) !== null
+		) {
+			return info('Consent page already initialized. Skipping...');
+		}
+
+		const _settings = [
+			{
+				name: 'data-cp-id',
+				value: CookiebotConsentPageId,
+			},
+		];
 
 		if (settings?.culture) {
 			_settings.push({
@@ -58,7 +74,7 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 			true
 		);
 
-		ref.appendChild(script);
+		return await ref.appendChild(script);
 	}
 
 	async function destroyConsentBanner() {
@@ -69,9 +85,16 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 
 	async function destroyConsentPage(ref: HTMLElement) {
 		const scriptEl = document.getElementById(CookiebotConsentPageId);
+		const createdScriptEl = document.querySelector<HTMLScriptElement>(
+			`[data-cp-id=${CookiebotConsentPageId}]`
+		);
 
 		if (scriptEl) {
 			await removeScript(ref, CookiebotConsentPageId);
+		}
+
+		if (createdScriptEl) {
+			await removeScript(ref, createdScriptEl);
 		}
 	}
 

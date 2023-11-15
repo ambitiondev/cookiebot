@@ -10,8 +10,8 @@
 		culture: locale.value,
 	});
 
-	onMounted(() => {
-		consentBanner();
+	onMounted(async () => {
+		await consentBanner();
 	});
 </script>
 

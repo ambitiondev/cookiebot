@@ -13,9 +13,9 @@
 		culture: locale.value,
 	});
 
-	onMounted(() => {
+	onMounted(async () => {
 		if (consentPageRef.value) {
-			consentPage(consentPageRef.value);
+			await consentPage(consentPageRef.value);
 		}
 	});
 </script>
