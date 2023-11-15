@@ -1,5 +1,12 @@
 
 
+## [1.0.1](https://github.com/ambitiondev/vue-cookiebot/compare/1.0.0...1.0.1) (2023-11-15)
+
+
+### Chores / Other 🧹
+
+* **app:** add correct repo ([584ec23](https://github.com/ambitiondev/vue-cookiebot/commit/584ec23d0c353fa835deb4a1f7a8f4d77fac975f))
+
 ## [1.0.0](https://git.netvlies.nl/netvlies/frontend/utility-collection/compare/0.1.1...1.0.0) (2023-11-15)
 
 
