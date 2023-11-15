@@ -1,5 +1,5 @@
 // Vendor
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useLogger } from '@netvlies/utility-collection';
 
 // Types
@@ -14,9 +14,11 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 
 	// Composable
 	const { createScriptWithOptions, removeScript } = useScriptHelper();
-	const { info, error } = useLogger('Cookiebot plugin');
+	const { info, error, warn } = useLogger('Cookiebot plugin');
 
 	// Computed
+	const processingCB = ref<boolean>(false);
+	const processingCP = ref<boolean>(false);
 	const cbUrlSetings = computed(
 		() =>
 			`cbid=${id}${settings?.culture ? `&culture=${settings.culture}` : ''}${
@@ -25,6 +27,12 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 	);
 
 	async function consentBanner() {
+		if (processingCB.value) {
+			return warn('Processing request. Aborting...');
+		}
+
+		processingCB.value = true;
+
 		if (document.getElementById(CookiebotConsentBannerId) !== null) {
 			return info('Consent banner already initialized. Skipping...');
 		}
@@ -39,10 +47,20 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 			`https://consent.cookiebot.com/uc.js?${cbUrlSetings.value}`
 		);
 
-		return await document.body.appendChild(script);
+		await document.body.appendChild(script);
+
+		processingCB.value = false;
+
+		return processingCB.value;
 	}
 
 	async function consentPage(ref: HTMLElement) {
+		if (processingCP.value) {
+			return warn('Processing request. Aborting...');
+		}
+
+		processingCP.value = true;
+
 		if (!ref) {
 			return error('No HTML element ref is given. Aborting...');
 		}
@@ -74,7 +92,11 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 			true
 		);
 
-		return await ref.appendChild(script);
+		await ref.appendChild(script);
+
+		processingCP.value = false;
+
+		return processingCP.value;
 	}
 
 	async function destroyConsentBanner() {
