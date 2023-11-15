@@ -1,5 +1,20 @@
 
 
+## [1.0.0](https://git.netvlies.nl/netvlies/frontend/utility-collection/compare/0.1.1...1.0.0) (2023-11-15)
+
+
+### Bugfixes 🐛
+
+* **cookiebot:** prevent synchronous double execution ([8972a06](https://git.netvlies.nl/netvlies/frontend/utility-collection/commit/8972a06c7fe87c3e1080f48cd338d32a1d742273))
+* **scripts:** prevent double script append ([eef36a3](https://git.netvlies.nl/netvlies/frontend/utility-collection/commit/eef36a3c1192dc981d8df115546e246954ad4abd))
+
+
+### Chores / Other 🧹
+
+* **app:** upgrade deps ([6cca5c6](https://git.netvlies.nl/netvlies/frontend/utility-collection/commit/6cca5c6dbdd84aeb7ab7ebd8660a1c5535d48ba3))
+* **sandbox:** add route links ([ccf9ef4](https://git.netvlies.nl/netvlies/frontend/utility-collection/commit/ccf9ef4ad51e2b10c3776f5f98a32613bd3222cf))
+* **sandbox:** init env to test changes ([2eff569](https://git.netvlies.nl/netvlies/frontend/utility-collection/commit/2eff56982b03d087bdb7d104962812d21727b529))
+
 ## [0.1.1](https://git.netvlies.nl/netvlies/frontend/utility-collection/compare/0.1.0...0.1.1) (2023-08-10)
 
 
