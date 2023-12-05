@@ -22,9 +22,12 @@ interface CookiebotOptions {
 	blockingMode: BlockingMode;
 	consentmode: boolean;
 	culture: string;
-	framework: boolean;
 	level: Level;
 	type: ConsentDialogType;
 }
 
-export { CookiebotOptions };
+interface PluginOptions extends Partial<CookiebotOptions> {
+	cookieBotId: string;
+}
+
+export { CookiebotOptions, PluginOptions };
