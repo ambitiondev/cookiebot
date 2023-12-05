@@ -1,6 +1,6 @@
 {
 	"name": "@ambitiondev/vue-cookiebot",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"description": "Composable for Cookiebot in Vue applications",
 	"main": "dist/index.cjs.js",
 	"module": "./dist/index.esm.js",

@@ -1,5 +1,17 @@
 
 
+## [2.0.0](https://github.com/ambitiondev/vue-cookiebot/compare/1.0.1...2.0.0) (2023-12-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **plugin:** Cookiebot ID configuration has been removed from
+composable and is moved to global plugin settings
+
+### Features 🚀
+
+* **plugin:** add global plugin to store settings ([be5738a](https://github.com/ambitiondev/vue-cookiebot/commit/be5738a067b7bc8e0e1bd280314c6d09eb8dc875))
+
 ## [1.0.1](https://github.com/ambitiondev/vue-cookiebot/compare/1.0.0...1.0.1) (2023-11-15)
 
 
