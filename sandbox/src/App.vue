@@ -2,13 +2,9 @@
 	// Vendor
 	import { useCookiebot } from '@ambitiondev/vue-cookiebot';
 	import { onMounted } from 'vue';
-	import { useI18n } from 'vue-i18n';
 
 	// Composable
-	const { locale } = useI18n();
-	const { consentBanner } = useCookiebot(import.meta.env.VITE_COOKIEBOT_ID, {
-		culture: locale.value,
-	});
+	const { consentBanner } = useCookiebot();
 
 	onMounted(() => {
 		consentBanner();

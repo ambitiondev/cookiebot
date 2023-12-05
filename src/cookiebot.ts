@@ -1,29 +1,41 @@
 // Vendor
-import { computed, ref } from 'vue';
-import { useLogger } from '@netvlies/utility-collection';
+import { computed, inject, ref } from 'vue';
 
 // Types
-import type { CookiebotOptions } from './@types/cookiebot';
+import type { CookiebotOptions, PluginOptions } from './@types/cookiebot';
 
 // Composable
+import { useLogger } from './logger';
 import { useScriptHelper } from './script';
 
-export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
+export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 	const CookiebotConsentBannerId = 'AppCookiebotConsentBanner';
 	const CookiebotConsentPageId = 'AppCookiebotConsentPage';
 
 	// Composable
 	const { createScriptWithOptions, removeScript } = useScriptHelper();
-	const { info, error, warn } = useLogger('Cookiebot plugin');
+	const { info, error, warn } = useLogger();
+
+	const pluginOptions = inject<Partial<PluginOptions>>('cookieBotOptions', {});
+	const _options = {
+		...pluginOptions,
+		...settings,
+	};
+
+	if (typeof _options.cookieBotId === 'undefined') {
+		error(
+			'No settings have been found. Did you forget to instantiate the plugin in your app definition (app.use(...))?'
+		);
+	}
 
 	// Computed
 	const processingCB = ref<boolean>(false);
 	const processingCP = ref<boolean>(false);
 	const cbUrlSetings = computed(
 		() =>
-			`cbid=${id}${settings?.culture ? `&culture=${settings.culture}` : ''}${
-				settings?.blockingMode ? `&blockingmode=${settings.blockingMode}` : ''
-			}`
+			`cbid=${_options.cookieBotId}${
+				_options?.culture ? `&culture=${_options.culture}` : ''
+			}${_options?.blockingMode ? `&blockingmode=${_options.blockingMode}` : ''}`
 	);
 
 	async function consentBanner() {
@@ -88,7 +100,7 @@ export function useCookiebot(id: string, settings?: Partial<CookiebotOptions>) {
 
 		const script = await createScriptWithOptions(
 			_settings,
-			`https://consent.cookiebot.com/${id}/cd.js`,
+			`https://consent.cookiebot.com/${_options.cookieBotId}/cd.js`,
 			true
 		);
 

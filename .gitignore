@@ -11,3 +11,5 @@ dist-transpiled
 # Test
 coverage
 junit.xml
+
+.DS_Store

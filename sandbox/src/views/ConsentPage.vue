@@ -9,7 +9,7 @@
 
 	// Composable
 	const { locale } = useI18n();
-	const { consentPage } = useCookiebot(import.meta.env.VITE_COOKIEBOT_ID, {
+	const { consentPage } = useCookiebot({
 		culture: locale.value,
 	});
 
