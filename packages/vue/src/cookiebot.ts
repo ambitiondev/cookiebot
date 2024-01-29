@@ -4,6 +4,8 @@ import {
 	type CookiebotOptions,
 	type PluginOptions,
 	useLogger,
+	consentBannerURL,
+	cookieDeclarationURL,
 } from '@ambitiondev/cookiebot-common';
 
 // Composable
@@ -32,11 +34,11 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 	// Computed
 	const processingCB = ref<boolean>(false);
 	const processingCP = ref<boolean>(false);
-	const cbUrlSetings = computed(
-		() =>
-			`cbid=${_options.cookieBotId}${
-				_options?.culture ? `&culture=${_options.culture}` : ''
-			}${_options?.blockingMode ? `&blockingmode=${_options.blockingMode}` : ''}`
+	const cbUrlSettings = computed(() =>
+		consentBannerURL({
+			..._options,
+			cookieBotId: _options.cookieBotId || '',
+		})
 	);
 
 	async function consentBanner() {
@@ -57,7 +59,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 					value: CookiebotConsentBannerId,
 				},
 			],
-			`https://consent.cookiebot.com/uc.js?${cbUrlSetings.value}`
+			cbUrlSettings.value
 		);
 
 		await document.body.appendChild(script);
@@ -76,6 +78,10 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 
 		if (!ref) {
 			return error('No HTML element ref is given. Aborting...');
+		}
+
+		if (!_options.cookieBotId) {
+			return error('No Cookiebot ID found. Please set a valid ID');
 		}
 
 		if (
@@ -101,7 +107,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 
 		const script = await createScriptWithOptions(
 			_settings,
-			`https://consent.cookiebot.com/${_options.cookieBotId}/cd.js`,
+			cookieDeclarationURL(_options.cookieBotId),
 			true
 		);
 
