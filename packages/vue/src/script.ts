@@ -1,5 +1,5 @@
 // Types
-import type { ScriptAttribute } from './@types/script';
+import type { ScriptAttribute } from '@ambitiondev/cookiebot-common';
 
 export function useScriptHelper(scriptType = 'text/javascript') {
 	async function createScriptWithOptions(options: ScriptAttribute[], src: string, async = true) {

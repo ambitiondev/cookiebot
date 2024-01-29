@@ -1,4 +1,4 @@
-/* eslint-disable no-console, @typescript-eslint/no-explicit-any */
+/* eslint-disable no-console */
 export function useLogger() {
 	const color = {
 		info: '\x1b[44m',
@@ -14,19 +14,19 @@ export function useLogger() {
 		} Cookiebot plugin ${severity}: ${color.transparent} ${message}`;
 	}
 
-	function error(message: string, ...args: any[]) {
+	function error(message: string, ...args: unknown[]) {
 		console.error(constructMessage('error', message), ...args);
 	}
 
-	function info(message: string, ...args: any[]) {
+	function info(message: string, ...args: unknown[]) {
 		console.info(constructMessage('info', message), ...args);
 	}
 
-	function success(message: string, ...args: any[]) {
+	function success(message: string, ...args: unknown[]) {
 		console.log(constructMessage('success', message), ...args);
 	}
 
-	function warn(message: string, ...args: any[]) {
+	function warn(message: string, ...args: unknown[]) {
 		console.warn(constructMessage('warn', message), ...args);
 	}
 

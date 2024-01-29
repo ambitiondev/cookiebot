@@ -1,11 +1,12 @@
 // Vendor
 import { computed, inject, ref } from 'vue';
-
-// Types
-import type { CookiebotOptions, PluginOptions } from './@types/cookiebot';
+import {
+	type CookiebotOptions,
+	type PluginOptions,
+	useLogger,
+} from '@ambitiondev/cookiebot-common';
 
 // Composable
-import { useLogger } from './logger';
 import { useScriptHelper } from './script';
 
 export function useCookiebot(settings?: Partial<CookiebotOptions>) {

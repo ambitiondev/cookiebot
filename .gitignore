@@ -13,3 +13,6 @@ coverage
 junit.xml
 
 .DS_Store
+
+# Packages
+ambitiondev-*.tgz

@@ -2,7 +2,7 @@
 import { App } from 'vue';
 
 // Types
-import { PluginOptions } from './@types/cookiebot';
+import type { PluginOptions } from '@ambitiondev/cookiebot-common';
 
 const cookieBot = {
 	install: (app: App, options: PluginOptions) => {

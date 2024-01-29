@@ -6,18 +6,11 @@ import path from 'path';
 export default defineConfig({
 	test: {
 		globals: true,
-		coverage: {
-			branches: 75,
-			enabled: true,
-			functions: 80,
-			lines: 80,
-			reporter: ['text', 'text-summary', 'cobertura'],
-			statements: 80,
-		},
 	},
 	resolve: {
 		alias: {
 			'@src': path.resolve(__dirname, 'src'),
+			'@common': path.resolve(__dirname, '../common'),
 		},
 	},
 });

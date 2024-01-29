@@ -21,7 +21,7 @@ const outputConfigs = {
 const createConfig = (_, output) => {
 	return {
 		input: 'dist-transpiled/index.js',
-		external: ['@netvlies/utility-collection', 'vue'],
+		external: ['vue', '@ambitiondev/cookiebot-common'],
 		output,
 	};
 };
