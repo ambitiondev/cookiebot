@@ -1,19 +1,51 @@
-import { defineNuxtModule, addPlugin, createResolver } from "@nuxt/kit";
+// Vendor
+import { useLogger, type PluginOptions } from '@ambitiondev/cookiebot-common';
+import { addPlugin, addTemplate, createResolver, defineNuxtModule, isNuxt2 } from '@nuxt/kit';
 
-// Module options TypeScript interface definition
-export interface ModuleOptions {}
+// Package
+import { name, version } from '../package.json';
+
+export interface ModuleOptions extends PluginOptions {
+	autoConsentBanner: boolean;
+}
 
 export default defineNuxtModule<ModuleOptions>({
-  meta: {
-    name: "@ambitiondev/nuxt-cookiebot",
-    configKey: "cookiebot",
-  },
-  // Default configuration options of the Nuxt module
-  defaults: {},
-  setup(options, nuxt) {
-    const resolver = createResolver(import.meta.url);
+	meta: {
+		name,
+		version,
+		configKey: 'cookiebot',
+		compatibility: {
+			nuxt: '^3.0.0',
+		},
+	},
+	// Default configuration options of the Nuxt module
+	defaults: {
+		autoConsentBanner: true,
+		cookieBotId: '',
+	},
+	setup(options, nuxt) {
+		const { error } = useLogger();
+		const resolver = createResolver(import.meta.url);
 
-    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-    addPlugin(resolver.resolve("./runtime/plugin"));
-  },
+		// Inject options via virtual template
+		nuxt.options.alias['#cookiebot-options'] = addTemplate({
+			filename: 'cookiebot-options.mjs',
+			getContents: () =>
+				Object.entries(options)
+					.map(
+						([key, value]) =>
+							`export const ${key} = ${JSON.stringify(value, null, 2)}
+      `
+					)
+					.join('\n'),
+		}).dst;
+
+		if (isNuxt2()) {
+			return error('Nuxt 2 is not supported. Aborting...');
+		}
+
+		addPlugin({
+			src: resolver.resolve('./runtime/plugin'),
+		});
+	},
 });

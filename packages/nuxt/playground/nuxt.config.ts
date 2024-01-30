@@ -1,5 +1,10 @@
 export default defineNuxtConfig({
-  modules: ['../src/module'],
-  myModule: {},
-  devtools: { enabled: true }
-})
+	modules: ['../src/module', '@nuxtjs/i18n'],
+	cookiebot: {
+		cookieBotId: import.meta.env.COOKIEBOT_ID,
+	},
+	devtools: { enabled: true },
+	i18n: {
+		vueI18n: './i18n.config.ts',
+	},
+});
