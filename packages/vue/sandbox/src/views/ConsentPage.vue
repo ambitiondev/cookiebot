@@ -9,17 +9,15 @@
 
 	// Composable
 	const { locale } = useI18n();
-	const { consentPage } = useCookiebot({
+	const { cookieDeclaration } = useCookiebot({
 		culture: locale.value,
 	});
 
 	onMounted(async () => {
-		if (consentPageRef.value) {
-			await consentPage(consentPageRef.value);
-		}
+		await cookieDeclaration(consentPageRef.value);
 	});
 </script>
 
 <template>
-	<div ref="consentPageRef"></div>
+	<div ref="consentPagesRef"></div>
 </template>

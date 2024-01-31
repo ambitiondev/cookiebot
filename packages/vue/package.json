@@ -1,0 +1,69 @@
+{
+	"name": "@ambitiondev/vue-cookiebot",
+	"version": "2.0.0",
+	"description": "Composable for Cookiebot in Vue applications",
+	"main": "dist/index.cjs.js",
+	"module": "./dist/index.esm.js",
+	"types": "dist/types/index.d.ts",
+	"files": [
+		"dist/"
+	],
+	"scripts": {
+		"build": "npm run lint && npm run clean && npm run compile && npm run bundle",
+		"bundle": "rollup --config rollup.config.mjs",
+		"clean": "node ./.scripts/clean.js",
+		"compile": "npm run tsc",
+		"lint": "eslint src/**",
+		"lint:fix": "npm run lint -- --fix",
+		"release": "npm run test:coverage && npm run build && dotenv release-it",
+		"test:unit": "vitest",
+		"test": "npm run test:unit",
+		"test:coverage": "vitest run --coverage",
+		"tsc": "tsc -p ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ambitiondev/cookiebot"
+	},
+	"author": {
+		"name": "Berrie Nachtweh",
+		"email": "info@ambitiondev.io",
+		"url": "https://ambitiondev.io"
+	},
+	"license": "MIT",
+	"keywords": [
+		"web",
+		"application",
+		"cookiebot",
+		"vue",
+		"vue 3",
+		"ambitiondev"
+	],
+	"dependencies": {
+		"@ambitiondev/cookiebot-common": "2.0.0"
+	},
+	"devDependencies": {
+		"@netvlies/eslint-config": "^3.0.0-beta.0",
+		"@netvlies/prettier-config": "^1.1.6",
+		"@release-it/conventional-changelog": "^8.0.1",
+		"@typescript-eslint/eslint-plugin": "^6.20.0",
+		"@typescript-eslint/parser": "^6.20.0",
+		"@vitest/coverage-v8": "^1.2.2",
+		"@vue/eslint-config-typescript": "^12.0.0",
+		"dotenv-cli": "^7.3.0",
+		"eslint": "^8.56.0",
+		"eslint-plugin-vue": "^9.21.0",
+		"jsdom": "^24.0.0",
+		"prettier": "^3.2.4",
+		"pretty-quick": "^4.0.0",
+		"release-it": "^17.0.3",
+		"rollup": "^4.9.6",
+		"typescript": "^5.3.3",
+		"vitest": "^1.2.2",
+		"vue-eslint-parser": "^9.4.2"
+	},
+	"peerDependencies": {
+		"vue": ">=3.1.0"
+	},
+	"prettier": "@netvlies/prettier-config"
+}
