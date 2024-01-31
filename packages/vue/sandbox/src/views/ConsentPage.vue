@@ -14,12 +14,10 @@
 	});
 
 	onMounted(async () => {
-		if (consentPageRef.value) {
-			await cookieDeclaration(consentPageRef.value);
-		}
+		await cookieDeclaration(consentPageRef.value);
 	});
 </script>
 
 <template>
-	<div ref="consentPageRef"></div>
+	<div ref="consentPagesRef"></div>
 </template>

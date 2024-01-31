@@ -5,15 +5,16 @@ import {
 	consentBannerURL,
 	cookieDeclarationURL,
 	useLogger,
+	type CookiebotComposable,
 	type CookiebotOptions,
 	type PluginOptions,
 } from '@ambitiondev/cookiebot-common';
-import { Ref, computed, inject, ref, unref } from 'vue';
+import { computed, inject, ref, unref, type MaybeRef } from 'vue';
 
 // Composable
 import { useScriptHelper } from './script';
 
-export function useCookiebot(settings?: Partial<CookiebotOptions>) {
+export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotComposable {
 	// Composable
 	const { createScriptWithOptions, removeScript } = useScriptHelper();
 	const { deprecationNotice, info, error, warn } = useLogger();
@@ -32,7 +33,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 
 	// Computed
 	const processingCB = ref<boolean>(false);
-	const processingCP = ref<boolean>(false);
+	const processingCD = ref<boolean>(false);
 	const bannerURL = computed(() =>
 		consentBannerURL({
 			..._options,
@@ -64,23 +65,28 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 		await document.body.appendChild(script);
 
 		processingCB.value = false;
-
-		return processingCB.value;
 	}
 
-	async function consentPage(ref: HTMLElement | Ref<HTMLElement>, log = true) {
-		if (log) {
-			deprecationNotice('consentPage', 'cookieDeclaration');
-		}
+	/** @deprecated */
+	async function consentPage(ref: MaybeRef<HTMLElement | null>) {
+		deprecationNotice('consentPage', 'cookieDeclaration');
 
-		if (processingCP.value) {
+		cookieDeclaration(ref);
+	}
+
+	async function cookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
+		const _ref = unref(ref);
+
+		if (processingCD.value) {
 			return warn('Processing request. Aborting...');
 		}
 
-		processingCP.value = true;
+		processingCD.value = true;
 
-		if (!ref) {
-			return error('No HTML element ref is given. Aborting...');
+		if (!_ref) {
+			return warn(
+				'No HTML element or element ref is given to inject cookie declaration script. Skipping...'
+			);
 		}
 
 		if (!_options.cookieBotId) {
@@ -114,29 +120,29 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 			true
 		);
 
-		await unref(ref).appendChild(script);
+		await _ref.appendChild(script);
 
-		processingCP.value = false;
-
-		return processingCP.value;
-	}
-
-	async function cookieDeclaration(ref: HTMLElement | Ref<HTMLElement>) {
-		consentPage(ref, false);
+		processingCD.value = false;
 	}
 
 	async function destroyConsentBanner() {
 		await removeScript(document.body, CB_NAME);
-
-		return true;
 	}
 
-	async function destroyConsentPage(ref: HTMLElement | Ref<HTMLElement>, log = true) {
-		if (log) {
-			deprecationNotice('destroyConsentPage', 'destroyCookieDeclaration');
+	/** @deprecated */
+	async function destroyConsentPage(ref: MaybeRef<HTMLElement | null>) {
+		deprecationNotice('destroyConsentPage', 'destroyCookieDeclaration');
+
+		destroyCookieDeclaration(ref);
+	}
+
+	async function destroyCookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
+		const _ref = unref(ref);
+
+		if (!_ref) {
+			return error('No HTML element or element ref is given. Aborting...');
 		}
 
-		const _ref = unref(ref);
 		const scriptEl = document.getElementById(CD_NAME);
 		const createdScriptEl = document.querySelector<HTMLScriptElement>(
 			`[data-cp-id=${CD_NAME}]`
@@ -149,10 +155,6 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 		if (createdScriptEl) {
 			await removeScript(_ref, createdScriptEl);
 		}
-	}
-
-	async function destroyCookieDeclaration(ref: HTMLElement | Ref<HTMLElement>) {
-		destroyConsentPage(ref, false);
 	}
 
 	async function resetConsentBanner() {
