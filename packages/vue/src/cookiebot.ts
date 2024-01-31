@@ -155,6 +155,8 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
 		if (createdScriptEl) {
 			await removeScript(_ref, createdScriptEl);
 		}
+
+		_ref.innerHTML = '';
 	}
 
 	async function resetConsentBanner() {
