@@ -1,6 +1,13 @@
 // Vendor
 import { useLogger, type PluginOptions } from '@ambitiondev/cookiebot-common';
-import { addPlugin, addTemplate, createResolver, defineNuxtModule, isNuxt2 } from '@nuxt/kit';
+import {
+	addImports,
+	addPlugin,
+	addTemplate,
+	createResolver,
+	defineNuxtModule,
+	isNuxt2,
+} from '@nuxt/kit';
 
 // Package
 import { name, version } from '../package.json';
@@ -23,9 +30,10 @@ export default defineNuxtModule<ModuleOptions>({
 		autoConsentBanner: true,
 		cookieBotId: '',
 	},
-	setup(options, nuxt) {
+	async setup(options, nuxt) {
 		const { error } = useLogger();
-		const resolver = createResolver(import.meta.url);
+		const { resolve } = createResolver(import.meta.url);
+		const runtimeDir = await resolve('./runtime');
 
 		// Inject options via virtual template
 		nuxt.options.alias['#cookiebot-options'] = addTemplate({
@@ -45,7 +53,13 @@ export default defineNuxtModule<ModuleOptions>({
 		}
 
 		addPlugin({
-			src: resolver.resolve('./runtime/plugin'),
+			src: resolve(runtimeDir, 'plugin'),
+		});
+
+		addImports({
+			name: 'useCookieBot',
+			as: 'useCookieBot',
+			from: resolve(runtimeDir, 'composable'),
 		});
 	},
 });

@@ -43,6 +43,7 @@
 	],
 	"dependencies": {
 		"@ambitiondev/cookiebot-common": "2.0.0",
+		"@ambitiondev/vue-cookiebot": "2.0.0",
 		"@nuxt/kit": "^3.9.3"
 	},
 	"devDependencies": {

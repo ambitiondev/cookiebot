@@ -1,7 +1,13 @@
-<script setup>
-	import { cookieBotId } from '#cookiebot-options';
+<script setup lang="ts">
+	const test = ref<HTMLElement | null>(null);
+
+	const { consentBanner, cookieDeclaration } = useCookieBot();
+
+	onMounted(() => {
+		cookieDeclaration(test);
+	});
 </script>
 
 <template>
-	<div>Using Cookiebot ID: {{ cookieBotId }}</div>
+	<div ref="test" />
 </template>

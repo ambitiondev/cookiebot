@@ -5,7 +5,7 @@ import { CB_NAME, consentBannerURL, useLogger } from '@ambitiondev/cookiebot-com
 import { defineNuxtPlugin } from '#app';
 import { useHead } from '#imports';
 // @ts-ignore
-import * as cb from '#cookiebot-options';
+import * as pluginOptions from '#cookiebot-options';
 
 // Module Imports
 import type { ModuleOptions } from '../module';
@@ -20,7 +20,7 @@ export default defineNuxtPlugin((nuxt) => {
 		cookieBotId,
 		culture = defaultLocale,
 		...rest
-	} = cb as ModuleOptions;
+	} = pluginOptions as ModuleOptions;
 
 	if (!cookieBotId?.length) {
 		return error('No Cookiebot ID given. Aborting...');
