@@ -30,7 +30,14 @@ export function useLogger() {
 		console.warn(constructMessage('warn', message), ...args);
 	}
 
+	function deprecationNotice(oldMethod: string, newMethod: string) {
+		warn(
+			`"${oldMethod}" is deprecated and will be removed in future release. Please use "${newMethod}" instead.`
+		);
+	}
+
 	return {
+		deprecationNotice,
 		info,
 		error,
 		success,

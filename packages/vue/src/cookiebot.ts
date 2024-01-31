@@ -1,14 +1,14 @@
 // Vendor
-import { computed, inject, ref } from 'vue';
 import {
-	type CookiebotOptions,
-	type PluginOptions,
-	useLogger,
-	consentBannerURL,
-	cookieDeclarationURL,
 	CB_NAME,
 	CD_NAME,
+	consentBannerURL,
+	cookieDeclarationURL,
+	useLogger,
+	type CookiebotOptions,
+	type PluginOptions,
 } from '@ambitiondev/cookiebot-common';
+import { Ref, computed, inject, ref, unref } from 'vue';
 
 // Composable
 import { useScriptHelper } from './script';
@@ -16,7 +16,7 @@ import { useScriptHelper } from './script';
 export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 	// Composable
 	const { createScriptWithOptions, removeScript } = useScriptHelper();
-	const { info, error, warn } = useLogger();
+	const { deprecationNotice, info, error, warn } = useLogger();
 
 	const pluginOptions = inject<Partial<PluginOptions>>('cookieBotOptions', {});
 	const _options = {
@@ -33,7 +33,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 	// Computed
 	const processingCB = ref<boolean>(false);
 	const processingCP = ref<boolean>(false);
-	const cbUrlSettings = computed(() =>
+	const bannerURL = computed(() =>
 		consentBannerURL({
 			..._options,
 			cookieBotId: _options.cookieBotId || '',
@@ -58,7 +58,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 					value: CB_NAME,
 				},
 			],
-			cbUrlSettings.value
+			bannerURL.value
 		);
 
 		await document.body.appendChild(script);
@@ -68,7 +68,11 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 		return processingCB.value;
 	}
 
-	async function consentPage(ref: HTMLElement) {
+	async function consentPage(ref: HTMLElement | Ref<HTMLElement>, log = true) {
+		if (log) {
+			deprecationNotice('consentPage', 'cookieDeclaration');
+		}
+
 		if (processingCP.value) {
 			return warn('Processing request. Aborting...');
 		}
@@ -110,11 +114,15 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 			true
 		);
 
-		await ref.appendChild(script);
+		await unref(ref).appendChild(script);
 
 		processingCP.value = false;
 
 		return processingCP.value;
+	}
+
+	async function cookieDeclaration(ref: HTMLElement | Ref<HTMLElement>) {
+		consentPage(ref, false);
 	}
 
 	async function destroyConsentBanner() {
@@ -123,19 +131,28 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 		return true;
 	}
 
-	async function destroyConsentPage(ref: HTMLElement) {
+	async function destroyConsentPage(ref: HTMLElement | Ref<HTMLElement>, log = true) {
+		if (log) {
+			deprecationNotice('destroyConsentPage', 'destroyCookieDeclaration');
+		}
+
+		const _ref = unref(ref);
 		const scriptEl = document.getElementById(CD_NAME);
 		const createdScriptEl = document.querySelector<HTMLScriptElement>(
 			`[data-cp-id=${CD_NAME}]`
 		);
 
 		if (scriptEl) {
-			await removeScript(ref, CD_NAME);
+			await removeScript(_ref, CD_NAME);
 		}
 
 		if (createdScriptEl) {
-			await removeScript(ref, createdScriptEl);
+			await removeScript(_ref, createdScriptEl);
 		}
+	}
+
+	async function destroyCookieDeclaration(ref: HTMLElement | Ref<HTMLElement>) {
+		destroyConsentPage(ref, false);
 	}
 
 	async function resetConsentBanner() {
@@ -146,9 +163,11 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>) {
 
 	return {
 		consentBanner,
-		destroyConsentBanner,
-		resetConsentBanner,
 		consentPage,
+		cookieDeclaration,
+		destroyConsentBanner,
 		destroyConsentPage,
+		destroyCookieDeclaration,
+		resetConsentBanner,
 	};
 }
