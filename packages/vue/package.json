@@ -1,6 +1,6 @@
 {
 	"name": "@ambitiondev/vue-cookiebot",
-	"version": "3.0.0-alpha.0",
+	"version": "3.0.0-alpha.1",
 	"description": "Composable for Cookiebot in Vue applications",
 	"main": "dist/index.cjs.js",
 	"module": "./dist/index.esm.js",
@@ -39,7 +39,7 @@
 		"ambitiondev"
 	],
 	"dependencies": {
-		"@ambitiondev/cookiebot-common": "^3.0.0-alpha.0"
+		"@ambitiondev/cookiebot-common": "^3.0.0-alpha.1"
 	},
 	"devDependencies": {
 		"@netvlies/eslint-config": "^3.0.0-beta.0",
