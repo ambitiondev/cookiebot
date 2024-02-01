@@ -15,7 +15,6 @@
 		"compile": "tsc -p .",
 		"lint": "eslint src/**",
 		"lint:fix": "npm run lint -- --fix",
-		"release": "npm run test:coverage && npm run build && dotenv release-it",
 		"test:unit": "vitest",
 		"test": "npm run test:unit",
 		"test:coverage": "vitest run --coverage"
