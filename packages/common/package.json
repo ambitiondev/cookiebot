@@ -1,6 +1,6 @@
 {
 	"name": "@ambitiondev/cookiebot-common",
-	"version": "3.0.0-alpha.1",
+	"version": "3.0.0-alpha.2",
 	"description": "Common logic for Cookiebot packages",
 	"main": "dist/index.cjs.js",
 	"module": "./dist/index.esm.js",
