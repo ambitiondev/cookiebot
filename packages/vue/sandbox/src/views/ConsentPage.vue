@@ -14,7 +14,7 @@
 	});
 
 	onMounted(async () => {
-		await cookieDeclaration(consentPageRef.value);
+		await cookieDeclaration(consentPageRef);
 	});
 </script>
 

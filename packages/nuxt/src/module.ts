@@ -57,8 +57,8 @@ export default defineNuxtModule<ModuleOptions>({
 		});
 
 		addImports({
-			name: 'useCookieBot',
-			as: 'useCookieBot',
+			name: 'useCookiebot',
+			as: 'useCookiebot',
 			from: resolve(runtimeDir, 'composable'),
 		});
 	},

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-	const test = ref<HTMLElement | null>(null);
+	const cookieDeclarationRef = ref<HTMLElement | null>(null);
 
-	const { consentBanner, cookieDeclaration } = useCookieBot();
+	const { cookieDeclaration } = useCookiebot();
 
 	onMounted(() => {
-		cookieDeclaration(test);
+		cookieDeclaration(cookieDeclarationRef);
 	});
 </script>
 
 <template>
-	<div ref="test" />
+	<div ref="cookieDeclarationRef" />
 </template>

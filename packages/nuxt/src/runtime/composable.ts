@@ -8,13 +8,13 @@ import {
 	type CookiebotOptions,
 	type PluginOptions,
 } from '@ambitiondev/cookiebot-common';
-import { useCookiebot } from '@ambitiondev/vue-cookiebot';
+import { useCookiebot as useVueCookiebot } from '@ambitiondev/vue-cookiebot';
 
 // Module imports
 // @ts-ignore
 import * as pluginOptions from '#cookiebot-options';
 
-export function useCookieBot(settings?: Partial<CookiebotOptions>): CookiebotComposable {
+export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotComposable {
 	const nuxt = useNuxtApp();
 	const { deprecationNotice } = useLogger();
 	const _options = {
@@ -27,9 +27,9 @@ export function useCookieBot(settings?: Partial<CookiebotOptions>): CookiebotCom
 		'$i18n' in nuxt && 'locale' in nuxt.$i18n ? (nuxt.$i18n.locale.value as string) : undefined
 	);
 
-	const vueCookiebot = useCookiebot({
+	const vueCookiebot = useVueCookiebot({
 		..._options,
-		culture: culture.value,
+		culture: culture.value || _options.culture,
 	});
 
 	async function consentBanner() {
