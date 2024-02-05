@@ -6,8 +6,7 @@
     "lerna": "^8.0.2"
   },
   "scripts": {
-    "prepublish": "lerna run build",
-    "version": "dotenv lerna version --conventional-commits --force-publish --create-release github"
+    "prepublish": "lerna run build"
   },
   "engines": {
     "node": ">= 18"
