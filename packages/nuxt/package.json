@@ -1,6 +1,6 @@
 {
 	"name": "@ambitiondev/nuxt-cookiebot",
-	"version": "3.0.0-alpha.3",
+	"version": "3.0.0-alpha.4",
 	"description": "Implementation for Cookiebot in Nuxt applications",
 	"main": "./dist/module.cjs",
 	"types": "./dist/types.d.ts",
@@ -42,8 +42,8 @@
 		"vue"
 	],
 	"dependencies": {
-		"@ambitiondev/cookiebot-common": "^3.0.0-alpha.3",
-		"@ambitiondev/vue-cookiebot": "^3.0.0-alpha.3",
+		"@ambitiondev/cookiebot-common": "^3.0.0-alpha.4",
+		"@ambitiondev/vue-cookiebot": "^3.0.0-alpha.4",
 		"@nuxt/kit": "^3.9.3"
 	},
 	"devDependencies": {
