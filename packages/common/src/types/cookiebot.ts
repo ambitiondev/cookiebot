@@ -8,11 +8,11 @@ declare global {
 	}
 }
 
-type BlockingMode = 'auto' | 'none';
+export type BlockingMode = 'auto' | 'none';
 
-type Level = 'implied' | 'strict';
+export type Level = 'implied' | 'strict';
 
-type ConsentDialogType =
+export type ConsentDialogType =
 	| 'optin'
 	| 'optout'
 	| 'optinout'
@@ -20,7 +20,7 @@ type ConsentDialogType =
 	| 'inlineoptin'
 	| 'optionaloptin';
 
-interface CookiebotOptions {
+export interface CookiebotOptions {
 	blockingMode: BlockingMode;
 	consentmode: boolean;
 	culture: string;
@@ -28,11 +28,11 @@ interface CookiebotOptions {
 	type: ConsentDialogType;
 }
 
-interface PluginOptions extends Partial<CookiebotOptions> {
+export interface PluginOptions extends Partial<CookiebotOptions> {
 	cookieBotId: string;
 }
 
-interface CookiebotComposable {
+export interface CookiebotComposable {
 	/**
 	 * Create script tag for the consent banner and append it to body
 	 *
@@ -88,5 +88,3 @@ interface CookiebotComposable {
 	 */
 	resetConsentBanner: () => Promise<void>;
 }
-
-export { CookiebotComposable, CookiebotOptions, PluginOptions };
