@@ -19,4 +19,4 @@ You can read all about installation and usage [here][docs-href].
 [license-href]: https://npmjs.com/package/@ambitiondev/nuxt-cookiebot
 [nuxt-src]: https://img.shields.io/badge/Nuxt-18181B?logo=nuxt.js
 [nuxt-href]: https://nuxt.com/
-[docs-href]: https://vuejs.org/
+[docs-href]: https://vue-nuxt-cookiebot.netlify.app/nuxt/installation

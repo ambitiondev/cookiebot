@@ -21,5 +21,5 @@ You can read all about installation and usage [here][docs-href].
 [license-href]: https://npmjs.com/package/@ambitiondev/vue-cookiebot
 [vue-src]: https://img.shields.io/badge/Vue-18181B?logo=vue.js
 [vue-href]: https://vuejs.org/
-[docs-href]: https://vuejs.org/
-[nuxt-package-href]: https://vuejs.org/
+[docs-href]: https://vue-nuxt-cookiebot.netlify.app/vue/installation
+[nuxt-package-href]: https://www.npmjs.com/package/@ambitiondev/nuxt-cookiebot

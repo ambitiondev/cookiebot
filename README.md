@@ -17,10 +17,10 @@ Documentation on installation and usage is available [here][docs-href]
 [vue-npm-href]: https://www.npmjs.com/package/@ambitiondev/vue-cookiebot
 [vue-npm-downloads-src]: https://img.shields.io/npm/dm/@ambitiondev/vue-cookiebot.svg?style=flat&colorA=18181B&colorB=28CF8D
 [vue-npm-downloads-href]: https://npmjs.com/package/@ambitiondev/vue-cookiebot
-[vue-docs]: https://vuejs.org
+[vue-docs]: https://vue-nuxt-cookiebot.netlify.app/vue/installation
 [nuxt-npm-version-src]: https://img.shields.io/npm/v/@ambitiondev/nuxt-cookiebot/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
 [nuxt-npm-href]: https://www.npmjs.com/package/@ambitiondev/nuxt-cookiebot
 [nuxt-npm-downloads-src]: https://img.shields.io/npm/dm/@ambitiondev/nuxt-cookiebot.svg?style=flat&colorA=18181B&colorB=28CF8D
 [nuxt-npm-downloads-href]: https://npmjs.com/package/@ambitiondev/nuxt-cookiebot
-[nuxt-docs]: https://nuxt.com
-[docs-href]: https://vuejs.org
+[nuxt-docs]: https://vue-nuxt-cookiebot.netlify.app/nuxt/installation
+[docs-href]: https://vue-nuxt-cookiebot.netlify.app
