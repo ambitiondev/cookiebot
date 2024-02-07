@@ -13,6 +13,12 @@ import {
 import { name, version } from '../package.json';
 
 export interface ModuleOptions extends PluginOptions {
+	/**
+	 * Configure if the consent banner should be shown automatically. Defaults to `true`.
+	 * Override this behaviour if you would like to add stateful logic to the consent banner.
+	 *
+	 * Locale from `nuxt-i18n` is detected automatically to set culture for your Cookiebot implementation.
+	 */
 	autoConsentBanner: boolean;
 }
 
@@ -57,8 +63,8 @@ export default defineNuxtModule<ModuleOptions>({
 		});
 
 		addImports({
-			name: 'useCookieBot',
-			as: 'useCookieBot',
+			name: 'useCookiebot',
+			as: 'useCookiebot',
 			from: resolve(runtimeDir, 'composable'),
 		});
 	},

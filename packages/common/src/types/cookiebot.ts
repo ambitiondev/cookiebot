@@ -8,11 +8,11 @@ declare global {
 	}
 }
 
-type BlockingMode = 'auto' | 'none';
+export type BlockingMode = 'auto' | 'none';
 
-type Level = 'implied' | 'strict';
+export type Level = 'implied' | 'strict';
 
-type ConsentDialogType =
+export type ConsentDialogType =
 	| 'optin'
 	| 'optout'
 	| 'optinout'
@@ -20,19 +20,37 @@ type ConsentDialogType =
 	| 'inlineoptin'
 	| 'optionaloptin';
 
-interface CookiebotOptions {
+export interface CookiebotOptions {
+	/**
+	 * Defines if Cookiebot should automatically block all cookies until a user has consented, value: “auto”.
+	 * If not, (value: “none”) cookie-setting scripts should manually be marked up as described in our
+	 * manual implementation guide. If you omit this attribute, behavior will equal value: “none”.
+	 */
 	blockingMode: BlockingMode;
+	/**
+	 * Allows you to disable Google Consent Mode
+	 */
 	consentmode: boolean;
+	/**
+	 * Sets the language for the Cookiebot implementation
+	 */
 	culture: string;
+	/**
+	 * Overrides the default consent method with one of the following values: “implied”, “strict”
+	 */
 	level: Level;
+	/**
+	 * Overrides the default dialog type with one of the following values:
+	 * “optin”, “optout”, “optinout”, “leveloptin”, “inlineoptin”, “optionaloptin”
+	 */
 	type: ConsentDialogType;
 }
 
-interface PluginOptions extends Partial<CookiebotOptions> {
+export interface PluginOptions extends Partial<CookiebotOptions> {
 	cookieBotId: string;
 }
 
-interface CookiebotComposable {
+export interface CookiebotComposable {
 	/**
 	 * Create script tag for the consent banner and append it to body
 	 *
@@ -88,5 +106,3 @@ interface CookiebotComposable {
 	 */
 	resetConsentBanner: () => Promise<void>;
 }
-
-export { CookiebotComposable, CookiebotOptions, PluginOptions };
