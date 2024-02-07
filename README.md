@@ -1,4 +1,10 @@
-# Vue Cookiebot
+<p align="center">
+  <a href="https://vue-nuxt-cookiebot.netlify.app/" target="_blank">
+    <img alt="Vue Nuxt Cookiebot" src="https://vue-nuxt-cookiebot.netlify.app/logo.svg" width="60" />
+  </a>
+</p>
+
+<h1 align="center">Vue Cookiebot</h1>
 
 This repo is a wrapper for both the Vue Cookiebot composable as the Nuxt variant.
 
