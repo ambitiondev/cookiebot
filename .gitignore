@@ -13,3 +13,11 @@ coverage
 junit.xml
 
 .DS_Store
+
+# Logs
+*.log
+*.error
+
+# Packages
+ambitiondev-*.tgz
+lerna-debug.log

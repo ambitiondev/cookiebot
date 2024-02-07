@@ -1,0 +1,4 @@
+{
+    "extends": "@netvlies/eslint-config/vue",
+    "root": true
+}
