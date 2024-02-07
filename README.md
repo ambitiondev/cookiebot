@@ -1,6 +1,6 @@
 # Vue Cookiebot
 
-This repo is a wrapper for both the Vue Cookiebot composable as the Nuxt variant. Documentation can be found here.
+This repo is a wrapper for both the Vue Cookiebot composable as the Nuxt variant.
 
 ### Documentation
 
@@ -22,5 +22,5 @@ Documentation on installation and usage is available [here][docs-href]
 [nuxt-npm-href]: https://www.npmjs.com/package/@ambitiondev/nuxt-cookiebot
 [nuxt-npm-downloads-src]: https://img.shields.io/npm/dm/@ambitiondev/nuxt-cookiebot.svg?style=flat&colorA=18181B&colorB=28CF8D
 [nuxt-npm-downloads-href]: https://npmjs.com/package/@ambitiondev/nuxt-cookiebot
-[nuxt-docs]: https://vuejs.org
+[nuxt-docs]: https://nuxt.com
 [docs-href]: https://vuejs.org
