@@ -2,10 +2,45 @@ import { MaybeRef } from 'vue';
 
 declare global {
 	interface Window {
-		Cookiebot: unknown;
+		Cookiebot: CookiebotInstance;
 		CookieConsent: unknown;
 		CookieConsentDialog: unknown;
 	}
+}
+
+interface CookiebotInstance {
+	consent: CookiebotConsentProps;
+	consented: boolean;
+	declined: boolean;
+	hasResponse: boolean;
+	doNotTrack: boolean;
+	regulations: CookiebotRegulations;
+	show: () => void;
+	hide: () => void;
+	renew: () => void;
+	getScript: (url: string, async: boolean, callback: () => void) => void;
+	runScripts: () => void;
+	withdraw: () => void;
+	submitCustomConsent: (
+		optinPreferences: boolean,
+		optinStatistics: boolean,
+		optinMarketing: boolean
+	) => void;
+}
+
+interface CookiebotRegulations {
+	ccpaApplies: boolean;
+	gdprApplies: boolean;
+	lgpdApplies: boolean;
+}
+
+interface CookiebotConsentProps {
+	marketing: boolean;
+	method: 'explicit' | 'implied' | null;
+	necessary: boolean;
+	preferences: boolean;
+	stamp: string;
+	statistics: boolean;
 }
 
 export type BlockingMode = 'auto' | 'none';
