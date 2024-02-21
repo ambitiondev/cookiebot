@@ -2,7 +2,7 @@
 import { CB_NAME, consentBannerURL, useLogger } from '@ambitiondev/cookiebot-common';
 
 // App imports
-import { defineNuxtPlugin } from '#app';
+import { defineNuxtPlugin, useRouter } from '#app';
 import { useHead } from '#imports';
 // @ts-ignore
 import * as pluginOptions from '#cookiebot-options';
@@ -14,6 +14,7 @@ export default defineNuxtPlugin((nuxt) => {
 	const defaultLocale =
 		// @ts-ignore
 		'$i18n' in nuxt && 'locale' in nuxt.$i18n ? (nuxt.$i18n.locale.value as string) : undefined;
+	const router = useRouter();
 	const { error } = useLogger();
 	const {
 		autoConsentBanner,
@@ -40,4 +41,12 @@ export default defineNuxtPlugin((nuxt) => {
 			],
 		});
 	}
+
+	router.afterEach(() => {
+		if (window && 'Cookiebot' in window) {
+			window.requestAnimationFrame(() => {
+				window.Cookiebot.runScripts();
+			});
+		}
+	});
 });

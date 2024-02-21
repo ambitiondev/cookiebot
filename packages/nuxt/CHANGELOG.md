@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1-alpha.0](https://github.com/ambitiondev/cookiebot/compare/v3.0.0...v3.0.1-alpha.0) (2024-02-21)
+
+
+### Bug Fixes
+
+* **nuxt:** run scripts after route change ([05ca3ed](https://github.com/ambitiondev/cookiebot/commit/05ca3ed2e15b2971a7aa97a959d3fddbddc2450c))
+
+
+
+
+
 # [3.0.0](https://github.com/ambitiondev/cookiebot/compare/v3.0.0-alpha.5...v3.0.0) (2024-02-07)
 
 **Note:** Version bump only for package @ambitiondev/nuxt-cookiebot
