@@ -19,5 +19,5 @@
 </script>
 
 <template>
-	<div ref="consentPagesRef"></div>
+	<div ref="consentPageRef"></div>
 </template>
