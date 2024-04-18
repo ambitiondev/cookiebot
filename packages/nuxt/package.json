@@ -1,6 +1,6 @@
 {
 	"name": "@ambitiondev/nuxt-cookiebot",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Implementation for Cookiebot in Nuxt applications",
 	"main": "./dist/module.cjs",
 	"types": "./dist/types.d.ts",
@@ -42,24 +42,24 @@
 		"vue"
 	],
 	"dependencies": {
-		"@ambitiondev/cookiebot-common": "^3.0.1",
-		"@ambitiondev/vue-cookiebot": "^3.0.1",
-		"@nuxt/kit": "^3.9.3"
+		"@ambitiondev/cookiebot-common": "^3.0.2",
+		"@ambitiondev/vue-cookiebot": "^3.0.2",
+		"@nuxt/kit": "^3.11.2"
 	},
 	"devDependencies": {
 		"@netvlies/prettier-config": "^1.1.6",
 		"@nuxt/devtools": "latest",
 		"@nuxt/eslint-config": "^0.2.0",
 		"@nuxt/module-builder": "^0.5.5",
-		"@nuxt/schema": "^3.9.3",
-		"@nuxt/test-utils": "^3.9.0",
-		"@nuxtjs/i18n": "^8.0.0",
-		"@types/node": "^20.11.5",
+		"@nuxt/schema": "^3.11.2",
+		"@nuxt/test-utils": "^3.12.1",
+		"@nuxtjs/i18n": "^8.3.0",
+		"@types/node": "^20.12.7",
 		"changelogen": "^0.5.5",
 		"eslint": "^8.56.0",
-		"nuxt": "^3.9.3",
-		"prettier": "^3.2.4",
-		"vitest": "^1.0.0"
+		"nuxt": "^3.11.2",
+		"prettier": "^3.2.5",
+		"vitest": "^1.5.0"
 	},
 	"prettier": "@netvlies/prettier-config"
 }
