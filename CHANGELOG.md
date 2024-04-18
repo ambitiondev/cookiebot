@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/ambitiondev/cookiebot/compare/v3.0.2-alpha.0...v3.0.2) (2024-04-18)
+
+
+### Bug Fixes
+
+* **sandbox:** correct ref name ([c53d0f8](https://github.com/ambitiondev/cookiebot/commit/c53d0f8787614f98b95ffa5e370c6fba6ec70d4b))
+
+
+
+
+
 ## [3.0.2-alpha.0](https://github.com/ambitiondev/cookiebot/compare/v3.0.1...v3.0.2-alpha.0) (2024-04-17)
 
 **Note:** Version bump only for package cookiebot
