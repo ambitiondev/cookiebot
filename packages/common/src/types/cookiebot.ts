@@ -135,6 +135,13 @@ export interface CookiebotComposable {
 	destroyCookieDeclaration: (ref: MaybeRef<HTMLElement | null>) => Promise<void>;
 
 	/**
+	 * Trigger the consent banner to change already given consent
+	 *
+	 * @returns {void}
+	 */
+	renew: () => void;
+
+	/**
 	 * Destroys the consent banner and reinitialises it.
 	 *
 	 * @returns {Promise<void>}

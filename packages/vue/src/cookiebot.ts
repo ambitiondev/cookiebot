@@ -165,6 +165,12 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
 		consentBanner();
 	}
 
+	function renew() {
+		'Cookiebot' in window
+			? window.Cookiebot.renew()
+			: error('Not able to renew consent. Cookiebot instance is not defined.');
+	}
+
 	return {
 		consentBanner,
 		consentPage,
@@ -172,6 +178,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
 		destroyConsentBanner,
 		destroyConsentPage,
 		destroyCookieDeclaration,
+		renew,
 		resetConsentBanner,
 	};
 }
