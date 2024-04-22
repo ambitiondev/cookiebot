@@ -9,7 +9,7 @@
 
 	// Composable
 	const { locale } = useI18n();
-	const { cookieDeclaration } = useCookiebot({
+	const { cookieDeclaration, renew } = useCookiebot({
 		culture: locale.value,
 	});
 
@@ -19,5 +19,8 @@
 </script>
 
 <template>
-	<div ref="consentPageRef"></div>
+	<div>
+		<button @click="renew">renew</button>
+		<div ref="consentPageRef"></div>
+	</div>
 </template>
