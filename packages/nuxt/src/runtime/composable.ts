@@ -16,7 +16,7 @@ import * as pluginOptions from '#cookiebot-options';
 
 export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotComposable {
 	const nuxt = useNuxtApp();
-	const { deprecationNotice } = useLogger();
+	const { deprecationNotice, error } = useLogger();
 	const _options = {
 		...pluginOptions,
 		settings,
@@ -84,6 +84,12 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
 		consentBanner();
 	}
 
+	function renew() {
+		window instanceof Window && 'Cookiebot' in window
+			? window.Cookiebot.renew()
+			: error('Not able to renew consent. Cookiebot instance is not defined.');
+	}
+
 	return {
 		consentBanner,
 		consentPage,
@@ -91,6 +97,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
 		destroyConsentBanner,
 		destroyConsentPage,
 		destroyCookieDeclaration,
+		renew,
 		resetConsentBanner,
 	};
 }

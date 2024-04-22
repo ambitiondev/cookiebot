@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	const cookieDeclarationRef = ref<HTMLElement | null>(null);
 
-	const { cookieDeclaration } = useCookiebot();
+	const { cookieDeclaration, renew } = useCookiebot();
 
 	onMounted(() => {
 		cookieDeclaration(cookieDeclarationRef);
@@ -9,5 +9,8 @@
 </script>
 
 <template>
-	<div ref="cookieDeclarationRef" />
+	<div>
+		<button @click="renew">renew</button>
+		<div ref="cookieDeclarationRef" />
+	</div>
 </template>
