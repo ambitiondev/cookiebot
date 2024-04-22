@@ -42,11 +42,13 @@ export default defineNuxtPlugin((nuxt) => {
 		});
 	}
 
-	router.afterEach(() => {
-		if (window && 'Cookiebot' in window) {
-			window.requestAnimationFrame(() => {
-				window.Cookiebot.runScripts();
-			});
-		}
-	});
+	if (process.client) {
+		router.afterEach(() => {
+			if (window instanceof Window && 'Cookiebot' in window) {
+				window.requestAnimationFrame(() => {
+					window.Cookiebot.runScripts();
+				});
+			}
+		});
+	}
 });
