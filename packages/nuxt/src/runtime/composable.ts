@@ -85,7 +85,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
 	}
 
 	function renew() {
-		window instanceof Window && 'Cookiebot' in window
+		process.client && window instanceof Window && 'Cookiebot' in window
 			? window.Cookiebot.renew()
 			: error('Not able to renew consent. Cookiebot instance is not defined.');
 	}
