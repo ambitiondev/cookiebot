@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/ambitiondev/cookiebot/compare/v3.0.2...v3.1.0) (2024-04-22)
+
+
+### Bug Fixes
+
+* **nuxt:** only execute cb script on client ([2a1bdf4](https://github.com/ambitiondev/cookiebot/commit/2a1bdf4b57b10a44384530754711be34d744084e))
+* **nuxt:** only init after hook on client side ([f4e2134](https://github.com/ambitiondev/cookiebot/commit/f4e2134591f3a07593b5742282da24561c63193c))
+
+
+### Features
+
+* **nuxt:** renew consent ([0d3cece](https://github.com/ambitiondev/cookiebot/commit/0d3cece4cdef79d1b37f1d2a3b39bfcd491fbe33))
+* **vue:** renew consent ([d830bb9](https://github.com/ambitiondev/cookiebot/commit/d830bb9cba53c49aa1bf5162c7f0459b76715001))
+
+
+
+
+
 ## [3.0.2](https://github.com/ambitiondev/cookiebot/compare/v3.0.2-alpha.0...v3.0.2) (2024-04-18)
 
 
