@@ -2,7 +2,7 @@
   "private": true,
   "description": "Mono-repo root package.json, used mainly to execute build scripts. This package is not published to npm.",
   "devDependencies": {
-    "dotenv-cli": "^7.4.1",
+    "dotenv-cli": "^7.4.2",
     "lerna": "^8.1.2"
   },
   "scripts": {
