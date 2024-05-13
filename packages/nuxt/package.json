@@ -1,65 +1,66 @@
 {
 	"name": "@ambitiondev/nuxt-cookiebot",
-	"version": "3.1.0",
+	"version": "3.1.1",
+	"author": {
+		"email": "info@ambitiondev.io",
+		"name": "Berrie Nachtweh",
+		"url": "https://ambitiondev.io"
+	},
+	"dependencies": {
+		"@ambitiondev/cookiebot-common": "^3.1.1",
+		"@ambitiondev/vue-cookiebot": "^3.1.1",
+		"@nuxt/kit": "^3.11.2"
+	},
 	"description": "Implementation for Cookiebot in Nuxt applications",
-	"main": "./dist/module.cjs",
-	"types": "./dist/types.d.ts",
+	"devDependencies": {
+		"@netvlies/prettier-config": "^1.1.6",
+		"@nuxt/devtools": "latest",
+		"@nuxt/eslint-config": "^0.2.0",
+		"@nuxt/module-builder": "^0.6.0",
+		"@nuxt/schema": "^3.11.2",
+		"@nuxt/test-utils": "^3.12.1",
+		"@nuxtjs/i18n": "^8.3.1",
+		"@types/node": "^20.12.11",
+		"changelogen": "^0.5.5",
+		"eslint": "^8.56.0",
+		"nuxt": "^3.11.2",
+		"prettier": "^3.2.5",
+		"vitest": "^1.6.0"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/module.mjs",
+			"require": "./dist/module.cjs",
+			"types": "./dist/types.d.ts"
+		}
+	},
 	"files": [
 		"dist"
 	],
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/types.d.ts",
-			"import": "./dist/module.mjs",
-			"require": "./dist/module.cjs"
-		}
-	},
-	"scripts": {
-		"prepack": "nuxt-module-build build",
-		"dev": "nuxi dev playground",
-		"dev:build": "nuxi build playground",
-		"dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-		"build": "npm run lint && npm run test && npm run prepack",
-		"lint": "eslint .",
-		"test": "vitest run",
-		"test:watch": "vitest watch"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ambitiondev/cookiebot"
-	},
-	"author": {
-		"name": "Berrie Nachtweh",
-		"email": "info@ambitiondev.io",
-		"url": "https://ambitiondev.io"
-	},
-	"license": "MIT",
+	"homepage": "https://vue-nuxt-cookiebot.netlify.app",
 	"keywords": [
 		"nuxt",
 		"cookiebot",
 		"ambitiondev",
 		"vue"
 	],
-	"dependencies": {
-		"@ambitiondev/cookiebot-common": "^3.1.0",
-		"@ambitiondev/vue-cookiebot": "^3.1.0",
-		"@nuxt/kit": "^3.11.2"
+	"license": "MIT",
+	"main": "./dist/module.cjs",
+	"prettier": "@netvlies/prettier-config",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ambitiondev/cookiebot"
 	},
-	"devDependencies": {
-		"@netvlies/prettier-config": "^1.1.6",
-		"@nuxt/devtools": "latest",
-		"@nuxt/eslint-config": "^0.2.0",
-		"@nuxt/module-builder": "^0.5.5",
-		"@nuxt/schema": "^3.11.2",
-		"@nuxt/test-utils": "^3.12.1",
-		"@nuxtjs/i18n": "^8.3.0",
-		"@types/node": "^20.12.7",
-		"changelogen": "^0.5.5",
-		"eslint": "^8.56.0",
-		"nuxt": "^3.11.2",
-		"prettier": "^3.2.5",
-		"vitest": "^1.5.0"
+	"scripts": {
+		"build": "npm run lint && npm run test && npm run prepack",
+		"dev": "nuxi dev playground",
+		"dev:build": "nuxi build playground",
+		"dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+		"lint": "eslint .",
+		"prepack": "nuxt-module-build build",
+		"test": "vitest run",
+		"test:watch": "vitest watch"
 	},
-	"prettier": "@netvlies/prettier-config"
+	"type": "module",
+	"types": "./dist/types.d.ts"
 }

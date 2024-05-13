@@ -21,3 +21,7 @@ junit.xml
 # Packages
 ambitiondev-*.tgz
 lerna-debug.log
+.npm-upgrade.json
+
+# Nx
+.nx
