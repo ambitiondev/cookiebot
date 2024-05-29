@@ -12,12 +12,17 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+max_line_length = 100
 
 [*.feature]
 indent_style = space
 indent_size = 2
 
-[*.{js,vue,ts,tsx,json,scss}]
+[*.{json}]
+indent_style = space
+indent_size = 2
+
+[*.{mjs,js,vue,d.ts,ts,tsx,scss}]
 indent_style = space
 indent_size = 4
 quote_type = single
@@ -67,10 +72,6 @@ indent_size = 2
 [Dockerfile]
 indent_style = tab
 indent_size = 4
-
-[package.json]
-indent_style = space
-indent_size = 2
 
 [phpspec.yml{,.dist}]
 indent_style = space

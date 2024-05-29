@@ -1,18 +1,9 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "target": "ES2019",
-        "types": [
-            "vitest/globals"
-        ]
-    },
-    "include": [
-        "./**/*.spec.ts",
-        "./**/*.ts",
-        "../../src/**/*.ts",
-        "./*.spec.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2019",
+    "types": ["vitest/globals"]
+  },
+  "include": ["./**/*.spec.ts", "./**/*.ts", "../../src/**/*.ts", "./*.spec.ts"],
+  "exclude": ["node_modules"]
 }

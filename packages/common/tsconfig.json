@@ -1,39 +1,30 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "allowUnreachableCode": false,
-        "allowSyntheticDefaultImports": true,
-        "declaration": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "esModuleInterop": true,
-        "lib": [
-            "dom",
-            "es2020"
-        ],
-        "module": "es2015",
-        "moduleResolution": "node",
-        "noImplicitAny": true,
-        "noImplicitReturns": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "outDir": "dist-transpiled",
-        "declarationDir": "dist/types",
-        "removeComments": false,
-        "sourceMap": true,
-        "skipLibCheck": true,
-        "target": "es2017",
-        "baseUrl": ".",
-        "paths": {
-            "@src/*": [
-                "src/*"
-            ]
-        }
-    },
-    "include": [
-        "src",
-    ],
-    "exclude": [
-        "node_modules",
-    ]
+  "compilerOptions": {
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "lib": ["dom", "es2020"],
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist-transpiled",
+    "declarationDir": "dist/types",
+    "removeComments": false,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "target": "es2017",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", ".scripts"]
 }

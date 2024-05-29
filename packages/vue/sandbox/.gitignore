@@ -1,7 +1,0 @@
-*.tgz
-.env
-
-# testing
-cypress/screenshots/*
-cypress/videos/*
-report
