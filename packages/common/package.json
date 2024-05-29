@@ -15,7 +15,8 @@
     "typedoc": "^0.25.13",
     "typedoc-plugin-markdown": "^4.0.3",
     "typescript": "^5.4.5",
-    "typescript-eslint": "^8.0.0-alpha.20"
+    "typescript-eslint": "^8.0.0-alpha.20",
+    "vitest": "^1.6.0"
   },
   "files": [
     "dist/"
@@ -40,14 +41,14 @@
     "url": "https://github.com/ambitiondev/cookiebot"
   },
   "scripts": {
-    "build": "npm run lint && npm run clean && npm run compile && npm run bundle",
+    "build": "npm run clean && npm run compile && npm run bundle",
     "bundle": "rollup --config rollup.config.mjs",
     "clean": "node ./.scripts/clean.js",
     "compile": "tsc -p .",
     "lint": "eslint",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run test:unit",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "vitest run -c vitest.config.run.ts",
     "test:unit": "vitest"
   },
   "types": "dist/types/index.d.ts"
