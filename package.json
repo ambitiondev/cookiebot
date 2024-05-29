@@ -9,6 +9,7 @@
     "packages/*"
   ],
   "scripts": {
+    "test": "lerna run test:coverage",
     "prepublish": "lerna run build"
   },
   "engines": {

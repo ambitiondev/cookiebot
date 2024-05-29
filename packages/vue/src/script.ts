@@ -19,11 +19,11 @@ export function useScriptHelper(scriptType = 'text/javascript') {
     }
 
     async function removeScript(
-        context: HTMLElement,
+        context: HTMLElement | HTMLBodyElement,
         script: HTMLElement | string,
         resetHTML = false
     ) {
-        const _script = typeof script === 'string' ? document.getElementById(script) : script;
+        const _script = typeof script === 'string' ? context.querySelector(`#${script}`) : script;
 
         if (_script !== null) {
             await context.removeChild(_script);

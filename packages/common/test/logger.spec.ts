@@ -1,11 +1,11 @@
 // Vendor
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 // Local
 import { useLogger } from '../src/utils/logger';
 
 describe('Utils - Logger', () => {
-    test('Logs info message', () => {
+    it('Logs info message', () => {
         const { info } = useLogger();
         const spy = vi.spyOn(console, 'info');
 
@@ -16,7 +16,7 @@ describe('Utils - Logger', () => {
         );
     });
 
-    test('Logs warning message', () => {
+    it('Logs warning message', () => {
         const { warn } = useLogger();
         const spy = vi.spyOn(console, 'warn');
 
@@ -27,7 +27,7 @@ describe('Utils - Logger', () => {
         );
     });
 
-    test('Logs error message', () => {
+    it('Logs error message', () => {
         const { error } = useLogger();
         const spy = vi.spyOn(console, 'error');
 
@@ -38,7 +38,7 @@ describe('Utils - Logger', () => {
         );
     });
 
-    test('Logs success message', () => {
+    it('Logs success message', () => {
         const { success } = useLogger();
         const spy = vi.spyOn(console, 'log');
 
@@ -49,7 +49,7 @@ describe('Utils - Logger', () => {
         );
     });
 
-    test('Logs deprecation notice', () => {
+    it('Logs deprecation notice', () => {
         const { deprecationNotice } = useLogger();
         const spy = vi.spyOn(console, 'warn');
 

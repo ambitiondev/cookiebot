@@ -1,5 +1,5 @@
 // Vendor
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 // Local
 import { PluginOptions } from '../src';
@@ -8,7 +8,7 @@ import { consentBannerURL, cookieDeclarationURL } from '../src/utils/cookiebot';
 describe('Utils - Cookiebot', () => {
     const cookieBotId = '12345';
 
-    test('consentBannerURL generates the correct URL', () => {
+    it('consentBannerURL generates the correct URL', () => {
         const options: PluginOptions = {
             cookieBotId,
             culture: 'en-US',
@@ -20,7 +20,7 @@ describe('Utils - Cookiebot', () => {
         expect(generatedURL).toBe(expectedURL);
     });
 
-    test('consentBannerURL generates the correct URL without culture', () => {
+    it('consentBannerURL generates the correct URL without culture', () => {
         const options: PluginOptions = {
             cookieBotId,
             blockingMode: 'auto',
@@ -30,7 +30,7 @@ describe('Utils - Cookiebot', () => {
         expect(generatedURL).toBe(expectedURL);
     });
 
-    test('consentBannerURL generates the correct URL without blocking mode', () => {
+    it('consentBannerURL generates the correct URL without blocking mode', () => {
         const options: PluginOptions = {
             cookieBotId,
             culture: 'en-US',
@@ -40,7 +40,7 @@ describe('Utils - Cookiebot', () => {
         expect(generatedURL).toBe(expectedURL);
     });
 
-    test('cookieDeclarationURL generates the correct URL', () => {
+    it('cookieDeclarationURL generates the correct URL', () => {
         const expectedURL = 'https://consent.cookiebot.com/12345/cd.js';
         const generatedURL = cookieDeclarationURL(cookieBotId);
         expect(generatedURL).toBe(expectedURL);
