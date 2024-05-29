@@ -166,9 +166,11 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
     }
 
     function renew() {
-        'Cookiebot' in window
-            ? window.Cookiebot.renew()
-            : error('Not able to renew consent. Cookiebot instance is not defined.');
+        if ('Cookiebot' in window) {
+            return window.Cookiebot.renew();
+        }
+
+        error('Not able to renew consent. Cookiebot instance is not defined.');
     }
 
     return {

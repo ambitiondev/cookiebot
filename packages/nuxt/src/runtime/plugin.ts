@@ -35,7 +35,7 @@ export default defineNuxtPlugin((nuxt) => {
         });
     }
 
-    if (process.client) {
+    if (import.meta.client) {
         router.afterEach(() => {
             if (window instanceof Window && 'Cookiebot' in window) {
                 window.requestAnimationFrame(() => {
