@@ -11,6 +11,7 @@ export default mergeConfig(
                 enabled: true,
                 reporter: ['text', 'json-summary', 'json'],
             },
+            silent: true,
         },
     })
 );
