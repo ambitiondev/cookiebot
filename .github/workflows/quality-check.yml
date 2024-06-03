@@ -34,5 +34,17 @@ jobs:
       - name: Build all packages
         uses: "./.github/actions/build-all"
 
+      - name: Prepare Vue env
+        uses: "./.github/actions/prepare-env"
+        with:
+          package: vue
+          cbId: ${{ secrets.COOKIEBOT_ID }}
+
+      - name: Prepare Nuxt env
+        uses: "./.github/actions/prepare-env"
+        with:
+          package: nuxt
+          cbId: ${{ secrets.COOKIEBOT_ID }}
+
       - name: Test packages
         uses: "./.github/actions/test"

@@ -1,0 +1,16 @@
+name: Prepare env
+description: Prepare env for package
+inputs:
+  package:
+    default: common
+    description: Choose a package to prepare env for
+  cbId:
+    description: Provide a Cookiebot ID
+
+runs:
+  using: composite
+  steps:
+    - name: Generate .env file for ${{ inputs.package}}
+      run: echo "VITE_COOKIEBOT_ID=${{ inputs.cbId }}" > .env
+      shell: bash
+      working-directory: packages/${{ inputs.package }}
