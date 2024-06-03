@@ -1,0 +1,12 @@
+name: Prepare
+
+runs:
+  using: composite
+  steps:
+    - name: Install Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+    - name: Install deps
+      run: npm ci
+      shell: bash

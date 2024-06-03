@@ -1,66 +1,57 @@
 {
-	"name": "@ambitiondev/vue-cookiebot",
-	"version": "3.1.1",
-	"author": {
-		"email": "info@ambitiondev.io",
-		"name": "Berrie Nachtweh",
-		"url": "https://ambitiondev.io"
-	},
-	"dependencies": {
-		"@ambitiondev/cookiebot-common": "^3.1.1"
-	},
-	"description": "Composable for Cookiebot in Vue applications",
-	"devDependencies": {
-		"@netvlies/eslint-config": "^3.0.0-beta.0",
-		"@netvlies/prettier-config": "^1.1.6",
-		"@typescript-eslint/eslint-plugin": "^6.20.0",
-		"@typescript-eslint/parser": "^6.20.0",
-		"@vitest/coverage-v8": "^1.6.0",
-		"@vue/eslint-config-typescript": "^12.0.0",
-		"eslint": "^8.56.0",
-		"eslint-plugin-vue": "^9.25.0",
-		"jsdom": "^24.0.0",
-		"prettier": "^3.2.5",
-		"pretty-quick": "^4.0.0",
-		"rollup": "^4.17.2",
-		"typescript": "^5.4.5",
-		"vitest": "^1.6.0",
-		"vue-eslint-parser": "^9.4.2"
-	},
-	"files": [
-		"dist/"
-	],
-	"homepage": "https://vue-nuxt-cookiebot.netlify.app",
-	"keywords": [
-		"web",
-		"application",
-		"cookiebot",
-		"vue",
-		"vue 3",
-		"ambitiondev"
-	],
-	"license": "MIT",
-	"main": "dist/index.cjs.js",
-	"module": "./dist/index.esm.js",
-	"peerDependencies": {
-		"vue": ">=3.1.0"
-	},
-	"prettier": "@netvlies/prettier-config",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ambitiondev/cookiebot"
-	},
-	"scripts": {
-		"build": "npm run lint && npm run clean && npm run compile && npm run bundle",
-		"bundle": "rollup --config rollup.config.mjs",
-		"clean": "node ./.scripts/clean.js",
-		"compile": "npm run tsc",
-		"lint": "eslint src/**",
-		"lint:fix": "npm run lint -- --fix",
-		"test": "npm run test:unit",
-		"test:coverage": "vitest run --coverage",
-		"test:unit": "vitest",
-		"tsc": "tsc -p ."
-	},
-	"types": "dist/types/index.d.ts"
+  "name": "@ambitiondev/vue-cookiebot",
+  "version": "3.1.1",
+  "author": {
+    "email": "info@ambitiondev.io",
+    "name": "Berrie Nachtweh",
+    "url": "https://ambitiondev.io"
+  },
+  "dependencies": {
+    "@ambitiondev/cookiebot-common": "^3.1.1"
+  },
+  "description": "Composable for Cookiebot in Vue applications",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^14.12.0",
+    "jsdom": "^24.1.0",
+    "rollup": "^4.18.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  },
+  "files": [
+    "dist/"
+  ],
+  "homepage": "https://vue-nuxt-cookiebot.netlify.app",
+  "keywords": [
+    "web",
+    "application",
+    "cookiebot",
+    "vue",
+    "vue 3",
+    "ambitiondev"
+  ],
+  "license": "MIT",
+  "main": "dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "peerDependencies": {
+    "vue": ">=3.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ambitiondev/cookiebot"
+  },
+  "scripts": {
+    "build": "npm run compile && npm run bundle",
+    "bundle": "rollup --config rollup.config.mjs",
+    "compile": "npm run tsc",
+    "lint": "eslint src",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "npm run test:unit",
+    "test:coverage": "vitest run --c vitest.config.run.ts",
+    "test:unit": "vitest",
+    "tsc": "tsc -p ."
+  },
+  "types": "dist/types/index.d.ts",
+  "type": "module"
 }

@@ -1,0 +1,30 @@
+name: Test
+
+runs:
+  using: composite
+  steps:
+    - name: Install Playwright
+      run: npx playwright install
+      working-directory: packages/nuxt
+      shell: bash
+    - name: Run test suite
+      run: npx lerna run test:coverage
+      shell: bash
+    - name: Common Package Report Coverage
+      uses: davelosert/vitest-coverage-report-action@v2
+      with:
+        name: Common Package
+        json-summary-path: ./packages/common/coverage/coverage-summary.json
+        json-final-path: ./packages/common/coverage/coverage-final.json
+    - name: Vue Package Report Coverage
+      uses: davelosert/vitest-coverage-report-action@v2
+      with:
+        name: Vue Package
+        json-summary-path: ./packages/vue/coverage/coverage-summary.json
+        json-final-path: ./packages/vue/coverage/coverage-final.json
+    - name: Nuxt Package Report Coverage
+      uses: davelosert/vitest-coverage-report-action@v2
+      with:
+        name: Nuxt Package
+        json-summary-path: ./packages/nuxt/coverage/coverage-summary.json
+        json-final-path: ./packages/nuxt/coverage/coverage-final.json

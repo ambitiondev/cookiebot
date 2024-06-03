@@ -1,18 +1,40 @@
 <script setup lang="ts">
-	// Vendor
-	import { useCookiebot } from '@ambitiondev/vue-cookiebot';
-	import { onMounted } from 'vue';
+import { useCookiebot } from '@ambitiondev/vue-cookiebot';
+import { onMounted } from 'vue';
+import { RouterLink } from 'vue-router';
 
-	// Composable
-	const { consentBanner } = useCookiebot();
+const { consentBanner } = useCookiebot();
 
-	onMounted(() => {
-		consentBanner();
-	});
+onMounted(() => {
+    consentBanner();
+});
 </script>
 
 <template>
-	<router-link to="/">Home</router-link>
-	<router-link to="/consentpage">Consent page</router-link>
-	<router-view></router-view>
+    <header>
+        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+        <div class="wrapper">
+            <nav>
+                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="/about">About</RouterLink>
+            </nav>
+        </div>
+    </header>
+
+    <RouterView />
 </template>
+
+<style scoped>
+header {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    width: 100%;
+}
+
+.wrapper nav {
+    display: flex;
+    gap: 1rem;
+}
+</style>
