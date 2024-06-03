@@ -58,7 +58,7 @@
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "lint": "eslint",
     "prepack": "nuxt-module-build build",
-    "test:coverage": "vitest run --coverage --coverage.reporter=json-summary --coverage.reporter=json --coverage.reporter=text",
+    "test:coverage": "vitest run --coverage --coverage.reporter=json-summary --coverage.reporter=json --coverage.reporter=text --coverage.thresholds.lines=25 --coverage.thresholds.functions=25 --coverage.thresholds.branches=45 --coverage.thresholds.statements=25",
     "test": "vitest"
   },
   "type": "module",

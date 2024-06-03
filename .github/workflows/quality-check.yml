@@ -1,0 +1,45 @@
+name: Quality Check
+
+on:
+  pull_request:
+    branches: ["**"]
+
+# When pushing a new commit we should
+# cancel the previous test run to not
+# consume more runners than we need to.
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Lint packages
+        uses: "./.github/actions/lint"
+
+  test:
+    name: Test application
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Test packages
+        uses: "./.github/actions/test"
+
+  build:
+    name: Build packages
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    if: ${{ needs.Test.result == 'success' }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Build packages
+        uses: "./.github/actions/build"

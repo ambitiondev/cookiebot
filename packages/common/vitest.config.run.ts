@@ -10,6 +10,12 @@ export default mergeConfig(
                 exclude: ['**/node_modules/**', 'src/{constants,index}.ts'],
                 enabled: true,
                 reporter: ['text', 'json-summary', 'json'],
+                thresholds: {
+                    statements: 100,
+                    branches: 100,
+                    functions: 100,
+                    lines: 100,
+                },
             },
             silent: true,
         },

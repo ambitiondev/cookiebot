@@ -1,0 +1,9 @@
+name: Prepare
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/install
+    - name: Lint packages
+      run: npm run lint
+      shell: bash

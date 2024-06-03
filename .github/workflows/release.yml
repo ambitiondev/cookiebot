@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: choice
+        description: Which version should be published?
+        options:
+          - patch
+          - minor
+          - major
+          - prepatch
+          - preminor
+          - premajor
+          - prerelease
+      tag:
+        required: true
+        type: choice
+        description: Which npm tag should this be published to?
+        options:
+          - latest
+          - next
+      preid:
+        type: choice
+        description: Which prerelease identifier should be used? This is only needed when version is "prepatch", "preminor", "premajor", or "prerelease".
+        options:
+          - ""
+          - alpha
+          - beta
+          - rc
+          - next
+
+jobs:
+  release:
+    name: Release packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Configure Identity
+        run: |
+          git config user.name ambitiondevbot
+          git config user.email developer@ambitiondev.io
+      - name: Build packages
+        uses: "./.github/actions/build"
+      - name: Prepare NPM Token
+        run: |
+          echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+          echo provenance=true >> .npmrc
+        shell: bash
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Release packages
+        run: |
+          npx lerna publish ${{ inputs.version }} --yes --conventional-commits --force-publish=* --create-release github --dist-tag=${{ inputs.tag }} --preid=${{ inputs.preid }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
