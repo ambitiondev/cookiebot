@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.1.2-alpha.0 (2024-06-03)
+
+**Note:** Version bump only for package cookiebot
+
+
+
+
+
 ## [3.1.1](https://github.com/ambitiondev/cookiebot/compare/v3.1.1-alpha.0...v3.1.1) (2024-05-13)
 
 **Note:** Version bump only for package cookiebot
