@@ -60,6 +60,5 @@
     "test:coverage": "vitest run --coverage --coverage.reporter=json-summary --coverage.reporter=json --coverage.reporter=text --coverage.thresholds.lines=25 --coverage.thresholds.functions=25 --coverage.thresholds.branches=45 --coverage.thresholds.statements=25",
     "test": "vitest"
   },
-  "type": "module",
-  "types": "./dist/types.d.ts"
+  "type": "module"
 }
