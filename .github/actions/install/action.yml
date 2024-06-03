@@ -8,5 +8,5 @@ runs:
       with:
         node-version: 22.x
     - name: Install deps
-      run: npm ci
+      run: npm i
       shell: bash
