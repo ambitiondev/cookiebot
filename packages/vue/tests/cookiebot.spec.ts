@@ -1,8 +1,8 @@
 // Vendor
+import { CB_NAME, CD_NAME } from '@ambitiondev/cookiebot-common';
 import { mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createApp, defineComponent, ref } from 'vue';
-import { CB_NAME, CD_NAME } from '@ambitiondev/cookiebot-common';
+import { defineComponent, ref } from 'vue';
 
 // Local
 import { cookieBot, useCookiebot } from '../src';
