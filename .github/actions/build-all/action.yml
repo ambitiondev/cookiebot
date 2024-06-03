@@ -4,7 +4,7 @@ runs:
   using: composite
   steps:
     - name: Install deps
-        uses: ./.github/actions/install
+      uses: ./.github/actions/install
 
     - name: Build common
       uses: ./.github/actions/build-package
