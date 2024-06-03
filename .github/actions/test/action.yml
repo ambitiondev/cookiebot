@@ -3,6 +3,9 @@ name: Test
 runs:
   using: composite
   steps:
+    - name: Install Playwright
+      run: npx playwright install
+      working-directory: packages/nuxt
     - name: Run test suite
       run: npx lerna run test:coverage
       shell: bash
