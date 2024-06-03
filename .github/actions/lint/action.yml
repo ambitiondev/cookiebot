@@ -5,5 +5,5 @@ runs:
   steps:
     - uses: ./.github/actions/install
     - name: Lint packages
-      run: npm run lint
+      run: npx lerna run lint
       shell: bash

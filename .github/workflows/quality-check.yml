@@ -30,16 +30,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Build all packages
+        uses: "./.github/actions/build-all"
+
       - name: Test packages
         uses: "./.github/actions/test"
-
-  build:
-    name: Build packages
-    needs: [lint, test]
-    runs-on: ubuntu-latest
-    if: ${{ needs.Test.result == 'success' }}
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Build packages
-        uses: "./.github/actions/build"

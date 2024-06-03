@@ -11,16 +11,12 @@
   },
   "description": "Composable for Cookiebot in Vue applications",
   "devDependencies": {
-    "@eslint/js": "^9.4.0",
-    "@types/eslint__js": "^8.42.3",
     "@vitest/coverage-v8": "^1.6.0",
     "@vue/test-utils": "^2.4.6",
-    "eslint": "^9.4.0",
     "happy-dom": "^14.12.0",
     "jsdom": "^24.1.0",
     "rollup": "^4.18.0",
     "typescript": "^5.4.5",
-    "typescript-eslint": "^8.0.0-alpha.20",
     "vitest": "^1.6.0"
   },
   "files": [
@@ -49,7 +45,7 @@
     "build": "npm run compile && npm run bundle",
     "bundle": "rollup --config rollup.config.mjs",
     "compile": "npm run tsc",
-    "lint": "eslint",
+    "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run test:unit",
     "test:coverage": "vitest run --c vitest.config.run.ts",

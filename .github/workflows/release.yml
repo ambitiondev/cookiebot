@@ -46,8 +46,8 @@ jobs:
         run: |
           git config user.name ambitiondevbot
           git config user.email developer@ambitiondev.io
-      - name: Build packages
-        uses: "./.github/actions/build"
+      - name: Build all packages
+        uses: "./.github/actions/build-all"
       - name: Prepare NPM Token
         run: |
           echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc

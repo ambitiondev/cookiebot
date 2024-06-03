@@ -3,9 +3,8 @@ name: Test
 runs:
   using: composite
   steps:
-    - uses: ./.github/actions/install
     - name: Run test suite
-      run: npm run test
+      run: npx lerna run test:coverage
       shell: bash
     - name: Common Package Report Coverage
       uses: davelosert/vitest-coverage-report-action@v2
@@ -13,15 +12,15 @@ runs:
         name: Common Package
         json-summary-path: ./packages/common/coverage/coverage-summary.json
         json-final-path: ./packages/common/coverage/coverage-final.json
-    - name: Nuxt Package Report Coverage
-      uses: davelosert/vitest-coverage-report-action@v2
-      with:
-        name: Nuxt Package
-        json-summary-path: ./packages/nuxt/coverage/coverage-summary.json
-        json-final-path: ./packages/nuxt/coverage/coverage-final.json
     - name: Vue Package Report Coverage
       uses: davelosert/vitest-coverage-report-action@v2
       with:
         name: Vue Package
         json-summary-path: ./packages/vue/coverage/coverage-summary.json
         json-final-path: ./packages/vue/coverage/coverage-final.json
+    - name: Nuxt Package Report Coverage
+      uses: davelosert/vitest-coverage-report-action@v2
+      with:
+        name: Nuxt Package
+        json-summary-path: ./packages/nuxt/coverage/coverage-summary.json
+        json-final-path: ./packages/nuxt/coverage/coverage-final.json

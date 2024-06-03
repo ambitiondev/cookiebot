@@ -8,14 +8,10 @@
   },
   "description": "Common logic for Cookiebot packages",
   "devDependencies": {
-    "@eslint/js": "^9.4.0",
-    "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.4.0",
     "rollup": "^4.18.0",
     "typedoc": "^0.25.13",
     "typedoc-plugin-markdown": "^4.0.3",
     "typescript": "^5.4.5",
-    "typescript-eslint": "^8.0.0-alpha.20",
     "vitest": "^1.6.0"
   },
   "files": [
@@ -44,7 +40,7 @@
     "bundle": "rollup --config rollup.config.mjs",
     "clean": "node ./.scripts/clean.js",
     "compile": "tsc -p .",
-    "lint": "eslint",
+    "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run test:unit",
     "test:coverage": "vitest run -c vitest.config.run.ts",

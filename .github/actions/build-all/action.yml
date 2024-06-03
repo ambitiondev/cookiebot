@@ -1,0 +1,22 @@
+name: Build all packages
+
+runs:
+  using: composite
+  steps:
+    - name: Install deps
+        uses: ./.github/actions/install
+
+    - name: Build common
+      uses: ./.github/actions/build-package
+      with:
+        package: common
+
+    - name: Build vue
+      uses: ./.github/actions/build-package
+      with:
+        package: vue
+
+    - name: Build nuxt
+      uses: ./.github/actions/build-package
+      with:
+        package: nuxt
