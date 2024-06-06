@@ -31,9 +31,11 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
         );
     }
 
-    // Computed
+    // Refs
     const processingCB = ref<boolean>(false);
     const processingCD = ref<boolean>(false);
+
+    // Computed
     const bannerURL = computed(() =>
         consentBannerURL({
             ..._options,
