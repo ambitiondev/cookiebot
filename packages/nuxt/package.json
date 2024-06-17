@@ -1,29 +1,29 @@
 {
   "name": "@ambitiondev/nuxt-cookiebot",
-  "version": "3.1.2",
+  "version": "3.1.3-alpha.0",
   "author": {
     "email": "info@ambitiondev.io",
     "name": "Berrie Nachtweh",
     "url": "https://ambitiondev.io"
   },
   "dependencies": {
-    "@ambitiondev/cookiebot-common": "^3.1.2",
-    "@ambitiondev/vue-cookiebot": "^3.1.2",
-    "@nuxt/kit": "^3.11.2"
+    "@ambitiondev/cookiebot-common": "^3.1.3-alpha.0",
+    "@ambitiondev/vue-cookiebot": "^3.1.3-alpha.0",
+    "@nuxt/kit": "^3.12.2"
   },
   "description": "Implementation for Cookiebot in Nuxt applications",
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.3.13",
-    "@nuxt/module-builder": "^0.7.0",
-    "@nuxt/schema": "^3.11.2",
+    "@nuxt/module-builder": "^0.7.1",
+    "@nuxt/schema": "^3.12.2",
     "@nuxt/test-utils": "^3.13.1",
     "@nuxtjs/i18n": "^8.3.1",
-    "@types/node": "^20.14.0",
+    "@types/node": "^20.14.2",
     "@vue/test-utils": "^2.4.6",
     "changelogen": "^0.5.5",
     "happy-dom": "^14.12.0",
-    "nuxt": "^3.11.2",
+    "nuxt": "^3.12.2",
     "playwright-core": "^1.44.1",
     "vitest": "^1.6.0"
   },
@@ -57,7 +57,7 @@
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "lint": "eslint src",
     "prepack": "nuxi generate && nuxt-module-build build",
-    "test:coverage": "vitest run --coverage --coverage.reporter=json-summary --coverage.reporter=json --coverage.reporter=text --coverage.thresholds.lines=25 --coverage.thresholds.functions=25 --coverage.thresholds.branches=45 --coverage.thresholds.statements=25",
+    "test:coverage": "vitest run --c vitest.config.run.ts",
     "test": "vitest"
   },
   "type": "module"
