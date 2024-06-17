@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.1.4-alpha.0 (2024-06-17)
+
+
+### Bug Fixes
+
+* **vue:** re-add cjs export ([d2e73b3](https://github.com/ambitiondev/cookiebot/commit/d2e73b3f2437cfa0bd5149ca47138ac3a08301c9))
+
+
+
+
+
 ## 3.1.3 (2024-06-17)
 
 **Note:** Version bump only for package @ambitiondev/vue-cookiebot
