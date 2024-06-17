@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.2.0 (2024-06-17)
+
+
+* Merge pull request #16 from ambitiondev/fix/vue-cookiebot-exports ([9999aa4](https://github.com/ambitiondev/cookiebot/commit/9999aa497eced36a9dbc3d36c2c6012f9ff5afe8)), closes [#16](https://github.com/ambitiondev/cookiebot/issues/16) [#15](https://github.com/ambitiondev/cookiebot/issues/15)
+
+
+### BREAKING CHANGES
+
+* commonJS support dropped
+
+
+
+
+
 ## 3.1.4-alpha.1 (2024-06-17)
 
 
