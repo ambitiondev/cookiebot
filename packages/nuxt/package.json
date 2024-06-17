@@ -1,14 +1,14 @@
 {
   "name": "@ambitiondev/nuxt-cookiebot",
-  "version": "3.1.4-alpha.0",
+  "version": "3.1.4-alpha.1",
   "author": {
     "email": "info@ambitiondev.io",
     "name": "Berrie Nachtweh",
     "url": "https://ambitiondev.io"
   },
   "dependencies": {
-    "@ambitiondev/cookiebot-common": "^3.1.4-alpha.0",
-    "@ambitiondev/vue-cookiebot": "^3.1.4-alpha.0",
+    "@ambitiondev/cookiebot-common": "^3.1.4-alpha.1",
+    "@ambitiondev/vue-cookiebot": "^3.1.4-alpha.1",
     "@nuxt/kit": "^3.12.2"
   },
   "description": "Implementation for Cookiebot in Nuxt applications",
