@@ -27,8 +27,7 @@
     "ambitiondev"
   ],
   "license": "MIT",
-  "main": "dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.esm.js",
   "peerDependencies": {
     "vue": ">=3.1.0"
   },
@@ -37,9 +36,8 @@
     "url": "https://github.com/ambitiondev/cookiebot"
   },
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run bundle",
+    "build": "npm run compile && npm run bundle",
     "bundle": "rollup --config rollup.config.mjs",
-    "clean": "node ./.scripts/clean.js",
     "compile": "tsc -p .",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
@@ -47,5 +45,6 @@
     "test:coverage": "vitest run -c vitest.config.run.ts",
     "test:unit": "vitest"
   },
-  "types": "dist/types/index.d.ts"
+  "types": "dist/types/index.d.ts",
+  "type": "module"
 }

@@ -32,8 +32,7 @@
     "ambitiondev"
   ],
   "license": "MIT",
-  "main": "dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.esm.js",
   "peerDependencies": {
     "vue": ">=3.1.0"
   },
