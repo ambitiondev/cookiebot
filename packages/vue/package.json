@@ -1,13 +1,13 @@
 {
   "name": "@ambitiondev/vue-cookiebot",
-  "version": "3.1.3",
+  "version": "3.1.4-alpha.1",
   "author": {
     "email": "info@ambitiondev.io",
     "name": "Berrie Nachtweh",
     "url": "https://ambitiondev.io"
   },
   "dependencies": {
-    "@ambitiondev/cookiebot-common": "^3.1.3"
+    "@ambitiondev/cookiebot-common": "^3.1.4-alpha.1"
   },
   "description": "Composable for Cookiebot in Vue applications",
   "devDependencies": {
@@ -32,8 +32,7 @@
     "ambitiondev"
   ],
   "license": "MIT",
-  "main": "dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.esm.js",
   "peerDependencies": {
     "vue": ">=3.1.0"
   },

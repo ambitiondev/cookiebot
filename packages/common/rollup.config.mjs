@@ -6,16 +6,6 @@ const outputConfigs = {
         format: 'es',
         sourcemap: true,
     },
-    cjs: {
-        dir: 'dist/',
-        entryFileNames: '[name].cjs.js',
-        chunkFileNames: '[name]-[hash].cjs.js',
-        format: 'cjs',
-        generatedCode: {
-            constBindings: true,
-        },
-        sourcemap: true,
-    },
 };
 
 const createConfig = (_, output) => {
