@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.1-alpha.0 (2024-07-04)
+
+
+### Bug Fixes
+
+* **nuxt:** increase script priority ([e3326b3](https://github.com/ambitiondev/cookiebot/commit/e3326b34b34ae2a1255e8f9549abad14ec10e878))
+
+
+
+
+
 # 3.2.0 (2024-06-17)
 
 
