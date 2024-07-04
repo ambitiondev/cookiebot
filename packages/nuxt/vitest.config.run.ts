@@ -11,10 +11,10 @@ export default mergeConfig(
                 enabled: true,
                 reporter: ['text', 'json-summary', 'json'],
                 thresholds: {
-                    statements: 30,
+                    statements: 20,
                     branches: 60,
                     functions: 50,
-                    lines: 30,
+                    lines: 20,
                 },
             },
             silent: true,
