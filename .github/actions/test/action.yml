@@ -7,6 +7,10 @@ runs:
       run: npx playwright install
       working-directory: packages/nuxt
       shell: bash
+    - name: Install Playwright Chromium
+      run: npx playwright install chromium
+      working-directory: packages/nuxt
+      shell: bash
     - name: Run test suite
       run: npx lerna run test:coverage
       shell: bash
