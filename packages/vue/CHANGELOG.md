@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.1-alpha.1 (2024-07-16)
+
+
+### Bug Fixes
+
+* **nuxt:** use server head with increased priority on composable ([f240274](https://github.com/ambitiondev/cookiebot/commit/f240274c585a93d3ebee77bf8c40f4612fbb8bf1))
+
+
+
+
+
 ## 3.2.1-alpha.0 (2024-07-04)
 
 
