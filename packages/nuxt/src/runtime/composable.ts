@@ -1,5 +1,5 @@
 // Vendor
-import { computed, useHead, useNuxtApp, type MaybeRef } from '#imports';
+import { computed, useServerHead, useNuxtApp, type MaybeRef } from '#imports';
 import {
     CB_NAME,
     consentBannerURL,
@@ -32,17 +32,23 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
     });
 
     async function consentBanner() {
-        useHead({
-            script: [
-                {
-                    id: CB_NAME,
-                    src: consentBannerURL({
-                        culture: culture.value,
-                        ..._options,
-                    }),
-                },
-            ],
-        });
+        useServerHead(
+            {
+                script: [
+                    {
+                        id: CB_NAME,
+                        src: consentBannerURL({
+                            culture: culture.value,
+                            ..._options,
+                        }),
+                    },
+                ],
+            },
+            {
+                tagPosition: 'head',
+                tagPriority: 'critical',
+            }
+        );
     }
 
     /** @deprecated */
