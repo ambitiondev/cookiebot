@@ -3,7 +3,7 @@ import { CB_NAME, consentBannerURL, useLogger } from '@ambitiondev/cookiebot-com
 
 // App imports
 import { defineNuxtPlugin, useRouter } from '#app';
-import { useHead } from '#imports';
+import { useServerHead } from '#imports';
 
 // Module Imports
 import * as pluginOptions from '#cookiebot-options';
@@ -21,18 +21,24 @@ export default defineNuxtPlugin((nuxt) => {
     }
 
     if (autoConsentBanner) {
-        useHead({
-            script: [
-                {
-                    id: CB_NAME,
-                    src: consentBannerURL({
-                        cookieBotId,
-                        culture,
-                        ...rest,
-                    }),
-                },
-            ],
-        });
+        useServerHead(
+            {
+                script: [
+                    {
+                        id: CB_NAME,
+                        src: consentBannerURL({
+                            cookieBotId,
+                            culture,
+                            ...rest,
+                        }),
+                    },
+                ],
+            },
+            {
+                tagPosition: 'head',
+                tagPriority: 'critical',
+            }
+        );
     }
 
     if (import.meta.client) {

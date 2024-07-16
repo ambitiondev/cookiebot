@@ -4,7 +4,7 @@ runs:
   using: composite
   steps:
     - name: Install Playwright
-      run: npx playwright install
+      run: npx playwright@1.44.1 install
       working-directory: packages/nuxt
       shell: bash
     - name: Run test suite
