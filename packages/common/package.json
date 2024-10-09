@@ -7,13 +7,6 @@
     "url": "https://ambitiondev.io"
   },
   "description": "Common logic for Cookiebot packages",
-  "devDependencies": {
-    "rollup": "^4.18.0",
-    "typedoc": "^0.25.13",
-    "typedoc-plugin-markdown": "^4.0.3",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
-  },
   "files": [
     "dist/"
   ],
