@@ -7,7 +7,7 @@ export default mergeConfig(
         test: {
             coverage: {
                 include: ['src/**/*.ts'],
-                exclude: ['**/node_modules/**', 'src/{constants,index}.ts'],
+                exclude: ['**/node_modules/**', 'src/{constants,index}.ts', 'src/types/**/*.ts'],
                 enabled: true,
                 reporter: ['text', 'json-summary', 'json'],
                 thresholds: {

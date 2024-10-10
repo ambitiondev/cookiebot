@@ -1,24 +1,15 @@
 {
   "name": "@ambitiondev/vue-cookiebot",
-  "version": "3.2.1",
+  "version": "3.2.2-alpha.0",
   "author": {
     "email": "info@ambitiondev.io",
     "name": "Berrie Nachtweh",
     "url": "https://ambitiondev.io"
   },
   "dependencies": {
-    "@ambitiondev/cookiebot-common": "^3.2.1"
+    "@ambitiondev/cookiebot-common": "^3.2.2-alpha.0"
   },
   "description": "Composable for Cookiebot in Vue applications",
-  "devDependencies": {
-    "@vitest/coverage-v8": "^1.6.0",
-    "@vue/test-utils": "^2.4.6",
-    "happy-dom": "^14.12.0",
-    "jsdom": "^24.1.0",
-    "rollup": "^4.18.0",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
-  },
   "files": [
     "dist/"
   ],
