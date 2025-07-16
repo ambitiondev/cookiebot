@@ -28,7 +28,7 @@ export default defineNuxtModule<ModuleOptions>({
         version,
         configKey: 'cookiebot',
         compatibility: {
-            nuxt: '^3.0.0',
+            nuxt: '^3.0.0 || ^4.0.0',
         },
     },
     // Default configuration options of the Nuxt module
