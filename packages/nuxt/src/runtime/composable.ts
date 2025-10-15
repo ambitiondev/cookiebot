@@ -18,7 +18,7 @@ export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotCom
     const { deprecationNotice, error } = useLogger();
     const _options = {
         ...pluginOptions,
-        settings,
+        ...settings,
     } as PluginOptions;
 
     const culture = computed(() =>
