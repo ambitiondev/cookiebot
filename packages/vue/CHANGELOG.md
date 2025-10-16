@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.4](https://github.com/ambitiondev/cookiebot/compare/v3.2.4-alpha.0...v3.2.4) (2025-10-16)
+
+**Note:** Version bump only for package @ambitiondev/vue-cookiebot
+
+
+
+
+
 ## 3.2.4-alpha.0 (2025-10-15)
 
 **Note:** Version bump only for package @ambitiondev/vue-cookiebot
