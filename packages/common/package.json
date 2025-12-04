@@ -1,16 +1,7 @@
 {
   "name": "@ambitiondev/cookiebot-common",
   "version": "3.2.3",
-  "author": {
-    "email": "info@ambitiondev.io",
-    "name": "Berrie Nachtweh",
-    "url": "https://ambitiondev.io"
-  },
-  "description": "Common logic for Cookiebot packages",
-  "files": [
-    "dist/"
-  ],
-  "homepage": "https://vue-nuxt-cookiebot.netlify.app",
+  "description": "Common types and utilities for Cookiebot in Vue applications",
   "keywords": [
     "web",
     "application",
@@ -19,25 +10,16 @@
     "vue 3",
     "ambitiondev"
   ],
+  "homepage": "https://vue-nuxt-cookiebot.netlify.app",
   "license": "MIT",
-  "main": "./dist/index.esm.js",
-  "peerDependencies": {
-    "vue": ">=3.1.0"
+  "author": {
+    "name": "Berrie Nachtweh",
+    "email": "info@ambitiondev.io",
+    "url": "https://ambitiondev.io"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ambitiondev/cookiebot"
-  },
-  "scripts": {
-    "build": "npm run compile && npm run bundle",
-    "bundle": "rollup --config rollup.config.mjs",
-    "compile": "tsc -p .",
-    "lint": "eslint src",
-    "lint:fix": "npm run lint -- --fix",
-    "test": "npm run test:unit",
-    "test:coverage": "vitest run -c vitest.config.run.ts",
-    "test:unit": "vitest"
-  },
-  "types": "dist/types/index.d.ts",
-  "type": "module"
+  "type": "module",
+  "files": [
+    "./constants"
+  ],
+  "types": "types/index.ts"
 }

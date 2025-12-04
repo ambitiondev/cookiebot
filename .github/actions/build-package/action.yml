@@ -1,5 +1,6 @@
 name: Build package
 description: Build package
+
 inputs:
   package:
     default: common

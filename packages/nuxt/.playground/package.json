@@ -1,0 +1,6 @@
+{
+	"devDependencies": {
+		"@nuxt/scripts": "0.13.0",
+		"@unhead/vue": "^2.0.3"
+	}
+}

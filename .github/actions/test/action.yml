@@ -1,4 +1,5 @@
 name: Test
+description: Run test suite and report coverage
 
 runs:
   using: composite

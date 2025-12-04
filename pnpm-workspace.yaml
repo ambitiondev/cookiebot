@@ -1,0 +1,14 @@
+packages:
+  - docs
+  - packages/**
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - sharp
+  - sqlite3
+  - unrs-resolver
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - better-sqlite3
+  - esbuild
+  - unrs-resolver

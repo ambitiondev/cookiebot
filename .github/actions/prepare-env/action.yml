@@ -1,5 +1,6 @@
 name: Prepare env
 description: Prepare env for package
+
 inputs:
   package:
     default: common

@@ -1,4 +1,5 @@
 name: Prepare
+description: Prepare the environment to execute further steps
 
 runs:
   using: composite

@@ -1,53 +1,38 @@
-// Vendor
-import { CB_NAME, consentBannerURL, useLogger } from '@ambitiondev/cookiebot-common';
-
 // App imports
-import { defineNuxtPlugin, useRouter } from '#app';
-import { useServerHead } from '#imports';
+import { defineNuxtPlugin } from "#app";
+import { useScript } from "#imports";
 
-// Module Imports
-import * as pluginOptions from '#cookiebot-options';
+// Module imports
+import {
+  autoConsentBanner,
+  cookiebotId,
+  culture as cultureFromOptions,
+} from "#cookiebot-options";
 
-export default defineNuxtPlugin((nuxt) => {
-    const defaultLocale =
-        // @ts-expect-error - i18n is not typed in this context
-        '$i18n' in nuxt && 'locale' in nuxt.$i18n ? (nuxt.$i18n.locale.value as string) : undefined;
-    const router = useRouter();
-    const { error } = useLogger();
-    const { autoConsentBanner, cookieBotId, culture = defaultLocale, ...rest } = pluginOptions;
+// utils
+import { CONSENT_BANNER_URL } from "@ambitiondev/cookiebot-common/constants";
 
-    if (!cookieBotId?.length) {
-        return error('No Cookiebot ID given. Aborting...');
+export default defineNuxtPlugin(async (nuxtApp) => {
+  const { $i18n } = nuxtApp;
+
+  if (autoConsentBanner) {
+    useScript({
+      src: CONSENT_BANNER_URL,
+      "data-cbid": cookiebotId,
+      // @ts-expect-error - cannot determine if i18n is installed
+      "data-culture": cultureFromOptions || $i18n.locale.value,
+      crossorigin: undefined,
+      fetchpriority: "high",
+      referrerpolicy: undefined,
+    });
+  }
+
+  nuxtApp.hook("page:finish", () => {
+    if (
+      typeof window?.Cookiebot?.runScripts === "function" &&
+      window?.Cookiebot?.consented === true
+    ) {
+      window?.Cookiebot?.runScripts();
     }
-
-    if (autoConsentBanner) {
-        useServerHead(
-            {
-                script: [
-                    {
-                        id: CB_NAME,
-                        src: consentBannerURL({
-                            cookieBotId,
-                            culture,
-                            ...rest,
-                        }),
-                    },
-                ],
-            },
-            {
-                tagPosition: 'head',
-                tagPriority: 'critical',
-            }
-        );
-    }
-
-    if (import.meta.client) {
-        router.afterEach(() => {
-            if (window instanceof Window && 'Cookiebot' in window) {
-                window.requestAnimationFrame(() => {
-                    window.Cookiebot.runScripts();
-                });
-            }
-        });
-    }
+  });
 });

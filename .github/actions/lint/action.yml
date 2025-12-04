@@ -1,4 +1,5 @@
-name: Prepare
+name: Lint
+description: Lint packages
 
 runs:
   using: composite

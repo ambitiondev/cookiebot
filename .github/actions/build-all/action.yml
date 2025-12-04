@@ -1,4 +1,5 @@
 name: Build all packages
+description: Build all packages in the monorepo
 
 runs:
   using: composite
