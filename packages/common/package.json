@@ -18,8 +18,18 @@
     "url": "https://ambitiondev.io"
   },
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "./constants"
+    "dist"
   ],
-  "types": "types/index.ts"
+  "scripts": {
+    "--- 🧪 Testing ---": "",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "--- 🎗️ Lint ---": "",
+    "lint": "eslint src/*.ts",
+    "--- 🤓 Developer Tools ---": "",
+    "build": "tsc"
+  }
 }

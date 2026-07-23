@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const localePath = useLocalePath();
+
+const { cookieDeclaration } = useCookiebot();
+const declarationRef = useTemplateRef("declaration");
+
+onMounted(() => {
+  cookieDeclaration(declarationRef.value);
+});
 </script>
 
 <template>
@@ -15,5 +22,7 @@ const localePath = useLocalePath();
     >
       Iframe page
     </NuxtLink>
+
+    <div ref="declaration" />
   </div>
 </template>
