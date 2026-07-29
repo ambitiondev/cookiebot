@@ -4,3 +4,11 @@ declare module '#cookiebot-options' {
     const pluginOptions: ModuleOptions;
     export = pluginOptions;
 }
+
+declare module 'nuxt/schema' {
+    interface PublicRuntimeConfig {
+        cookiebot: {
+            id: string;
+        };
+    }
+}

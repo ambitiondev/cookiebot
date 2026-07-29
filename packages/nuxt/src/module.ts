@@ -8,11 +8,12 @@ import {
     defineNuxtModule,
     isNuxt2,
 } from '@nuxt/kit';
+import { defu } from 'defu';
 
 // Package
 import { name, version } from '../package.json';
 
-export interface ModuleOptions extends PluginOptions {
+export interface ModuleOptions extends Omit<PluginOptions, 'cookieBotId'> {
     /**
      * Configure if the consent banner should be shown automatically. Defaults to `true`.
      * Override this behaviour if you would like to add stateful logic to the consent banner.
@@ -34,12 +35,16 @@ export default defineNuxtModule<ModuleOptions>({
     // Default configuration options of the Nuxt module
     defaults: {
         autoConsentBanner: true,
-        cookieBotId: '',
     },
     async setup(options, nuxt) {
         const { error } = useLogger();
         const { resolve } = createResolver(import.meta.url);
         const runtimeDir = await resolve('./runtime');
+
+        nuxt.options.runtimeConfig.public.cookiebot = defu(
+            nuxt.options.runtimeConfig.public.cookiebot as { id: string },
+            { id: '' }
+        );
 
         // Inject options via virtual template
         nuxt.options.alias['#cookiebot-options'] = addTemplate({

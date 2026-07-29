@@ -1,5 +1,5 @@
 // Vendor
-import { computed, useServerHead, useNuxtApp, type MaybeRef } from '#imports';
+import { computed, useServerHead, useNuxtApp, useRuntimeConfig, type MaybeRef } from '#imports';
 import {
     CB_NAME,
     consentBannerURL,
@@ -16,8 +16,11 @@ import * as pluginOptions from '#cookiebot-options';
 export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotComposable {
     const nuxt = useNuxtApp();
     const { deprecationNotice, error } = useLogger();
+    const runtimeConfig = useRuntimeConfig();
+
     const _options = {
         ...pluginOptions,
+        cookieBotId: runtimeConfig.public.cookiebot.id,
         ...settings,
     } as PluginOptions;
 
