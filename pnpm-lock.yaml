@@ -79,6 +79,8 @@ importers:
 
   packages/nuxt/test/e2e/fixtures/no-auto-banner: {}
 
+  packages/nuxt/test/e2e/fixtures/runtime-config: {}
+
   packages/vue: {}
 
 packages:

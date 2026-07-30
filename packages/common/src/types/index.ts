@@ -1,8 +1,8 @@
 declare global {
   interface Window {
-    Cookiebot: ICookiebotInstance;
-    CookieConsent: unknown;
-    CookieConsentDialog: unknown;
+    Cookiebot?: ICookiebotInstance;
+    CookieConsent?: unknown;
+    CookieConsentDialog?: unknown;
   }
 }
 
@@ -22,7 +22,7 @@ interface ICookiebotInstance {
   submitCustomConsent: (
     optinPreferences: boolean,
     optinStatistics: boolean,
-    optinMarketing: boolean
+    optinMarketing: boolean,
   ) => void;
 }
 
@@ -34,24 +34,24 @@ interface ICookiebotRegulations {
 
 interface ICookiebotConsentProps {
   marketing: boolean;
-  method: 'explicit' | 'implied' | null;
+  method: "explicit" | "implied" | null;
   necessary: boolean;
   preferences: boolean;
   stamp: string;
   statistics: boolean;
 }
 
-export type TCookiebotBlockingMode = 'auto' | 'none';
+export type TCookiebotBlockingMode = "auto" | "none";
 
-export type TCookiebotLevel = 'implied' | 'strict';
+export type TCookiebotLevel = "implied" | "strict";
 
 export type TCookiebotConsentDialogType =
-  | 'optin'
-  | 'optout'
-  | 'optinout'
-  | 'leveloptin'
-  | 'inlineoptin'
-  | 'optionaloptin';
+  | "optin"
+  | "optout"
+  | "optinout"
+  | "leveloptin"
+  | "inlineoptin"
+  | "optionaloptin";
 
 export interface ICookiebotOptions {
   /**

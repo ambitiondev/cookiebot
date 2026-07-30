@@ -2,9 +2,11 @@ import { createPage, setup } from "@nuxt/test-utils/e2e";
 import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
 
-describe("basic", async () => {
+describe("runtime config", async () => {
   await setup({
-    rootDir: fileURLToPath(new URL("./fixtures/basic", import.meta.url)),
+    rootDir: fileURLToPath(
+      new URL("./fixtures/runtime-config", import.meta.url),
+    ),
     browser: true,
   });
 

@@ -9,4 +9,9 @@ export default createConfigForNuxt({
   dirs: {
     src: ["./.playground"],
   },
-}).append();
+}).append({
+  files: ["**/app/pages/**/*.vue"],
+  rules: {
+    "vue/multi-word-component-names": "off",
+  },
+});

@@ -34,12 +34,10 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
       undefined,
   );
 
-  const { load: loadConsentBannerScript } = useScript(
-    buildScriptOptionsForLocale(culture.value),
-    {
+  const { load: loadConsentBannerScript, remove: removeConsentBannerScript } =
+    useScript(buildScriptOptionsForLocale(culture.value), {
       trigger: "manual",
-    },
-  );
+    });
 
   async function cookieDeclaration(wrapper: MaybeRef<HTMLElement | null>) {
     const _element = unref(wrapper);
@@ -69,9 +67,17 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
     }
   }
 
+  async function destroyConsentBanner() {
+    window.Cookiebot = undefined;
+    window.CookieConsent = undefined;
+    window.CookieConsentDialog = undefined;
+    removeConsentBannerScript();
+  }
+
   return {
     culture,
     consentBanner,
     cookieDeclaration,
+    destroyConsentBanner,
   };
 }

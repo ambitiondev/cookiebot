@@ -3,7 +3,11 @@ import CookiebotModule from "../../../../src/module";
 export default defineNuxtConfig({
   modules: [CookiebotModule],
   cookiebot: {
-    autoConsentBanner: false,
-    cookiebotId: import.meta.env.COOKIEBOT_ID as string,
+    useRuntimeConfig: true,
+  },
+  runtimeConfig: {
+    public: {
+      cookiebotId: "",
+    },
   },
 });
