@@ -29,11 +29,6 @@ type ModuleOptionsWithRuntimeConfig = ModuleOptionsBase & {
    * Configure if the module should use Nuxt's runtime config.
    */
   useRuntimeConfig: true;
-  /**
-   * Your Cookiebot ID found in the Cookiebot admin interface.
-   * Optional when `useRuntimeConfig` is enabled.
-   */
-  cookiebotId?: string;
 };
 
 type ModuleOptionsWithoutRuntimeConfig = ModuleOptionsBase & {
