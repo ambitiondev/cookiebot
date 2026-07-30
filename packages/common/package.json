@@ -30,10 +30,10 @@
   "scripts": {
     "--- 🧪 Testing ---": "",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --c vitest.config.run.ts",
     "--- 🎗️ Lint ---": "",
     "lint": "eslint src/*.ts",
     "--- 🤓 Developer Tools ---": "",
-    "build": "tsc"
+    "build": "tsc -p tsconfig.build.json"
   }
 }

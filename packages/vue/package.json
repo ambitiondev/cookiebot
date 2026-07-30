@@ -28,16 +28,18 @@
   "scripts": {
     "--- 🧪 Testing ---": "",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --c vitest.config.run.ts",
     "--- 🎗️ Lint ---": "",
     "lint": "eslint src/*.ts",
     "--- 🤓 Developer Tools ---": "",
-    "compile": "tsc"
+    "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@ambitiondev/cookiebot-common": "workspace:*"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/test-utils": "^2.4.11",
     "vue": "^3.5.40"
   },
   "peerDependencies": {

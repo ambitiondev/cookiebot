@@ -14,15 +14,18 @@
     "build": "pnpm -r run build",
     "lint": "pnpm -r run lint",
     "lint:fix": "pnpm -r run lint:fix",
-    "test": "pnpm -r run test",
+    "test": "pnpm -r run test:coverage",
     "test:coverage": "pnpm -r run test:coverage"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",
+    "@vitest/coverage-v8": "^4.1.10",
     "changelogen": "^0.6.2",
     "eslint": "^10.7.0",
     "happy-dom": "^20.11.0",
+    "jsdom": "^30.0.1",
     "typescript": "5.9.3",
+    "typescript-eslint": "^8.65.0",
     "vitest": "^4.1.10"
   },
   "packageManager": "pnpm@11.18.0"
