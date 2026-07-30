@@ -5,8 +5,12 @@ export default defineNuxtConfig({
   compatibilityDate: "2026-07-20",
   modules: ["../src/module", "@nuxtjs/i18n"],
   cookiebot: {
-    autoConsentBanner: false,
-    cookiebotId: import.meta.env.NUXT_PUBLIC_COOKIEBOT_ID,
+    useRuntimeConfig: true,
+  },
+  runtimeConfig: {
+    public: {
+      cookiebotId: "",
+    },
   },
   devtools: { enabled: true },
   i18n: {

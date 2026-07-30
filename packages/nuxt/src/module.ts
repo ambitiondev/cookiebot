@@ -5,6 +5,7 @@ import {
   addTemplate,
   createResolver,
   defineNuxtModule,
+  useRuntimeConfig,
 } from "@nuxt/kit";
 
 // Cookiebot
@@ -13,7 +14,7 @@ import type { ICookiebotPluginOptions } from "@ambitiondev/cookiebot-common";
 // Package
 import { name, version } from "../package.json";
 
-export interface ModuleOptions extends ICookiebotPluginOptions {
+type ModuleOptionsBase = Omit<ICookiebotPluginOptions, "cookiebotId"> & {
   /**
    * Configure if the consent banner should be shown automatically. Defaults to `true`.
    * Override this behaviour if you would like to add stateful logic to the consent banner.
@@ -21,7 +22,34 @@ export interface ModuleOptions extends ICookiebotPluginOptions {
    * Locale from `nuxt-i18n` is detected automatically to set culture for your Cookiebot implementation.
    */
   autoConsentBanner: boolean;
-}
+};
+
+type ModuleOptionsWithRuntimeConfig = ModuleOptionsBase & {
+  /**
+   * Configure if the module should use Nuxt's runtime config.
+   */
+  useRuntimeConfig: true;
+  /**
+   * Your Cookiebot ID found in the Cookiebot admin interface.
+   * Optional when `useRuntimeConfig` is enabled.
+   */
+  cookiebotId?: string;
+};
+
+type ModuleOptionsWithoutRuntimeConfig = ModuleOptionsBase & {
+  /**
+   * Configure if the module should use Nuxt's runtime config. Defaults to `false`.
+   */
+  useRuntimeConfig?: false;
+  /**
+   * Your Cookiebot ID found in the Cookiebot admin interface.
+   */
+  cookiebotId: string;
+};
+
+export type ModuleOptions =
+  | ModuleOptionsWithRuntimeConfig
+  | ModuleOptionsWithoutRuntimeConfig;
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -40,6 +68,7 @@ export default defineNuxtModule<ModuleOptions>({
     culture: undefined,
     level: undefined,
     type: undefined,
+    useRuntimeConfig: false,
   },
   moduleDependencies: {
     "@nuxt/scripts": {
@@ -50,18 +79,26 @@ export default defineNuxtModule<ModuleOptions>({
       version: ">=9.0.0 || >=10.0.0",
     },
   },
-  async setup(options, nuxt) {
+  async setup({ cookiebotId, ...options }, nuxt) {
     const { resolve } = createResolver(import.meta.url);
     const runtimeDir = await resolve("./runtime");
+
+    const { public: publicConfig } = useRuntimeConfig();
+    const resolvedCookiebotId = options.useRuntimeConfig
+      ? publicConfig.cookiebotId
+      : cookiebotId;
 
     // Inject options via virtual template
     nuxt.options.alias["#cookiebot-options"] = addTemplate({
       filename: "cookiebot-options.mjs",
       getContents: () =>
-        Object.entries(options)
+        Object.entries({
+          cookiebotId: resolvedCookiebotId,
+          ...options,
+        })
           .map(
             ([key, value]) =>
-              `export const ${key} = ${JSON.stringify(value, null, 2)}`
+              `export const ${key} = ${JSON.stringify(value, null, 2)}`,
           )
           .join("\n"),
     }).dst;
