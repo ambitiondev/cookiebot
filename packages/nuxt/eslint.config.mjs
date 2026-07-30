@@ -9,9 +9,17 @@ export default createConfigForNuxt({
   dirs: {
     src: ["./.playground"],
   },
-}).append({
-  files: ["**/app/pages/**/*.vue"],
-  rules: {
-    "vue/multi-word-component-names": "off",
-  },
-});
+})
+  .append({
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  })
+  .append({
+    files: ["**/app/pages/**/*.vue"],
+    rules: {
+      "vue/multi-word-component-names": "off",
+    },
+  });
