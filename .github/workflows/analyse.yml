@@ -1,0 +1,60 @@
+name: Analyse package health
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # STAGE 1: Quality Gate
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Lint
+        uses: ./.github/actions/lint
+
+  # test:
+  #   permissions:
+  #     contents: read
+  #     id-token: write
+  #   name: Test
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+
+  #     - name: Test
+  #       uses: ./.github/actions/test
+
+  #     - name: Upload coverage to Codecov
+  #       uses: codecov/codecov-action@v5
+  #       if: github.ref == 'refs/heads/main'
+  #       with:
+  #         use_oidc: true
+  #         files: ./coverage/coverage-final.json
+
+  # STAGE 2: Build
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        uses: ./.github/actions/build

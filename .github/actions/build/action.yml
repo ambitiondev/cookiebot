@@ -1,5 +1,5 @@
-name: Test
-description: Run tests for the package
+name: Build
+description: Build the package
 
 runs:
   using: composite
@@ -7,6 +7,6 @@ runs:
     - name: Setup
       uses: ./.github/actions/setup
 
-    - name: Run tests
+    - name: Build the package
       shell: bash
-      run: pnpm test:coverage
+      run: pnpm build

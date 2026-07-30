@@ -1,10 +1,12 @@
 name: Lint
-description: Lint packages
+description: Run linting for the package
 
 runs:
   using: composite
   steps:
-    - uses: ./.github/actions/install
-    - name: Lint packages
-      run: npx lerna run lint
+    - name: Setup
+      uses: ./.github/actions/setup
+
+    - name: Run linting
       shell: bash
+      run: pnpm lint
