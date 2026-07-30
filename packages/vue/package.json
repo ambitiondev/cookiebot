@@ -1,18 +1,46 @@
 {
   "name": "@ambitiondev/vue-cookiebot",
-  "type": "module",
-  "version": "3.2.3",
+  "version": "3.2.4",
+  "description": "Composable for Cookiebot in Vue applications",
+  "keywords": [
+    "cookiebot",
+    "vue",
+    "vue 3",
+    "ambitiondev"
+  ],
+  "homepage": "https://vue-nuxt-cookiebot.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ambitiondev/cookiebot"
+  },
   "author": {
     "email": "info@ambitiondev.io",
     "name": "Berrie Nachtweh",
     "url": "https://ambitiondev.io"
   },
-  "description": "Composable for Cookiebot in Vue applications",
-  "homepage": "https://vue-nuxt-cookiebot.netlify.app",
-  "keywords": [
-    "cookiebot",
-    "vue",
-    "ambitiondev"
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
   ],
-  "license": "MIT"
+  "scripts": {
+    "--- 🧪 Testing ---": "",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "--- 🎗️ Lint ---": "",
+    "lint": "eslint src/*.ts",
+    "--- 🤓 Developer Tools ---": "",
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@ambitiondev/cookiebot-common": "workspace:*"
+  },
+  "devDependencies": {
+    "vue": "^3.5.40"
+  },
+  "peerDependencies": {
+    "vue": ">=3.1.0"
+  }
 }

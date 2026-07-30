@@ -1,6 +1,6 @@
 {
   "name": "@ambitiondev/cookiebot-common",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "Common types and utilities for Cookiebot in Vue applications",
   "keywords": [
     "web",
@@ -11,12 +11,16 @@
     "ambitiondev"
   ],
   "homepage": "https://vue-nuxt-cookiebot.netlify.app",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ambitiondev/cookiebot"
+  },
   "author": {
     "name": "Berrie Nachtweh",
     "email": "info@ambitiondev.io",
     "url": "https://ambitiondev.io"
   },
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -1,7 +1,7 @@
 {
   "name": "@ambitiondev/cookiebot",
-  "description": "Mono-repo root package.json, used mainly to execute build scripts. This package is not published to npm.",
   "version": "1.0.0",
+  "description": "Mono-repo root package.json, used mainly to execute build scripts. This package is not published to npm.",
   "author": {
     "name": "Berrie Nachtweh",
     "email": "info@ambitiondev.io",
@@ -25,5 +25,5 @@
     "typescript": "5.9.3",
     "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@11.15.1+sha512.81350b07e53c9538a02f1f2303b4290fa2d7be04e56e2a970c4cc4b417dc761de196edabd49d55c7dc9580db81007c44143e4e3d7e462b3000d23c255122d065"
+  "packageManager": "pnpm@11.18.0"
 }

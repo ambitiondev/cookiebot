@@ -1,10 +1,11 @@
 {
   "name": "@ambitiondev/nuxt-cookiebot",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "Integrate Cookiebot with you Nuxt application",
   "keywords": [
     "cookiebot",
     "vue",
+    "vue 3",
     "nuxt",
     "ambitiondev"
   ],
@@ -13,12 +14,12 @@
     "type": "git",
     "url": "https://github.com/ambitiondev/cookiebot"
   },
-  "license": "MIT",
   "author": {
     "name": "Berrie Nachtweh",
     "email": "info@ambitiondev.io",
     "url": "https://ambitiondev.io"
   },
+  "license": "MIT",
   "type": "module",
   "main": "./dist/module.mjs",
   "exports": {
@@ -48,6 +49,7 @@
     "test:types": "vue-tsc --noEmit && cd .playground && vue-tsc --noEmit"
   },
   "dependencies": {
+    "@ambitiondev/cookiebot-common": "workspace:*",
     "@nuxt/kit": "^4.5.0",
     "@nuxt/scripts": "^1.3.2"
   },

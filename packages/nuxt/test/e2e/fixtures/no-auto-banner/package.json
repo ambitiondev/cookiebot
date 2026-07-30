@@ -1,5 +1,5 @@
 {
-  "private": true,
   "name": "no-auto-banner",
-  "type": "module"
+  "type": "module",
+  "private": true
 }
