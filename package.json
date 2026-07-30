@@ -13,8 +13,7 @@
   "scripts": {
     "build": "pnpm -r run build",
     "lint": "pnpm -r run lint",
-    "lint:fix": "pnpm -r run lint:fix",
-    "test": "pnpm -r run test:coverage",
+    "test": "pnpm -r run test",
     "test:coverage": "pnpm -r run test:coverage"
   },
   "devDependencies": {
