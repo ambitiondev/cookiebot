@@ -6,10 +6,9 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@nuxt/icon": "2.4.1",
     "better-sqlite3": "^12.11.1",
     "docus": "latest",
-    "nuxt": "^4.4.8"
+    "nuxt": "catalog:"
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.121",

@@ -19,3 +19,5 @@ onlyBuiltDependencies:
   - better-sqlite3
   - esbuild
   - unrs-resolver
+catalog:
+  "nuxt": ^4.5.0
