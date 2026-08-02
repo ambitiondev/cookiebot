@@ -11,6 +11,7 @@
     "nuxt": "catalog:"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.2.0",
     "@iconify-json/lucide": "^1.2.121",
     "@iconify-json/simple-icons": "^1.2.92",
     "@iconify-json/vscode-icons": "^1.2.68",
