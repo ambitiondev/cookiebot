@@ -1,0 +1,17 @@
+{
+  "name": "docs",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "docus": "latest",
+    "nuxt": "^4.4.8"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.121",
+    "@iconify-json/simple-icons": "^1.2.92",
+    "prettier-plugin-mdc": "^0.2.1"
+  }
+}

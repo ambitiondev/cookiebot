@@ -74,10 +74,25 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
     removeConsentBannerScript();
   }
 
+  async function resetConsentBanner() {
+    await destroyConsentBanner();
+    await consentBanner();
+  }
+
+  function renew() {
+    if (typeof window.Cookiebot?.renew === "function") {
+      return window.Cookiebot.renew();
+    }
+
+    warn("Not able to renew consent. Cookiebot instance is not defined.");
+  }
+
   return {
     culture,
     consentBanner,
     cookieDeclaration,
     destroyConsentBanner,
+    resetConsentBanner,
+    renew,
   };
 }

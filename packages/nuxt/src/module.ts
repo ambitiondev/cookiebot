@@ -74,22 +74,22 @@ export default defineNuxtModule<ModuleOptions>({
       version: ">=9.0.0 || >=10.0.0",
     },
   },
-  async setup({ cookiebotId, ...options }, nuxt) {
+  async setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url);
     const runtimeDir = await resolve("./runtime");
 
     const { public: publicConfig } = useRuntimeConfig();
     const resolvedCookiebotId = options.useRuntimeConfig
       ? publicConfig.cookiebotId
-      : cookiebotId;
+      : options.cookiebotId;
 
     // Inject options via virtual template
     nuxt.options.alias["#cookiebot-options"] = addTemplate({
       filename: "cookiebot-options.mjs",
       getContents: () =>
         Object.entries({
-          cookiebotId: resolvedCookiebotId,
           ...options,
+          cookiebotId: resolvedCookiebotId,
         })
           .map(
             ([key, value]) =>

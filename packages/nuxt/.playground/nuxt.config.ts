@@ -5,7 +5,6 @@ export default defineNuxtConfig({
   compatibilityDate: "2026-07-20",
   modules: ["../src/module", "@nuxtjs/i18n"],
   cookiebot: {
-    cookiebotId: "YOUR_COOKIEBOT_ID",
     useRuntimeConfig: true,
   },
   runtimeConfig: {
