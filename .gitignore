@@ -13,6 +13,9 @@ node_modules
 **/.yarn/cache
 **/.yarn/*state*
 
+# PNPM
+.pnpm-store
+
 # Generated dirs
 dist
 

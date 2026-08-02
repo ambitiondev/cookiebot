@@ -1,7 +1,7 @@
 ---
 navigation: false
 seo:
-  title: Cookiebot composable for your Vue / Nuxt Application
+  title: Welcome to the Cookiebot plugin documentation
   description: Easily integrate Cookiebot into your Vue / Nuxt application. Manage cookies and consent efficiently while staying compliant with privacy regulations.
 ---
 
