@@ -6,15 +6,16 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxt/content": "^3.15.2",
     "better-sqlite3": "^12.11.1",
     "docus": "latest",
     "nuxt": "catalog:"
   },
   "devDependencies": {
-    "@iconify/vue": "^4.2.0",
     "@iconify-json/lucide": "^1.2.121",
     "@iconify-json/simple-icons": "^1.2.92",
     "@iconify-json/vscode-icons": "^1.2.68",
+    "@iconify/vue": "^4.2.0",
     "prettier-plugin-mdc": "^0.2.1"
   }
 }

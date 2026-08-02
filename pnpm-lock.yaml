@@ -44,6 +44,9 @@ importers:
 
   docs:
     dependencies:
+      '@nuxt/content':
+        specifier: ^3.15.2
+        version: 3.15.2(@valibot/to-json-schema@1.7.1(valibot@1.4.2(typescript@5.9.3)))(better-sqlite3@12.11.1)(esbuild@0.28.1)(magic-string@1.0.0)(magicast@0.5.3)(oxc-parser@0.140.0)(rolldown@1.2.0)(rollup@4.62.2)(supports-color@10.2.2)(valibot@1.4.2(typescript@5.9.3))(vite@8.1.5)
       better-sqlite3:
         specifier: ^12.11.1
         version: 12.11.1
@@ -9109,26 +9112,6 @@ snapshots:
       - vite
       - webpack
 
-  '@devframes/hub@0.5.4(devframe@0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(vite@8.1.5)':
-    dependencies:
-      birpc: 4.0.0
-      devframe: 0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
-      nostics: 0.2.0(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(vite@8.1.5)
-      pathe: 2.0.3
-      perfect-debounce: 2.1.0
-      tinyexec: 1.2.4
-    transitivePeerDependencies:
-      - '@farmfe/core'
-      - '@rspack/core'
-      - bun-types-no-globals
-      - esbuild
-      - rolldown
-      - rollup
-      - unloader
-      - vite
-      - webpack
-    optional: true
-
   '@devframes/hub@0.7.9(devframe@0.7.9(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(srvx@0.11.22)(typescript@5.9.3))':
     dependencies:
       birpc: 4.0.0
@@ -12936,33 +12919,6 @@ snapshots:
       - utf-8-validate
       - webpack
 
-  '@vitejs/devtools-kit@0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)':
-    dependencies:
-      '@devframes/hub': 0.5.4(devframe@0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(vite@8.1.5)
-      birpc: 4.0.0
-      devframe: 0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
-      mlly: 1.8.2
-      nostics: 1.2.0
-      pathe: 2.0.3
-      perfect-debounce: 2.1.0
-      tinyexec: 1.2.4
-      vite: 8.1.5(@types/node@26.1.1)(@vitejs/devtools@0.3.4)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0)
-    transitivePeerDependencies:
-      - '@farmfe/core'
-      - '@modelcontextprotocol/sdk'
-      - '@rspack/core'
-      - bufferutil
-      - bun-types-no-globals
-      - crossws
-      - esbuild
-      - rolldown
-      - rollup
-      - typescript
-      - unloader
-      - utf-8-validate
-      - webpack
-    optional: true
-
   '@vitejs/devtools-kit@0.4.2(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(cac@6.7.14)(srvx@0.11.22)(typescript@5.9.3)(vite@8.1.5)':
     dependencies:
       '@devframes/hub': 0.7.9(devframe@0.7.9(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(srvx@0.11.22)(typescript@5.9.3))
@@ -13037,66 +12993,6 @@ snapshots:
       - vue
       - webpack
 
-  '@vitejs/devtools-rolldown@0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(ioredis@5.11.1(supports-color@10.2.2))(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)(vue@3.5.40(typescript@5.9.3))':
-    dependencies:
-      '@floating-ui/dom': 1.8.0
-      '@rolldown/debug': 1.2.0
-      '@vitejs/devtools-kit': 0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
-      birpc: 4.0.0
-      cac: 7.0.0
-      d3-shape: 3.2.0
-      devframe: 0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
-      diff: 9.0.0
-      get-port-please: 3.2.0
-      h3: 2.0.1-rc.22(crossws@0.4.10(srvx@0.12.5))
-      mlly: 1.8.2
-      mrmime: 2.0.1
-      nostics: 1.2.0
-      p-limit: 7.3.1
-      pathe: 2.0.3
-      publint: 0.3.21
-      tinyglobby: 0.2.17
-      unconfig: 7.5.0
-      unstorage: 1.17.5(db0@0.3.4(better-sqlite3@12.11.1))(ioredis@5.11.1(supports-color@10.2.2))
-      vue-virtual-scroller: 3.0.4(vue@3.5.40(typescript@5.9.3))
-      ws: 8.21.1
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@farmfe/core'
-      - '@modelcontextprotocol/sdk'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@rspack/core'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/functions'
-      - '@vercel/kv'
-      - aws4fetch
-      - bufferutil
-      - bun-types-no-globals
-      - crossws
-      - db0
-      - esbuild
-      - idb-keyval
-      - ioredis
-      - rolldown
-      - rollup
-      - typescript
-      - unloader
-      - uploadthing
-      - utf-8-validate
-      - vite
-      - vue
-      - webpack
-    optional: true
-
   '@vitejs/devtools@0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.11.22))(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(ioredis@5.11.1(supports-color@10.2.2))(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)':
     dependencies:
       '@devframes/hub': 0.5.4(devframe@0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.11.22))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(vite@8.1.5)
@@ -13148,59 +13044,6 @@ snapshots:
       - uploadthing
       - utf-8-validate
       - webpack
-
-  '@vitejs/devtools@0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(ioredis@5.11.1(supports-color@10.2.2))(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)':
-    dependencies:
-      '@devframes/hub': 0.5.4(devframe@0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(vite@8.1.5)
-      '@vitejs/devtools-kit': 0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
-      '@vitejs/devtools-rolldown': 0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(ioredis@5.11.1(supports-color@10.2.2))(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)(vue@3.5.40(typescript@5.9.3))
-      birpc: 4.0.0
-      cac: 7.0.0
-      devframe: 0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
-      h3: 2.0.1-rc.22(crossws@0.4.10(srvx@0.12.5))
-      mlly: 1.8.2
-      nostics: 1.2.0
-      obug: 2.1.4
-      pathe: 2.0.3
-      perfect-debounce: 2.1.0
-      tinyexec: 1.2.4
-      vite: 8.1.5(@types/node@26.1.1)(@vitejs/devtools@0.3.4)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0)
-      vue: 3.5.40(typescript@5.9.3)
-      ws: 8.21.1
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@farmfe/core'
-      - '@modelcontextprotocol/sdk'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@rspack/core'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/functions'
-      - '@vercel/kv'
-      - aws4fetch
-      - bufferutil
-      - bun-types-no-globals
-      - crossws
-      - db0
-      - esbuild
-      - idb-keyval
-      - ioredis
-      - rolldown
-      - rollup
-      - typescript
-      - unloader
-      - uploadthing
-      - utf-8-validate
-      - webpack
-    optional: true
 
   '@vitejs/plugin-vue-jsx@5.1.6(supports-color@10.2.2)(vite@8.1.5)(vue@3.5.40(typescript@5.9.3))':
     dependencies:
@@ -13992,11 +13835,6 @@ snapshots:
     optionalDependencies:
       srvx: 0.11.22
 
-  crossws@0.4.10(srvx@0.12.5):
-    optionalDependencies:
-      srvx: 0.12.5
-    optional: true
-
   css-declaration-sorter@7.4.0(postcss@8.5.21):
     dependencies:
       postcss: 8.5.21
@@ -14217,35 +14055,6 @@ snapshots:
       - utf-8-validate
       - vite
       - webpack
-
-  devframe@0.5.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5):
-    dependencies:
-      '@valibot/to-json-schema': 1.7.1(valibot@1.4.2(typescript@5.9.3))
-      birpc: 4.0.0
-      cac: 7.0.0
-      h3: 2.0.1-rc.22(crossws@0.4.10(srvx@0.12.5))
-      mrmime: 2.0.1
-      nostics: 0.2.0(esbuild@0.28.1)(rolldown@1.2.0)(rollup@4.62.2)(vite@8.1.5)
-      pathe: 2.0.3
-      valibot: 1.4.2(typescript@5.9.3)
-      ws: 8.21.1
-    optionalDependencies:
-      '@modelcontextprotocol/sdk': 1.30.0(supports-color@10.2.2)(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@farmfe/core'
-      - '@rspack/core'
-      - bufferutil
-      - bun-types-no-globals
-      - crossws
-      - esbuild
-      - rolldown
-      - rollup
-      - typescript
-      - unloader
-      - utf-8-validate
-      - vite
-      - webpack
-    optional: true
 
   devframe@0.6.2(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(srvx@0.11.22)(typescript@5.9.3):
     dependencies:
@@ -15314,14 +15123,6 @@ snapshots:
       srvx: 0.11.22
     optionalDependencies:
       crossws: 0.4.10(srvx@0.11.22)
-
-  h3@2.0.1-rc.22(crossws@0.4.10(srvx@0.12.5)):
-    dependencies:
-      rou3: 0.8.1
-      srvx: 0.11.22
-    optionalDependencies:
-      crossws: 0.4.10(srvx@0.12.5)
-    optional: true
 
   happy-dom@20.11.0:
     dependencies:
@@ -19597,7 +19398,7 @@ snapshots:
       tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 26.1.1
-      '@vitejs/devtools': 0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.12.5))(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(ioredis@5.11.1(supports-color@10.2.2))(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
+      '@vitejs/devtools': 0.3.4(@modelcontextprotocol/sdk@1.30.0(supports-color@10.2.2)(zod@4.4.3))(crossws@0.4.10(srvx@0.11.22))(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(ioredis@5.11.1(supports-color@10.2.2))(rolldown@1.2.0)(rollup@4.62.2)(typescript@5.9.3)(vite@8.1.5)
       esbuild: 0.28.1
       fsevents: 2.3.3
       jiti: 2.7.0
