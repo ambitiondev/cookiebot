@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0-2
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-1...v4.0.0-2)
+
+### 🤖 CI
+
+- **nuxt:** Run dev prepare in pipeline ([c053a12](https://github.com/ambitiondev/cookiebot/commit/c053a12))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh <info@ambitiondev.io>
+
 ## v4.0.0-1
 
 [compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-0...v4.0.0-1)
