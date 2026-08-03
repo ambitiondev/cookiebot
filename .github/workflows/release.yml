@@ -46,25 +46,33 @@ jobs:
       - name: Ensure Latest NPM
         run: npm install -g npm@latest
 
-      - name: Bump Version and Push
+      - name: Bump Root Changelog and Sync Packages
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           PRERELEASE_FLAG=""
           if [[ "${{ github.event.inputs.version }}" == pre* ]]; then PRERELEASE_FLAG="--prerelease"; fi
 
-          # First bump each publishable package so every package gets its own version + changelog update.
-          for dir in packages/*; do
-            if [[ -f "$dir/package.json" ]]; then
-              (
-                cd "$dir"
-                pnpm dlx changelogen@latest --bump --release $PRERELEASE_FLAG --${{ github.event.inputs.version }}
-              )
-            fi
+          # Only run changelogen at root: this updates root version + root changelog.
+          pnpm dlx changelogen@latest --bump $PRERELEASE_FLAG --${{ github.event.inputs.version }}
+
+          VERSION="$(node -p "require('./package.json').version")"
+
+          # Sync the same version to all packages/* package.json files.
+          for file in packages/*/package.json; do
+            node -e "const fs=require('fs');const p=process.argv[1];const v=process.argv[2];const j=JSON.parse(fs.readFileSync(p,'utf8'));j.version=v;fs.writeFileSync(p,JSON.stringify(j,null,2)+'\\n');" "$file" "$VERSION"
           done
 
-          # Keep the existing root bump + release commit + tag + push behavior.
-          pnpm dlx changelogen@latest --bump --release $PRERELEASE_FLAG --${{ github.event.inputs.version }} --push
+          # Mirror the root changelog into each package changelog to keep one unified release note.
+          for file in packages/*/CHANGELOG.md; do
+            cp CHANGELOG.md "$file"
+          done
+
+          git add package.json CHANGELOG.md packages/*/package.json packages/*/CHANGELOG.md
+          git commit -m "chore(release): v$VERSION"
+          git tag "v$VERSION"
+          git push
+          git push --tags
 
       - name: Build
         run: pnpm run build
@@ -73,7 +81,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          VERSION="$(node -p "require('./packages/common/package.json').version")"
+          VERSION="$(node -p "require('./package.json').version")"
           RELEASE_FLAG=""
           if [[ "${{ github.event.inputs.version }}" == pre* ]]; then RELEASE_FLAG="--prerelease"; fi
           gh release create "v$VERSION" --generate-notes $RELEASE_FLAG
