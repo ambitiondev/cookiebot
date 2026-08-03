@@ -49,7 +49,8 @@
     "build": "nuxi generate && nuxt-module-build build",
     "dev": "npm run dev:prepare && nuxi dev .playground",
     "dev:build": "nuxi build .playground",
-    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare .playground"
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare .playground",
+    "postinstall": "pnpm dev:prepare"
   },
   "dependencies": {
     "@ambitiondev/cookiebot-common": "workspace:*",
