@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0-3
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-2...v4.0.0-3)
+
+### 🩹 Fixes
+
+- **nuxt:** Include script helper ([e2b2cab](https://github.com/ambitiondev/cookiebot/commit/e2b2cab))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh <info@ambitiondev.io>
+
 ## v4.0.0-2
 
 [compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-1...v4.0.0-2)
