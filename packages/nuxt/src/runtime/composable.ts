@@ -17,7 +17,7 @@ import type { ICookiebotOptions } from "@ambitiondev/cookiebot-common";
 import { cookiebotId, culture as cultureFromOptions } from "#cookiebot-options";
 
 // utils
-import { buildScriptOptionsForLocale } from "../utils/script";
+import { buildScriptOptionsForLocale } from "./script-helper";
 
 export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
   const { $i18n } = useNuxtApp();

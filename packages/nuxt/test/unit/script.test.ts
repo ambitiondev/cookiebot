@@ -2,7 +2,7 @@
 import { describe, test, expect, vi } from "vitest";
 
 // Util
-import { buildScriptOptionsForLocale } from "../../src/utils/script";
+import { buildScriptOptionsForLocale } from "../../src/runtime/script-helper";
 
 vi.mock("#cookiebot-options", () => ({
   cookiebotId: "test-cookiebot-id",

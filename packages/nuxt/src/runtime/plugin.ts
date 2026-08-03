@@ -9,7 +9,7 @@ import {
 } from "#cookiebot-options";
 
 // utils
-import { buildScriptOptionsForLocale } from "../utils/script";
+import { buildScriptOptionsForLocale } from "./script-helper";
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const { $i18n } = nuxtApp;
