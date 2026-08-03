@@ -2,10 +2,10 @@
 
 import { describe, expect, test, vi } from "vitest";
 
-import { cookieBot } from "../../src";
+import { cookieBot } from "../src";
 
 describe("cookieBot plugin", () => {
-  test("runs Cookiebot scripts after router navigation", () => {
+  test("runs Cookiebot scripts after router navigation", async () => {
     const runScripts = vi.fn();
     const afterEach = vi.fn();
     const provide = vi.fn();
@@ -18,7 +18,7 @@ describe("cookieBot plugin", () => {
 
     window.Cookiebot = {
       runScripts,
-    } as typeof window.Cookiebot;
+    } as unknown as typeof window.Cookiebot;
 
     const app = {
       provide,
@@ -40,9 +40,9 @@ describe("cookieBot plugin", () => {
 
     const navigationHook = afterEach.mock.calls[0]?.[0];
     expect(typeof navigationHook).toBe("function");
-    +navigationHook();
-    +expect(runScripts).toHaveBeenCalledTimes(1);
-    +requestAnimationFrameSpy.mockRestore();
+    await navigationHook();
+    expect(runScripts).toHaveBeenCalledTimes(1);
+    requestAnimationFrameSpy.mockRestore();
   });
 
   test("does nothing when Cookiebot runScripts is unavailable", () => {

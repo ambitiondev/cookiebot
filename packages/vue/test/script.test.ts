@@ -4,7 +4,7 @@
 import { describe, test, expect } from "vitest";
 
 // Utils
-import { createScriptWithOptions, removeScript } from "../../src/script";
+import { createScriptWithOptions, removeScript } from "../src/script";
 
 describe("createScriptWithOptions", () => {
   test("should create a script tag with the correct attributes and content", async () => {

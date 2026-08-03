@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import { defineComponent, ref } from "vue";
 
 // Local
-import { cookieBot, useCookiebot } from "../../src";
+import { cookieBot, useCookiebot } from "../src";
 
 const CookiebotComponent = defineComponent({
   template: '<div ref="cdElement"></div>',
@@ -255,7 +255,7 @@ describe("Cookiebot - composable", () => {
   });
 
   test("Warns when cookiedeclaration is called without a cookiebot id", async () => {
-    const spy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
 
     const wrapper = await mount(CookiebotComponent, {
       global: {
@@ -271,7 +271,7 @@ describe("Cookiebot - composable", () => {
   });
 
   test("Warns when cookiedeclaration is already present", async () => {
-    const spy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
     const wrapper = await mount(CookiebotComponent, {
       attachTo: document.body,
       global: {
@@ -326,7 +326,7 @@ describe("Cookiebot - composable", () => {
   });
 
   test("Warns when destroy cookiedeclaration is called without an element", async () => {
-    const spy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
     const wrapper = await mount(CookiebotComponent, {
       global: {
         plugins: [[cookieBot]],
@@ -370,7 +370,7 @@ describe("Cookiebot - composable", () => {
   });
 
   test("Triggers an error when no cookiebot id is given", async () => {
-    const spy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
 
     await mount(CookiebotComponent, {
       global: {
@@ -382,7 +382,7 @@ describe("Cookiebot - composable", () => {
   });
 
   test("Triggers a notice when consent banner is already present", async () => {
-    const spy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
 
     const wrapper = await mount(CookiebotComponent, {
       global: {
@@ -410,7 +410,7 @@ describe("Cookiebot - composable", () => {
   });
 
   test("Triggers an error when Cookiebot cannot renew", async () => {
-    const spy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
 
     const wrapper = await mount(CookiebotComponent, {
       global: {
@@ -427,7 +427,7 @@ describe("Cookiebot - composable", () => {
   });
 
   test("Does not execute scripts double when processing", async () => {
-    const spy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
 
     const wrapper = await mount(CookiebotComponent, {
       global: {

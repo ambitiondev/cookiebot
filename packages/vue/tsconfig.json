@@ -13,5 +13,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "dist", "sandbox/test", "coverage", "sandbox"]
+  "exclude": ["node_modules", "dist", "test", "coverage", "sandbox"]
 }
