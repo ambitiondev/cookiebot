@@ -4,16 +4,16 @@ import { defineVitestProject } from "@nuxt/test-utils/config";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      "@ambitiondev/cookiebot-common": fileURLToPath(
-        new URL("../common/src/index.ts", import.meta.url),
-      ),
-    },
-  },
   test: {
     projects: [
       {
+        resolve: {
+          alias: {
+            "@ambitiondev/cookiebot-common": fileURLToPath(
+              new URL("../common/src/index.ts", import.meta.url),
+            ),
+          },
+        },
         test: {
           name: "unit",
           include: ["test/unit/*.{test,spec}.ts"],
@@ -21,6 +21,13 @@ export default defineConfig({
         },
       },
       {
+        resolve: {
+          alias: {
+            "@ambitiondev/cookiebot-common": fileURLToPath(
+              new URL("../common/src/index.ts", import.meta.url),
+            ),
+          },
+        },
         test: {
           name: "e2e",
           include: ["test/e2e/*.{test,spec}.ts"],
@@ -28,6 +35,13 @@ export default defineConfig({
         },
       },
       await defineVitestProject({
+        resolve: {
+          alias: {
+            "@ambitiondev/cookiebot-common": fileURLToPath(
+              new URL("../common/src/index.ts", import.meta.url),
+            ),
+          },
+        },
         test: {
           name: "nuxt",
           include: ["test/nuxt/*.{test,spec}.ts"],
