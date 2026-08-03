@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0-1
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-0...v4.0.0-1)
+
+### 🤖 CI
+
+- **release:** Use changelog for release ([182b126](https://github.com/ambitiondev/cookiebot/commit/182b126))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh <info@ambitiondev.io>
+
 ## v4.0.0-0
 
 [compare changes](https://github.com/ambitiondev/cookiebot/compare/v3.2.4...v4.0.0-0)
