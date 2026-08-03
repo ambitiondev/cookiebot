@@ -29,6 +29,7 @@ runs:
             VITE_COOKIEBOT_ID="${{ inputs.cookiebot-id }}" pnpm run ${{ inputs.script }}
             ;;
           packages/nuxt* )
+            pnpm exec playwright install chromium
             NUXT_PUBLIC_COOKIEBOT_ID="${{ inputs.cookiebot-id }}" COOKIEBOT_ID="${{ inputs.cookiebot-id }}" pnpm run ${{ inputs.script }}
             ;;
           * )
