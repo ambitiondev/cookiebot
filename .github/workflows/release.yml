@@ -75,7 +75,7 @@ jobs:
           git push --tags
 
       - name: Build
-        run: pnpm run build
+        run: pnpm -r --filter "./packages/*" run build
 
       - name: Create GitHub Release
         env:
@@ -84,7 +84,25 @@ jobs:
           VERSION="$(node -p "require('./package.json').version")"
           RELEASE_FLAG=""
           if [[ "${{ github.event.inputs.version }}" == pre* ]]; then RELEASE_FLAG="--prerelease"; fi
-          gh release create "v$VERSION" --generate-notes $RELEASE_FLAG
+
+          # Extract the newest changelog section and prepend it to generated GitHub notes.
+          awk '
+          BEGIN { capture = 0 }
+          /^## / {
+            if (capture == 0) {
+              capture = 1
+            } else {
+              exit
+            }
+          }
+          capture == 1 { print }
+          ' CHANGELOG.md > /tmp/release-notes.md
+
+          if [[ ! -s /tmp/release-notes.md ]]; then
+            cp CHANGELOG.md /tmp/release-notes.md
+          fi
+
+          gh release create "v$VERSION" --generate-notes --notes-file /tmp/release-notes.md $RELEASE_FLAG
 
       - name: Publish to NPM
         env:
