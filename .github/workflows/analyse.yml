@@ -25,32 +25,81 @@ jobs:
       - name: Lint
         uses: ./.github/actions/lint
 
-  # test:
-  #   permissions:
-  #     contents: read
-  #     id-token: write
-  #   name: Test
-  #   runs-on: ubuntu-latest
+  discover-test-packages:
+    name: Discover test packages
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.discover.outputs.matrix }}
+      has-packages: ${{ steps.discover.outputs.has-packages }}
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Test
-  #       uses: ./.github/actions/test
+      - name: Discover package test scripts
+        id: discover
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
 
-  #     - name: Upload coverage to Codecov
-  #       uses: codecov/codecov-action@v5
-  #       if: github.ref == 'refs/heads/main'
-  #       with:
-  #         use_oidc: true
-  #         files: ./coverage/coverage-final.json
+          const packagesDir = path.join(process.cwd(), 'packages');
+          const matrix = [];
+
+          for (const entry of fs.readdirSync(packagesDir, { withFileTypes: true })) {
+            if (!entry.isDirectory()) continue;
+
+            const packagePath = path.join(packagesDir, entry.name);
+            const packageJsonPath = path.join(packagePath, 'package.json');
+            if (!fs.existsSync(packageJsonPath)) continue;
+
+            const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+            const scripts = packageJson.scripts || {};
+            const script = scripts['test:coverage'] ? 'test:coverage' : (scripts.test ? 'test' : null);
+            if (!script) continue;
+
+            matrix.push({
+              name: packageJson.name || entry.name,
+              path: `packages/${entry.name}`,
+              script,
+            });
+          }
+
+          const outputPath = process.env.GITHUB_OUTPUT;
+          fs.appendFileSync(outputPath, `matrix=${JSON.stringify(matrix)}\n`);
+          fs.appendFileSync(outputPath, `has-packages=${matrix.length > 0 ? 'true' : 'false'}\n`);
+          NODE
+
+  test:
+    permissions:
+      contents: read
+    name: Test (${{ matrix.package.name }})
+    runs-on: ubuntu-latest
+    needs: [discover-test-packages]
+    if: needs.discover-test-packages.outputs.has-packages == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.discover-test-packages.outputs.matrix) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test package
+        uses: ./.github/actions/test
+        with:
+          package-path: ${{ matrix.package.path }}
+          script: ${{ matrix.package.script }}
+          cookiebot-id: ${{ secrets.COOKIEBOT_ID }}
 
   # STAGE 2: Build
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [lint, test]
+    if: always() && needs.lint.result == 'success' && (needs.test.result == 'success' || needs.test.result == 'skipped')
 
     steps:
       - name: Checkout code

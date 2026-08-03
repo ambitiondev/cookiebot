@@ -1,12 +1,37 @@
 name: Test
 description: Run tests for the package
 
+inputs:
+  package-path:
+    description: Package directory to run tests in
+    required: true
+  script:
+    description: npm script name to run
+    required: false
+    default: test:coverage
+  cookiebot-id:
+    description: Cookiebot ID for test environments
+    required: false
+    default: ""
+
 runs:
   using: composite
   steps:
     - name: Setup
       uses: ./.github/actions/setup
 
-    - name: Run tests
+    - name: Run tests in ${{ inputs.package-path }}
       shell: bash
-      run: pnpm test:coverage
+      working-directory: ${{ inputs.package-path }}
+      run: |
+        case "${{ inputs.package-path }}" in
+          packages/vue* )
+            VITE_COOKIEBOT_ID="${{ inputs.cookiebot-id }}" pnpm run ${{ inputs.script }}
+            ;;
+          packages/nuxt* )
+            NUXT_PUBLIC_COOKIEBOT_ID="${{ inputs.cookiebot-id }}" COOKIEBOT_ID="${{ inputs.cookiebot-id }}" pnpm run ${{ inputs.script }}
+            ;;
+          * )
+            pnpm run ${{ inputs.script }}
+            ;;
+        esac
