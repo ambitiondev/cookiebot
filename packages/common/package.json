@@ -1,6 +1,6 @@
 {
   "name": "@ambitiondev/cookiebot-common",
-  "version": "3.2.4",
+  "version": "4.0.0-0",
   "description": "Common types and utilities for Cookiebot in Vue applications",
   "keywords": [
     "web",

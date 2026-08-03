@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0-0
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v3.2.4...v4.0.0-0)
+
+### 🚀 Enhancements
+
+- **many:** Start migration to pnpm monorepo ([eb1197a](https://github.com/ambitiondev/cookiebot/commit/eb1197a))
+- **many:** Init test suite ([39e13ac](https://github.com/ambitiondev/cookiebot/commit/39e13ac))
+- **nuxt:** Add runtime config support ([ee96c0a](https://github.com/ambitiondev/cookiebot/commit/ee96c0a))
+- **vue:** Init composable and plugin ([bd44a20](https://github.com/ambitiondev/cookiebot/commit/bd44a20))
+
+### 🩹 Fixes
+
+- **many:** Update parser options for eslint ([183959b](https://github.com/ambitiondev/cookiebot/commit/183959b))
+- **nuxt:** Do not include cookiebot id in config on runtime true ([ab46327](https://github.com/ambitiondev/cookiebot/commit/ab46327))
+
+### 📦 Build
+
+- **many:** Update root scripts ([1d24e7e](https://github.com/ambitiondev/cookiebot/commit/1d24e7e))
+- **doc:** Generate command ([336cbc0](https://github.com/ambitiondev/cookiebot/commit/336cbc0))
+- **many:** Catalog nuxt version ([b350e87](https://github.com/ambitiondev/cookiebot/commit/b350e87))
+- **docs:** Fix vue icon version ([ac16f37](https://github.com/ambitiondev/cookiebot/commit/ac16f37))
+- **docs:** Explicitly add content module ([ab31943](https://github.com/ambitiondev/cookiebot/commit/ab31943))
+- **vue:** Clean up compiled files ([39e3f4d](https://github.com/ambitiondev/cookiebot/commit/39e3f4d))
+
+### ✅ Tests
+
+- **nuxt:** No auto banner ([51d3b1e](https://github.com/ambitiondev/cookiebot/commit/51d3b1e))
+- **vue:** Init suite ([64d5fb2](https://github.com/ambitiondev/cookiebot/commit/64d5fb2))
+- **vue:** Remove suite from sandbox ([8814035](https://github.com/ambitiondev/cookiebot/commit/8814035))
+- **nuxt:** Add tsconfig ([8c30365](https://github.com/ambitiondev/cookiebot/commit/8c30365))
+- **nuxt:** Resolve alias per test project ([fed0368](https://github.com/ambitiondev/cookiebot/commit/fed0368))
+- **nuxt:** Resolve alias in fixture apps ([f331157](https://github.com/ambitiondev/cookiebot/commit/f331157))
+
+### 🤖 CI
+
+- **many:** Update commands ([4cff8c8](https://github.com/ambitiondev/cookiebot/commit/4cff8c8))
+- **docs:** Generate command ([6dddf03](https://github.com/ambitiondev/cookiebot/commit/6dddf03))
+- **many:** Test script ([b98b336](https://github.com/ambitiondev/cookiebot/commit/b98b336))
+- **many:** Resolve common module in test suite ([7b88b8a](https://github.com/ambitiondev/cookiebot/commit/7b88b8a))
+- **nuxt:** Prepare env after install ([9dcfaff](https://github.com/ambitiondev/cookiebot/commit/9dcfaff))
+- **nuxt:** Install playwright chromium ([f5fd34e](https://github.com/ambitiondev/cookiebot/commit/f5fd34e))
+- **many:** Initial release workflow ([666a384](https://github.com/ambitiondev/cookiebot/commit/666a384))
+- **many:** Correct environment ([de583ef](https://github.com/ambitiondev/cookiebot/commit/de583ef))
+- **many:** Only bump release from root ([bc59461](https://github.com/ambitiondev/cookiebot/commit/bc59461))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh <info@ambitiondev.io>
+
 ## [3.2.4](https://github.com/ambitiondev/cookiebot/compare/v3.2.4-alpha.0...v3.2.4) (2025-10-16)
 
 **Note:** Version bump only for package cookiebot
