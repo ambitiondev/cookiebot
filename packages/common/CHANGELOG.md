@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0-4
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-3...v4.0.0-4)
+
+### 🚀 Enhancements
+
+- **nuxt:** Add and destroy cookie declaration ([abe2bbf](https://github.com/ambitiondev/cookiebot/commit/abe2bbf))
+
+### 💅 Refactors
+
+- **common:** Use index files in stead of folder ([10d2e41](https://github.com/ambitiondev/cookiebot/commit/10d2e41))
+
+### 📦 Build
+
+- **common:** Bundle esm version ([43dc68f](https://github.com/ambitiondev/cookiebot/commit/43dc68f))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh <info@ambitiondev.io>
+
 ## v4.0.0-3
 
 [compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-2...v4.0.0-3)
