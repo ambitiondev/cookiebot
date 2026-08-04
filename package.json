@@ -23,6 +23,7 @@
     "eslint": "^10.7.0",
     "happy-dom": "^20.11.0",
     "jsdom": "^30.0.1",
+    "rollup": "^4.62.4",
     "typescript": "5.9.3",
     "typescript-eslint": "^8.65.0",
     "vitest": "^4.1.10"

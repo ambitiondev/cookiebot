@@ -4,7 +4,7 @@
     "module": "esnext",
     "lib": ["ES2020", "DOM"],
     "moduleResolution": "bundler",
-    "outDir": "./dist",
+    "outDir": "./dist-transpiled",
     "rootDir": ".",
     "declaration": true,
     "declarationMap": true,
