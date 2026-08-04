@@ -55,6 +55,8 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
     isCookieDeclarationProcessing.value = true;
 
     if (!_element || !cookiebotId) {
+      isCookieDeclarationProcessing.value = false;
+
       throw createError({
         statusCode: 400,
         message: `Cookie declaration requires the following missing properties: ${!_element ? "wrapper element" : ""}${!_element && !cookiebotId ? ", " : ""}${!cookiebotId ? "cookiebotId" : ""}`,
