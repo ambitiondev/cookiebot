@@ -74,4 +74,35 @@ describe("cookieBot plugin", () => {
 
     requestAnimationFrameSpy.mockRestore();
   });
+
+  test("does nothing when Cookiebot is missing on window", () => {
+    const afterEach = vi.fn();
+    const requestAnimationFrameSpy = vi
+      .spyOn(window, "requestAnimationFrame")
+      .mockImplementation((callback: FrameRequestCallback) => {
+        callback(0);
+        return 1;
+      });
+
+    // Ensure the "Cookiebot" property is not present at all.
+    delete (window as Partial<Window>).Cookiebot;
+
+    const app = {
+      provide: vi.fn(),
+      config: {
+        globalProperties: {
+          $router: {
+            afterEach,
+          },
+        },
+      },
+    };
+
+    cookieBot.install(app as never, { cookiebotId: "test-id" } as never);
+
+    const navigationHook = afterEach.mock.calls[0]?.[0];
+    expect(() => navigationHook()).not.toThrow();
+
+    requestAnimationFrameSpy.mockRestore();
+  });
 });

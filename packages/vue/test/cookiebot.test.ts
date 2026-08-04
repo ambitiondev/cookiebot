@@ -59,6 +59,20 @@ const CookiebotComponent = defineComponent({
   },
 });
 
+const CookiebotRawDeclarationComponent = defineComponent({
+  name: "CookiebotRawDeclarationComponent",
+  setup() {
+    const { cookieDeclaration } = useCookiebot({
+      cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
+    });
+
+    return {
+      cookieDeclarationRaw: cookieDeclaration,
+    };
+  },
+  template: "<div />",
+});
+
 describe("Cookiebot - composable", () => {
   beforeEach(() => {
     const cbEl = document.getElementById("AppCookiebotConsentBanner");
@@ -270,6 +284,20 @@ describe("Cookiebot - composable", () => {
     );
   });
 
+  test("Warns when cookiedeclaration receives no element", async () => {
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
+
+    const wrapper = await mount(CookiebotRawDeclarationComponent);
+
+    await wrapper.vm.cookieDeclarationRaw(null);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining(
+        "No HTML element or element ref is given to inject cookie declaration script",
+      ),
+    );
+  });
+
   test("Warns when cookiedeclaration is already present", async () => {
     const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
     const wrapper = await mount(CookiebotComponent, {
@@ -409,6 +437,46 @@ describe("Cookiebot - composable", () => {
     );
   });
 
+  test("Resets consent banner processing state after early return", async () => {
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
+
+    const wrapper = await mount(CookiebotComponent, {
+      global: {
+        plugins: [
+          [
+            cookieBot,
+            {
+              cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
+            },
+          ],
+        ],
+      },
+    });
+
+    const existingScript = document.createElement("script");
+    existingScript.id = "AppCookiebotConsentBanner";
+    document.body.appendChild(existingScript);
+
+    await wrapper.vm.consentBanner();
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining("Consent banner already initialized"),
+    );
+
+    existingScript.remove();
+
+    await wrapper.vm.consentBanner();
+
+    const cbScriptTag = document.getElementById(
+      "AppCookiebotConsentBanner",
+    ) as HTMLScriptElement | null;
+
+    expect(cbScriptTag).not.toBeNull();
+    expect(spy).not.toHaveBeenCalledWith(
+      expect.stringContaining("Processing request. Aborting"),
+    );
+  });
+
   test("Triggers an error when Cookiebot cannot renew", async () => {
     const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
 
@@ -454,5 +522,112 @@ describe("Cookiebot - composable", () => {
     await wrapper.vm.cookieDeclaration();
 
     expect(spy.mock.calls.length).toBeGreaterThanOrEqual(2);
+  });
+
+  test("Warns when consent banner is called while processing", async () => {
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
+
+    const wrapper = await mount(CookiebotComponent, {
+      global: {
+        plugins: [
+          [
+            cookieBot,
+            {
+              cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
+            },
+          ],
+        ],
+      },
+    });
+
+    const firstCall = wrapper.vm.consentBanner();
+    const secondCall = wrapper.vm.consentBanner();
+
+    await Promise.all([firstCall, secondCall]);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining("Processing request. Aborting"),
+    );
+  });
+
+  test("Warns when cookie declaration is called while processing", async () => {
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
+
+    const wrapper = await mount(CookiebotComponent, {
+      global: {
+        plugins: [
+          [
+            cookieBot,
+            {
+              cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
+            },
+          ],
+        ],
+      },
+    });
+
+    const firstCall = wrapper.vm.cookieDeclaration();
+    const secondCall = wrapper.vm.cookieDeclaration();
+
+    await Promise.all([firstCall, secondCall]);
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining("Processing request. Aborting"),
+    );
+  });
+
+  test("Renews when Cookiebot renew is available", async () => {
+    const renew = vi.fn();
+    window.Cookiebot = {
+      renew,
+    } as unknown as typeof window.Cookiebot;
+
+    const wrapper = await mount(CookiebotComponent, {
+      global: {
+        plugins: [[cookieBot]],
+      },
+    });
+
+    await wrapper.vm.renew();
+
+    expect(renew).toHaveBeenCalledTimes(1);
+  });
+
+  test("Resets cookie declaration processing state after early return", async () => {
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => false);
+
+    const wrapper = await mount(CookiebotComponent, {
+      attachTo: document.body,
+      global: {
+        plugins: [
+          [
+            cookieBot,
+            {
+              cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
+            },
+          ],
+        ],
+      },
+    });
+
+    const existingScript = document.createElement("script");
+    existingScript.setAttribute("data-cp-id", "AppCookiebotCookieDeclaration");
+    wrapper.element.appendChild(existingScript);
+
+    await wrapper.vm.cookieDeclaration();
+
+    expect(spy).toHaveBeenCalledWith(
+      expect.stringContaining("Consent page already initialized"),
+    );
+
+    existingScript.remove();
+
+    await wrapper.vm.cookieDeclaration();
+
+    const cdScriptTag = wrapper.find(
+      "[data-cp-id='AppCookiebotCookieDeclaration']",
+    );
+
+    expect(cdScriptTag.exists()).toBeTruthy();
   });
 });
