@@ -49,7 +49,7 @@ function normalizeConsentModeAttribute(
   return undefined;
 }
 
-export function useCookiebot(settings?: ICookiebotOptions) {
+export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
   const { $i18n } = useNuxtApp();
   const {
     blockingMode: blockingModeOverride,
