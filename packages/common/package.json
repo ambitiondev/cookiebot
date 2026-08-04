@@ -34,8 +34,10 @@
     "--- 🎗️ Lint ---": "",
     "lint": "eslint src/*.ts",
     "--- 🤓 Developer Tools ---": "",
-    "build": "npm run compile && npm run bundle",
+    "build": "npm run clean && npm run compile && npm run copy:types && npm run bundle",
     "bundle": "rollup --config rollup.config.mjs",
-    "compile": "tsc -p tsconfig.build.json"
+    "compile": "tsc -p tsconfig.build.json",
+    "copy:types": "mkdir -p dist && cp dist-transpiled/*.d.ts dist-transpiled/*.d.ts.map dist/",
+    "clean": "rm -rf dist dist-transpiled"
   }
 }
