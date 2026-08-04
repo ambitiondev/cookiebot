@@ -49,7 +49,8 @@
     "build": "nuxi generate && nuxt-module-build build",
     "dev": "npm run dev:prepare && nuxi dev .playground",
     "dev:build": "nuxi build .playground",
-    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare .playground"
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare .playground",
+    "test:prepare": "for dir in test/e2e/fixtures/*; do if [ -d \"$dir\" ]; then echo \"Preparing $dir\"; nuxi prepare \"$dir\"; fi; done"
   },
   "dependencies": {
     "@ambitiondev/cookiebot-common": "workspace:*",
