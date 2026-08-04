@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0-7
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-6...v4.0.0-7)
+
+### 🚀 Enhancements
+
+- **nuxt:** Add cookiebot api options ([fa4db0d](https://github.com/ambitiondev/cookiebot/commit/fa4db0d))
+- **nuxt:** Add data attributes for cookie declaration ([7ba1cba](https://github.com/ambitiondev/cookiebot/commit/7ba1cba))
+- **vue:** Add cookiebot data attributes ([6697ece](https://github.com/ambitiondev/cookiebot/commit/6697ece))
+
+### ✅ Tests
+
+- **vue:** Mount with global settings ([912b754](https://github.com/ambitiondev/cookiebot/commit/912b754))
+
+### 🤖 CI
+
+- **nuxt:** Prepare test envs ([6d8a1fc](https://github.com/ambitiondev/cookiebot/commit/6d8a1fc))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh <info@ambitiondev.io>
+
 ## v4.0.0-6
 
 [compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-5...v4.0.0-6)
