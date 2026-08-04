@@ -1,4 +1,4 @@
-name: Release
+name: Create release
 
 on:
   workflow_dispatch:
@@ -7,56 +7,105 @@ on:
         required: true
         type: choice
         description: Which version should be published?
-        options:
-          - patch
-          - minor
-          - major
-          - prepatch
-          - preminor
-          - premajor
-          - prerelease
+        options: [patch, minor, major, prepatch, preminor, premajor, prerelease]
       tag:
         required: true
         type: choice
         description: Which npm tag should this be published to?
-        options:
-          - latest
-          - next
-      preid:
-        type: choice
-        description: Which prerelease identifier should be used? This is only needed when version is "prepatch", "preminor", "premajor", or "prerelease".
-        options:
-          - ""
-          - alpha
-          - beta
-          - rc
-          - next
+        options: [latest, next]
 
 jobs:
-  release:
-    name: Release packages
+  create-release:
     runs-on: ubuntu-latest
+    environment: Publish package
     permissions:
       contents: write
       id-token: write
     steps:
-      - name: Check out repository
+      - name: Generate Token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Configure Identity
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Configure Git Identity
         run: |
-          git config user.name ambitiondevbot
-          git config user.email developer@ambitiondev.io
-      - name: Build all packages
-        uses: "./.github/actions/build-all"
-      - name: Prepare NPM Token
-        run: |
-          echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
-          echo provenance=true >> .npmrc
-        shell: bash
+          git config user.name "ambitiondev-release-bot[bot]"
+          git config user.email "ambitiondev-release-bot[bot]@users.noreply.github.com"
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Ensure Latest NPM
+        run: npm install -g npm@latest
+
+      - name: Bump Root Changelog and Sync Packages
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Release packages
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          npx lerna publish ${{ inputs.version }} --yes --conventional-commits --force-publish=* --create-release github --dist-tag=${{ inputs.tag }} --preid=${{ inputs.preid }}
+          PRERELEASE_FLAG=""
+          if [[ "${{ github.event.inputs.version }}" == pre* ]]; then PRERELEASE_FLAG="--prerelease"; fi
+
+          # Only run changelogen at root: this updates root version + root changelog.
+          pnpm dlx changelogen@latest --bump $PRERELEASE_FLAG --${{ github.event.inputs.version }}
+
+          VERSION="$(node -p "require('./package.json').version")"
+
+          # Sync the same version to all packages/* package.json files.
+          for file in packages/*/package.json; do
+            node -e "const fs=require('fs');const p=process.argv[1];const v=process.argv[2];const j=JSON.parse(fs.readFileSync(p,'utf8'));j.version=v;fs.writeFileSync(p,JSON.stringify(j,null,2)+'\\n');" "$file" "$VERSION"
+          done
+
+          # Mirror the root changelog into each package changelog to keep one unified release note.
+          for file in packages/*/CHANGELOG.md; do
+            cp CHANGELOG.md "$file"
+          done
+
+          git add package.json CHANGELOG.md packages/*/package.json packages/*/CHANGELOG.md
+          git commit -m "chore(release): v$VERSION"
+          git tag "v$VERSION"
+          git push
+          git push --tags
+
+      - name: Build
+        run: pnpm -r --filter "./packages/*" run build
+
+      - name: Create GitHub Release
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          RELEASE_FLAG=""
+          if [[ "${{ github.event.inputs.version }}" == pre* ]]; then RELEASE_FLAG="--prerelease"; fi
+
+          # Extract the newest changelog section and prepend it to generated GitHub notes.
+          awk '
+          BEGIN { capture = 0 }
+          /^## / {
+            if (capture == 0) {
+              capture = 1
+            } else {
+              exit
+            }
+          }
+          capture == 1 { print }
+          ' CHANGELOG.md > /tmp/release-notes.md
+
+          if [[ ! -s /tmp/release-notes.md ]]; then
+            cp CHANGELOG.md /tmp/release-notes.md
+          fi
+
+          gh release create "v$VERSION" --generate-notes --notes-file /tmp/release-notes.md $RELEASE_FLAG
+
+      - name: Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pnpm -r --filter "./packages/*" publish --provenance --access public --tag ${{ github.event.inputs.tag }} --no-git-checks

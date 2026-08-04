@@ -1,2 +1,2 @@
-export * from './cookiebot';
-export * from './plugin';
+export * from "./cookiebot";
+export * from "./plugin";

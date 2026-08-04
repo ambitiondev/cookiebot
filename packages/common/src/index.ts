@@ -1,10 +1,7 @@
-// Types
-export * from './types/cookiebot';
-export * from './types/script';
+export * from "./script";
+export * from "./types";
 
-// Constants
-export * from './constants';
+export const CONSENT_BANNER_URL = "https://consent.cookiebot.com/uc.js";
 
-// Utils
-export * from './utils/cookiebot';
-export * from './utils/logger';
+export const COOKIE_DECLARATION_URL = (cookiebotId: string) =>
+  `https://consent.cookiebot.com/${cookiebotId}/cd.js`;

@@ -30,3 +30,11 @@ Documentation on installation and usage is available [here][docs-href]
 [nuxt-npm-downloads-href]: https://npmjs.com/package/@ambitiondev/nuxt-cookiebot
 [nuxt-docs]: https://vue-nuxt-cookiebot.netlify.app/nuxt/installation
 [docs-href]: https://vue-nuxt-cookiebot.netlify.app
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

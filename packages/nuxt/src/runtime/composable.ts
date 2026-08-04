@@ -1,108 +1,210 @@
-// Vendor
-import { computed, useServerHead, useNuxtApp, type MaybeRef } from '#imports';
+// Nuxt imports
 import {
-    CB_NAME,
-    consentBannerURL,
-    useLogger,
-    type CookiebotComposable,
-    type CookiebotOptions,
-    type PluginOptions,
-} from '@ambitiondev/cookiebot-common';
-import { useCookiebot as useVueCookiebot } from '@ambitiondev/vue-cookiebot';
+  computed,
+  createError,
+  ref,
+  unref,
+  useNuxtApp,
+  useScript,
+  type MaybeRef,
+} from "#imports";
+import { warn } from "vue";
+
+// Cookiebot common imports
+import {
+  COOKIE_DECLARATION_URL,
+  createScriptWithOptions,
+  removeScript,
+  isScriptAttribute,
+  type ICookiebotOptions,
+} from "@ambitiondev/cookiebot-common";
 
 // Module imports
-import * as pluginOptions from '#cookiebot-options';
+import {
+  blockingMode as blockingModeFromOptions,
+  consentmode as consentmodeFromOptions,
+  cookiebotId,
+  culture as cultureFromOptions,
+  level as levelFromOptions,
+  type as typeFromOptions,
+} from "#cookiebot-options";
 
-export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotComposable {
-    const nuxt = useNuxtApp();
-    const { deprecationNotice, error } = useLogger();
-    const _options = {
-        ...pluginOptions,
-        ...settings,
-    } as PluginOptions;
+// utils
+import { buildConsentBannerScriptOptions } from "./script-helper";
 
-    const culture = computed(() =>
-        // @ts-expect-error - i18n is not typed in this context
-        '$i18n' in nuxt && 'locale' in nuxt.$i18n ? (nuxt.$i18n.locale.value as string) : undefined
+function normalizeConsentModeAttribute(
+  consentmode:
+    | Partial<ICookiebotOptions>["consentmode"]
+    | "disabled"
+    | undefined,
+) {
+  if (consentmode === false || consentmode === "disabled") {
+    return "disabled";
+  }
+
+  if (consentmode === true) {
+    return "true";
+  }
+
+  return undefined;
+}
+
+export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
+  const { $i18n } = useNuxtApp();
+  const {
+    blockingMode: blockingModeOverride,
+    consentmode: consentmodeOverride,
+    culture: cultureOverride,
+    level: levelOverride,
+    type: typeOverride,
+  } = settings || {};
+
+  const isCookieDeclarationProcessing = ref<boolean>(false);
+
+  const culture = computed<string | undefined>(
+    () =>
+      cultureOverride ||
+      cultureFromOptions ||
+      // @ts-expect-error - cannot determine if i18n is installed
+      ($i18n?.locale?.value as string | undefined) ||
+      undefined,
+  );
+
+  const { load: loadConsentBannerScript, remove: removeConsentBannerScript } =
+    useScript(
+      buildConsentBannerScriptOptions({
+        type: typeOverride || typeFromOptions,
+        level: levelOverride || levelFromOptions,
+        culture: culture.value,
+        blockingMode: blockingModeOverride || blockingModeFromOptions,
+        consentmode: consentmodeOverride ?? consentmodeFromOptions,
+      }),
+      {
+        trigger: "manual",
+      },
     );
 
-    const vueCookiebot = useVueCookiebot({
-        ..._options,
-        culture: culture.value || _options.culture,
-    });
+  async function cookieDeclaration(wrapper: MaybeRef<HTMLElement | null>) {
+    const _element = unref(wrapper);
 
-    async function consentBanner() {
-        useServerHead(
-            {
-                script: [
-                    {
-                        id: CB_NAME,
-                        src: consentBannerURL({
-                            culture: culture.value,
-                            ..._options,
-                        }),
-                    },
-                ],
-            },
-            {
-                tagPosition: 'head',
-                tagPriority: 'critical',
-            }
-        );
+    if (isCookieDeclarationProcessing.value) {
+      return warn("Cookie declaration is already in progress.");
     }
 
-    /** @deprecated */
-    async function consentPage(ref: MaybeRef<HTMLElement | null>) {
-        deprecationNotice('consentPage', 'cookieDeclaration');
+    isCookieDeclarationProcessing.value = true;
 
-        vueCookiebot.cookieDeclaration(ref);
+    if (!_element || !cookiebotId) {
+      isCookieDeclarationProcessing.value = false;
+
+      throw createError({
+        statusCode: 400,
+        message: `Cookie declaration requires the following missing properties: ${!_element ? "wrapper element" : ""}${!_element && !cookiebotId ? ", " : ""}${!cookiebotId ? "cookiebotId" : ""}`,
+      });
     }
 
-    async function cookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
-        if (document instanceof Document) {
-            vueCookiebot.cookieDeclaration(ref);
-        }
+    const _settings = [
+      {
+        name: "data-type",
+        value: typeOverride || typeFromOptions,
+      },
+      {
+        name: "data-level",
+        value: levelOverride || levelFromOptions,
+      },
+      {
+        name: "data-culture",
+        value: culture.value,
+      },
+      {
+        name: "data-blockingmode",
+        value: blockingModeOverride || blockingModeFromOptions,
+      },
+      {
+        name: "data-consentmode",
+        value: normalizeConsentModeAttribute(
+          consentmodeOverride ?? consentmodeFromOptions,
+        ),
+      },
+    ].filter((value) => value && isScriptAttribute(value));
+
+    console.log(
+      _settings,
+      typeOverride,
+      typeFromOptions,
+      levelOverride,
+      levelFromOptions,
+      culture.value,
+      blockingModeOverride,
+      blockingModeFromOptions,
+      consentmodeOverride,
+      consentmodeFromOptions,
+    );
+
+    const script = await createScriptWithOptions(
+      _settings,
+      COOKIE_DECLARATION_URL(cookiebotId),
+      true,
+    );
+
+    await _element.appendChild(script);
+
+    isCookieDeclarationProcessing.value = false;
+  }
+
+  async function destroyCookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
+    const _element = unref(ref);
+
+    if (!_element) {
+      return warn("No HTML element or element ref is given. Aborting...");
     }
 
-    async function destroyConsentBanner() {
-        if (document instanceof Document) {
-            vueCookiebot.destroyConsentBanner();
-        }
+    const scriptEl = document.getElementById("CookieDeclaration");
+
+    if (scriptEl) {
+      await removeScript(_element, "CookieDeclaration");
     }
 
-    /** @deprecated */
-    async function destroyConsentPage(ref: MaybeRef<HTMLElement | null>) {
-        deprecationNotice('destroyConsentPage', 'destroyCookieDeclaration');
+    _element.innerHTML = "";
+  }
 
-        destroyCookieDeclaration(ref);
+  async function consentBanner() {
+    await loadConsentBannerScript();
+
+    if (
+      typeof window?.Cookiebot?.runScripts === "function" &&
+      window?.Cookiebot?.consented === true
+    ) {
+      window?.Cookiebot?.runScripts();
+    }
+  }
+
+  async function destroyConsentBanner() {
+    window.Cookiebot = undefined;
+    window.CookieConsent = undefined;
+    window.CookieConsentDialog = undefined;
+    removeConsentBannerScript();
+  }
+
+  async function resetConsentBanner() {
+    await destroyConsentBanner();
+    await consentBanner();
+  }
+
+  function renew() {
+    if (typeof window.Cookiebot?.renew === "function") {
+      return window.Cookiebot.renew();
     }
 
-    async function destroyCookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
-        if (document instanceof Document) {
-            vueCookiebot.destroyCookieDeclaration(ref);
-        }
-    }
+    warn("Not able to renew consent. Cookiebot instance is not defined.");
+  }
 
-    async function resetConsentBanner() {
-        await destroyConsentBanner();
-
-        consentBanner();
-    }
-
-    function renew() {
-        return import.meta.client && window instanceof Window && 'Cookiebot' in window
-            ? window.Cookiebot.renew()
-            : error('Not able to renew consent. Cookiebot instance is not defined.');
-    }
-
-    return {
-        consentBanner,
-        consentPage,
-        cookieDeclaration,
-        destroyConsentBanner,
-        destroyConsentPage,
-        destroyCookieDeclaration,
-        renew,
-        resetConsentBanner,
-    };
+  return {
+    culture,
+    consentBanner,
+    destroyConsentBanner,
+    resetConsentBanner,
+    cookieDeclaration,
+    destroyCookieDeclaration,
+    renew,
+  };
 }

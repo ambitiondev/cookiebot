@@ -1,30 +1,40 @@
 name: Test
+description: Run tests for the package
+
+inputs:
+  package-path:
+    description: Package directory to run tests in
+    required: true
+  script:
+    description: npm script name to run
+    required: false
+    default: test:coverage
+  cookiebot-id:
+    description: Cookiebot ID for test environments
+    required: false
+    default: ""
 
 runs:
   using: composite
   steps:
-    - name: Install Playwright
-      run: npx playwright@1.48.0 install
-      working-directory: packages/nuxt
+    - name: Setup
+      uses: ./.github/actions/setup
+
+    - name: Run tests in ${{ inputs.package-path }}
       shell: bash
-    - name: Run test suite
-      run: npx lerna run test:coverage
-      shell: bash
-    - name: Common Package Report Coverage
-      uses: davelosert/vitest-coverage-report-action@v2
-      with:
-        name: Common Package
-        json-summary-path: ./packages/common/coverage/coverage-summary.json
-        json-final-path: ./packages/common/coverage/coverage-final.json
-    - name: Vue Package Report Coverage
-      uses: davelosert/vitest-coverage-report-action@v2
-      with:
-        name: Vue Package
-        json-summary-path: ./packages/vue/coverage/coverage-summary.json
-        json-final-path: ./packages/vue/coverage/coverage-final.json
-    - name: Nuxt Package Report Coverage
-      uses: davelosert/vitest-coverage-report-action@v2
-      with:
-        name: Nuxt Package
-        json-summary-path: ./packages/nuxt/coverage/coverage-summary.json
-        json-final-path: ./packages/nuxt/coverage/coverage-final.json
+      working-directory: ${{ inputs.package-path }}
+      run: |
+        case "${{ inputs.package-path }}" in
+          packages/vue* )
+            VITE_COOKIEBOT_ID="${{ inputs.cookiebot-id }}" pnpm run ${{ inputs.script }}
+            ;;
+          packages/nuxt* )
+            pnpm run dev:prepare
+            pnpm run test:prepare
+            pnpm exec playwright install chromium
+            NUXT_PUBLIC_COOKIEBOT_ID="${{ inputs.cookiebot-id }}" COOKIEBOT_ID="${{ inputs.cookiebot-id }}" pnpm run ${{ inputs.script }}
+            ;;
+          * )
+            pnpm run ${{ inputs.script }}
+            ;;
+        esac

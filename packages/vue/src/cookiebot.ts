@@ -1,188 +1,220 @@
 // Vendor
 import {
-    CB_NAME,
-    CD_NAME,
-    consentBannerURL,
-    cookieDeclarationURL,
-    useLogger,
-    type CookiebotComposable,
-    type CookiebotOptions,
-    type PluginOptions,
-} from '@ambitiondev/cookiebot-common';
-import { computed, inject, ref, unref, type MaybeRef } from 'vue';
+  CONSENT_BANNER_URL,
+  COOKIE_DECLARATION_URL,
+  createScriptWithOptions,
+  removeScript,
+  isScriptAttribute,
+  type ICookiebotPluginOptions,
+  type ICookiebotOptions,
+} from "@ambitiondev/cookiebot-common";
+import { inject, ref, unref, warn, type MaybeRef } from "vue";
 
-// Composable
-import { useScriptHelper } from './script';
+const CB_NAME = "AppCookiebotConsentBanner";
+const CD_NAME = "AppCookiebotCookieDeclaration";
 
-export function useCookiebot(settings?: Partial<CookiebotOptions>): CookiebotComposable {
-    // Composable
-    const { createScriptWithOptions, removeScript } = useScriptHelper();
-    const { deprecationNotice, info, error, warn } = useLogger();
+function normalizeConsentModeAttribute(
+  consentmode: ICookiebotPluginOptions["consentmode"] | undefined,
+) {
+  if (consentmode === false || consentmode === "disabled") {
+    return "disabled";
+  }
 
-    const pluginOptions = inject<Partial<PluginOptions>>('cookieBotOptions', {});
-    const _options = {
-        ...pluginOptions,
-        ...settings,
-    };
+  if (consentmode === true) {
+    return "true";
+  }
 
-    if (typeof _options.cookieBotId === 'undefined') {
-        error(
-            'No settings have been found. Did you forget to instantiate the plugin in your app definition (app.use(...))?'
-        );
+  return undefined;
+}
+
+export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
+  const pluginOptions = inject<Partial<ICookiebotPluginOptions>>(
+    "cookieBotOptions",
+    {},
+  );
+  const _options = {
+    ...pluginOptions,
+    ...settings,
+  };
+
+  if (typeof _options.cookiebotId === "undefined") {
+    warn(
+      "No settings have been found. Did you forget to instantiate the plugin in your app definition (app.use(...))?",
+    );
+  }
+
+  // Refs
+  const processingCB = ref<boolean>(false);
+  const processingCD = ref<boolean>(false);
+
+  async function consentBanner() {
+    if (processingCB.value) {
+      return warn("Processing request. Aborting...");
     }
 
-    // Refs
-    const processingCB = ref<boolean>(false);
-    const processingCD = ref<boolean>(false);
+    processingCB.value = true;
 
-    // Computed
-    const bannerURL = computed(() =>
-        consentBannerURL({
-            ..._options,
-            cookieBotId: _options.cookieBotId || '',
-        })
+    if (document.getElementById(CB_NAME) !== null) {
+      processingCB.value = false;
+      return warn("Consent banner already initialized. Skipping...");
+    }
+
+    const additionalSettings = [
+      {
+        name: "data-type",
+        value: _options.type,
+      },
+      {
+        name: "data-level",
+        value: _options.level,
+      },
+      {
+        name: "data-culture",
+        value: _options.culture,
+      },
+      {
+        name: "data-blockingmode",
+        value: _options.blockingMode,
+      },
+      {
+        name: "data-consentmode",
+        value: normalizeConsentModeAttribute(_options.consentmode),
+      },
+    ].filter((value) => isScriptAttribute(value));
+
+    const script = await createScriptWithOptions(
+      [
+        {
+          name: "id",
+          value: CB_NAME,
+        },
+        {
+          name: "data-cbid",
+          value: _options.cookiebotId ?? "",
+        },
+        ...additionalSettings,
+      ],
+      CONSENT_BANNER_URL,
     );
 
-    async function consentBanner() {
-        if (processingCB.value) {
-            return warn('Processing request. Aborting...');
-        }
+    await document.body.appendChild(script);
 
-        processingCB.value = true;
+    processingCB.value = false;
+  }
 
-        if (document.getElementById(CB_NAME) !== null) {
-            return info('Consent banner already initialized. Skipping...');
-        }
+  async function cookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
+    const _ref = unref(ref);
 
-        const script = await createScriptWithOptions(
-            [
-                {
-                    name: 'id',
-                    value: CB_NAME,
-                },
-            ],
-            bannerURL.value
-        );
-
-        await document.body.appendChild(script);
-
-        processingCB.value = false;
+    if (processingCD.value) {
+      return warn("Processing request. Aborting...");
     }
 
-    /** @deprecated */
-    async function consentPage(ref: MaybeRef<HTMLElement | null>) {
-        deprecationNotice('consentPage', 'cookieDeclaration');
+    processingCD.value = true;
 
-        cookieDeclaration(ref);
+    if (!_ref) {
+      processingCD.value = false;
+      return warn(
+        "No HTML element or element ref is given to inject cookie declaration script. Skipping...",
+      );
     }
 
-    async function cookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
-        const _ref = unref(ref);
-
-        if (processingCD.value) {
-            return warn('Processing request. Aborting...');
-        }
-
-        processingCD.value = true;
-
-        if (!_ref) {
-            return warn(
-                'No HTML element or element ref is given to inject cookie declaration script. Skipping...'
-            );
-        }
-
-        if (!_options.cookieBotId) {
-            return error('No Cookiebot ID found. Please set a valid ID');
-        }
-
-        if (
-            document.getElementById(CD_NAME) !== null ||
-            document.querySelector(`[data-cp-id=${CD_NAME}]`) !== null
-        ) {
-            return info('Consent page already initialized. Skipping...');
-        }
-
-        const _settings = [
-            {
-                name: 'data-cp-id',
-                value: CD_NAME,
-            },
-        ];
-
-        if (settings?.culture) {
-            _settings.push({
-                name: 'data-culture',
-                value: settings.culture,
-            });
-        }
-
-        const script = await createScriptWithOptions(
-            _settings,
-            cookieDeclarationURL(_options.cookieBotId),
-            true
-        );
-
-        await _ref.appendChild(script);
-
-        processingCD.value = false;
+    if (!_options.cookiebotId) {
+      processingCD.value = false;
+      return warn("No Cookiebot ID found. Please set a valid ID");
     }
 
-    async function destroyConsentBanner() {
-        await removeScript(document.body, CB_NAME);
+    if (
+      document.getElementById(CD_NAME) !== null ||
+      document.querySelector(`[data-cp-id=${CD_NAME}]`) !== null
+    ) {
+      processingCD.value = false;
+      return warn("Consent page already initialized. Skipping...");
     }
 
-    /** @deprecated */
-    async function destroyConsentPage(ref: MaybeRef<HTMLElement | null>) {
-        deprecationNotice('destroyConsentPage', 'destroyCookieDeclaration');
+    const _settings = [
+      {
+        name: "data-cp-id",
+        value: CD_NAME,
+      },
+      {
+        name: "data-type",
+        value: _options.type,
+      },
+      {
+        name: "data-level",
+        value: _options.level,
+      },
+      {
+        name: "data-culture",
+        value: _options.culture,
+      },
+      {
+        name: "data-blockingmode",
+        value: _options.blockingMode,
+      },
+      {
+        name: "data-consentmode",
+        value: normalizeConsentModeAttribute(_options.consentmode),
+      },
+    ].filter((value) => value && isScriptAttribute(value));
 
-        destroyCookieDeclaration(ref);
+    const script = await createScriptWithOptions(
+      _settings,
+      COOKIE_DECLARATION_URL(_options.cookiebotId),
+      true,
+    );
+
+    await _ref.appendChild(script);
+
+    processingCD.value = false;
+  }
+
+  async function destroyConsentBanner() {
+    await removeScript(document.body, CB_NAME);
+  }
+
+  async function destroyCookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
+    const _ref = unref(ref);
+
+    if (!_ref) {
+      return warn("No HTML element or element ref is given. Aborting...");
     }
 
-    async function destroyCookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
-        const _ref = unref(ref);
+    const scriptEl = document.getElementById(CD_NAME);
+    const createdScriptEl = document.querySelector<HTMLScriptElement>(
+      `[data-cp-id=${CD_NAME}]`,
+    );
 
-        if (!_ref) {
-            return error('No HTML element or element ref is given. Aborting...');
-        }
-
-        const scriptEl = document.getElementById(CD_NAME);
-        const createdScriptEl = document.querySelector<HTMLScriptElement>(
-            `[data-cp-id=${CD_NAME}]`
-        );
-
-        if (scriptEl) {
-            await removeScript(_ref, CD_NAME);
-        }
-
-        if (createdScriptEl) {
-            await removeScript(_ref, createdScriptEl);
-        }
-
-        _ref.innerHTML = '';
+    if (scriptEl) {
+      await removeScript(_ref, CD_NAME);
     }
 
-    async function resetConsentBanner() {
-        await destroyConsentBanner();
-
-        consentBanner();
+    if (createdScriptEl) {
+      await removeScript(_ref, createdScriptEl);
     }
 
-    function renew() {
-        if ('Cookiebot' in window) {
-            return window.Cookiebot.renew();
-        }
+    _ref.innerHTML = "";
+  }
 
-        error('Not able to renew consent. Cookiebot instance is not defined.');
+  async function resetConsentBanner() {
+    await destroyConsentBanner();
+    await consentBanner();
+  }
+
+  function renew() {
+    if (typeof window.Cookiebot?.renew === "function") {
+      return window.Cookiebot.renew();
     }
 
-    return {
-        consentBanner,
-        consentPage,
-        cookieDeclaration,
-        destroyConsentBanner,
-        destroyConsentPage,
-        destroyCookieDeclaration,
-        renew,
-        resetConsentBanner,
-    };
+    warn("Not able to renew consent. Cookiebot instance is not defined.");
+  }
+
+  return {
+    consentBanner,
+    cookieDeclaration,
+    destroyConsentBanner,
+    destroyCookieDeclaration,
+    renew,
+    resetConsentBanner,
+  };
 }

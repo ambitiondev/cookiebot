@@ -1,47 +1,48 @@
 {
   "name": "@ambitiondev/vue-cookiebot",
-  "version": "3.2.4",
-  "author": {
-    "email": "info@ambitiondev.io",
-    "name": "Berrie Nachtweh",
-    "url": "https://ambitiondev.io"
-  },
-  "dependencies": {
-    "@ambitiondev/cookiebot-common": "^3.2.4"
-  },
+  "version": "4.0.0-7",
   "description": "Composable for Cookiebot in Vue applications",
-  "files": [
-    "dist/"
-  ],
-  "homepage": "https://vue-nuxt-cookiebot.netlify.app",
   "keywords": [
-    "web",
-    "application",
     "cookiebot",
     "vue",
     "vue 3",
     "ambitiondev"
   ],
-  "license": "MIT",
-  "main": "./dist/index.esm.js",
-  "peerDependencies": {
-    "vue": ">=3.1.0"
-  },
+  "homepage": "https://vue-nuxt-cookiebot.netlify.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/ambitiondev/cookiebot"
   },
-  "scripts": {
-    "build": "npm run compile && npm run bundle",
-    "bundle": "rollup --config rollup.config.mjs",
-    "compile": "npm run tsc",
-    "lint": "eslint src",
-    "lint:fix": "npm run lint -- --fix",
-    "test": "npm run test:unit",
-    "test:coverage": "vitest run --c vitest.config.run.ts",
-    "test:unit": "vitest",
-    "tsc": "tsc -p ."
+  "author": {
+    "email": "info@ambitiondev.io",
+    "name": "Berrie Nachtweh",
+    "url": "https://ambitiondev.io"
   },
-  "types": "dist/types/index.d.ts",
-  "type": "module"
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "--- 🧪 Testing ---": "",
+    "test": "vitest",
+    "test:coverage": "vitest run --c vitest.config.run.ts",
+    "--- 🎗️ Lint ---": "",
+    "lint": "eslint src/*.ts",
+    "--- 🤓 Developer Tools ---": "",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@ambitiondev/cookiebot-common": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/test-utils": "^2.4.11",
+    "vue": "^3.5.40"
+  },
+  "peerDependencies": {
+    "vue": ">=3.1.0"
+  }
 }
