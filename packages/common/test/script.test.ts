@@ -4,7 +4,11 @@
 import { describe, test, expect } from "vitest";
 
 // Utils
-import { createScriptWithOptions, removeScript } from "../src/script";
+import {
+  createScriptWithOptions,
+  removeScript,
+  isScriptAttribute,
+} from "../src/script";
 
 describe("createScriptWithOptions", () => {
   test("should create a script tag with the correct attributes and content", async () => {
@@ -64,5 +68,16 @@ describe("createScriptWithOptions", () => {
     ).resolves.toBeUndefined();
 
     expect(context.innerHTML).toBe("");
+  });
+});
+
+describe("isScriptAttribute", () => {
+  test("returns true for valid ScriptAttribute objects", () => {
+    const validAttribute = { name: "data-test", value: "test-value" };
+    expect(isScriptAttribute(validAttribute)).toBe(true);
+  });
+  test("returns false for invalid ScriptAttribute objects", () => {
+    const invalidAttribute = { name: "data-test" };
+    expect(isScriptAttribute(invalidAttribute)).toBe(false);
   });
 });

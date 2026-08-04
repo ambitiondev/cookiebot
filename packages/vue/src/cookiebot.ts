@@ -4,14 +4,30 @@ import {
   COOKIE_DECLARATION_URL,
   createScriptWithOptions,
   removeScript,
+  isScriptAttribute,
   type ICookiebotPluginOptions,
+  type ICookiebotOptions,
 } from "@ambitiondev/cookiebot-common";
 import { inject, ref, unref, warn, type MaybeRef } from "vue";
 
 const CB_NAME = "AppCookiebotConsentBanner";
 const CD_NAME = "AppCookiebotCookieDeclaration";
 
-export function useCookiebot(settings?: ICookiebotPluginOptions) {
+function normalizeConsentModeAttribute(
+  consentmode: ICookiebotPluginOptions["consentmode"] | undefined,
+) {
+  if (consentmode === false || consentmode === "disabled") {
+    return "disabled";
+  }
+
+  if (consentmode === true) {
+    return "true";
+  }
+
+  return undefined;
+}
+
+export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
   const pluginOptions = inject<Partial<ICookiebotPluginOptions>>(
     "cookieBotOptions",
     {},
@@ -43,6 +59,29 @@ export function useCookiebot(settings?: ICookiebotPluginOptions) {
       return warn("Consent banner already initialized. Skipping...");
     }
 
+    const additionalSettings = [
+      {
+        name: "data-type",
+        value: _options.type,
+      },
+      {
+        name: "data-level",
+        value: _options.level,
+      },
+      {
+        name: "data-culture",
+        value: _options.culture,
+      },
+      {
+        name: "data-blockingmode",
+        value: _options.blockingMode,
+      },
+      {
+        name: "data-consentmode",
+        value: normalizeConsentModeAttribute(_options.consentmode),
+      },
+    ].filter((value) => isScriptAttribute(value));
+
     const script = await createScriptWithOptions(
       [
         {
@@ -53,6 +92,7 @@ export function useCookiebot(settings?: ICookiebotPluginOptions) {
           name: "data-cbid",
           value: _options.cookiebotId ?? "",
         },
+        ...additionalSettings,
       ],
       CONSENT_BANNER_URL,
     );
@@ -96,14 +136,27 @@ export function useCookiebot(settings?: ICookiebotPluginOptions) {
         name: "data-cp-id",
         value: CD_NAME,
       },
-    ];
-
-    if (settings?.culture) {
-      _settings.push({
+      {
+        name: "data-type",
+        value: _options.type,
+      },
+      {
+        name: "data-level",
+        value: _options.level,
+      },
+      {
         name: "data-culture",
-        value: settings.culture,
-      });
-    }
+        value: _options.culture,
+      },
+      {
+        name: "data-blockingmode",
+        value: _options.blockingMode,
+      },
+      {
+        name: "data-consentmode",
+        value: normalizeConsentModeAttribute(_options.consentmode),
+      },
+    ].filter((value) => value && isScriptAttribute(value));
 
     const script = await createScriptWithOptions(
       _settings,

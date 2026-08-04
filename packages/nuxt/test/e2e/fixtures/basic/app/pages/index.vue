@@ -9,5 +9,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div data-testid="cookie-declaration" ref="cookie-declaration" />
+  <div ref="cookie-declaration" data-testid="cookie-declaration" />
 </template>

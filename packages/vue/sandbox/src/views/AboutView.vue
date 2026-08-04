@@ -7,7 +7,11 @@ import { onMounted, useTemplateRef } from "vue";
 const cookieDeclarationRef = useTemplateRef("cookie-declaration");
 
 // Composable
-const { cookieDeclaration } = useCookiebot();
+const { cookieDeclaration } = useCookiebot({
+  consentmode: "disabled",
+  culture: "dk",
+  level: "implied",
+});
 
 onMounted(() => {
   cookieDeclaration(cookieDeclarationRef);
