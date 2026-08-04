@@ -19,15 +19,27 @@ import {
 } from "@ambitiondev/cookiebot-common";
 
 // Module imports
-// @ts-expect-error - cookiebot can be undefined if runtime config is used
-import { cookiebotId, culture as cultureFromOptions } from "#cookiebot-options";
+import {
+  blockingMode as blockingModeFromOptions,
+  consentmode as consentmodeFromOptions,
+  cookiebotId,
+  culture as cultureFromOptions,
+  level as levelFromOptions,
+  type as typeFromOptions,
+} from "#cookiebot-options";
 
 // utils
-import { buildScriptOptionsForLocale } from "./script-helper";
+import { buildConsentBannerScriptOptions } from "./script-helper";
 
 export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
   const { $i18n } = useNuxtApp();
-  const { culture: cultureOverride } = settings || {};
+  const {
+    blockingMode: blockingModeOverride,
+    consentmode: consentmodeOverride,
+    culture: cultureOverride,
+    level: levelOverride,
+    type: typeOverride,
+  } = settings || {};
 
   const isCookieDeclarationProcessing = ref<boolean>(false);
 
@@ -41,9 +53,18 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
   );
 
   const { load: loadConsentBannerScript, remove: removeConsentBannerScript } =
-    useScript(buildScriptOptionsForLocale(culture.value), {
-      trigger: "manual",
-    });
+    useScript(
+      buildConsentBannerScriptOptions({
+        type: typeOverride || typeFromOptions,
+        level: levelOverride || levelFromOptions,
+        culture: culture.value,
+        blockingMode: blockingModeOverride || blockingModeFromOptions,
+        consentmode: consentmodeOverride ?? consentmodeFromOptions,
+      }),
+      {
+        trigger: "manual",
+      },
+    );
 
   async function cookieDeclaration(wrapper: MaybeRef<HTMLElement | null>) {
     const _element = unref(wrapper);

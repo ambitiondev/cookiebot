@@ -1,6 +1,6 @@
 declare module "#cookiebot-options" {
-  import type { ModuleOptions } from "@ambitiondev/nuxt-cookiebot";
+  import type { ResolvedModuleOptions } from "@ambitiondev/nuxt-cookiebot";
 
-  const pluginOptions: ModuleOptions;
+  const pluginOptions: ResolvedModuleOptions;
   export = pluginOptions;
 }

@@ -61,9 +61,9 @@ export interface ICookiebotOptions {
    */
   blockingMode: TCookiebotBlockingMode;
   /**
-   * Allows you to disable Google Consent Mode
+   * Allows you to disable Google Consent Mode by passing a value of "disabled".
    */
-  consentmode: boolean;
+  consentmode: boolean | "disabled";
   /**
    * Sets the language for the Cookiebot implementation
    */

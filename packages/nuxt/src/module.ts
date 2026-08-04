@@ -46,6 +46,13 @@ export type ModuleOptions =
   | ModuleOptionsWithRuntimeConfig
   | ModuleOptionsWithoutRuntimeConfig;
 
+export type ResolvedModuleOptions = ModuleOptionsBase & {
+  /**
+   * The resolved Cookiebot ID from either the module options or Nuxt's runtime config.
+   */
+  cookiebotId: string;
+};
+
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name,
