@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v3.2.4...v4.0.0)
+
+### 🚀 Enhancements
+
+- **many:** ⚠️  Migrate to pnpm monorepo ([378e164](https://github.com/ambitiondev/cookiebot/commit/378e164))
+
+#### ⚠️ Breaking Changes
+
+- **many:** ⚠️  Migrate to pnpm monorepo ([378e164](https://github.com/ambitiondev/cookiebot/commit/378e164))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh ([@bnachtweh](https://github.com/bnachtweh))
+
 ## v4.0.0-7
 
 [compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-6...v4.0.0-7)
