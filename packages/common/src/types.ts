@@ -85,3 +85,5 @@ export interface ICookiebotPluginOptions extends Partial<ICookiebotOptions> {
    */
   cookiebotId: string;
 }
+
+export {};

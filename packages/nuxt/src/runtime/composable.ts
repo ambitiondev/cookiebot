@@ -11,9 +11,15 @@ import {
 import { warn } from "vue";
 
 // Cookiebot common imports
-import type { ICookiebotOptions } from "@ambitiondev/cookiebot-common";
+import {
+  COOKIE_DECLARATION_URL,
+  createScriptWithOptions,
+  removeScript,
+  type ICookiebotOptions,
+} from "@ambitiondev/cookiebot-common";
 
 // Module imports
+// @ts-expect-error - cookiebot can be undefined if runtime config is used
 import { cookiebotId, culture as cultureFromOptions } from "#cookiebot-options";
 
 // utils
@@ -54,6 +60,41 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
         message: `Cookie declaration requires the following missing properties: ${!_element ? "wrapper element" : ""}${!_element && !cookiebotId ? ", " : ""}${!cookiebotId ? "cookiebotId" : ""}`,
       });
     }
+
+    const _settings = [];
+
+    if (culture.value) {
+      _settings.push({
+        name: "data-culture",
+        value: culture.value,
+      });
+    }
+
+    const script = await createScriptWithOptions(
+      _settings,
+      COOKIE_DECLARATION_URL(cookiebotId),
+      true,
+    );
+
+    await _element.appendChild(script);
+
+    isCookieDeclarationProcessing.value = false;
+  }
+
+  async function destroyCookieDeclaration(ref: MaybeRef<HTMLElement | null>) {
+    const _element = unref(ref);
+
+    if (!_element) {
+      return warn("No HTML element or element ref is given. Aborting...");
+    }
+
+    const scriptEl = document.getElementById("CookieDeclaration");
+
+    if (scriptEl) {
+      await removeScript(_element, "CookieDeclaration");
+    }
+
+    _element.innerHTML = "";
   }
 
   async function consentBanner() {
@@ -90,9 +131,10 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
   return {
     culture,
     consentBanner,
-    cookieDeclaration,
     destroyConsentBanner,
     resetConsentBanner,
+    cookieDeclaration,
+    destroyCookieDeclaration,
     renew,
   };
 }

@@ -2,12 +2,11 @@
 import {
   CONSENT_BANNER_URL,
   COOKIE_DECLARATION_URL,
+  createScriptWithOptions,
+  removeScript,
   type ICookiebotPluginOptions,
 } from "@ambitiondev/cookiebot-common";
 import { inject, ref, unref, warn, type MaybeRef } from "vue";
-
-// Utils
-import { createScriptWithOptions, removeScript } from "./script";
 
 const CB_NAME = "AppCookiebotConsentBanner";
 const CD_NAME = "AppCookiebotCookieDeclaration";

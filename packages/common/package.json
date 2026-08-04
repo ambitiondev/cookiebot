@@ -34,6 +34,6 @@
     "--- 🎗️ Lint ---": "",
     "lint": "eslint src/*.ts",
     "--- 🤓 Developer Tools ---": "",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "rm -rf dist && tsc -p tsconfig.build.json"
   }
 }

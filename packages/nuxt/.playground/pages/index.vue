@@ -23,6 +23,16 @@ onMounted(() => {
       Iframe page
     </NuxtLink>
 
+    <NuxtLink
+      :to="
+        localePath({
+          name: 'consent',
+        })
+      "
+    >
+      Consent page
+    </NuxtLink>
+
     <div ref="declaration" />
   </div>
 </template>

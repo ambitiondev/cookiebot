@@ -1,12 +1,6 @@
 <script setup lang="ts">
-// Vendor
-import { useCookiebot } from "../../../src/cookiebot";
-import { onMounted, useTemplateRef } from "vue";
-
-// Refs
 const cookieDeclarationRef = useTemplateRef("cookie-declaration");
 
-// Composable
 const { cookieDeclaration } = useCookiebot();
 
 onMounted(() => {
@@ -15,5 +9,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="cookie-declaration"></div>
+  <div ref="cookie-declaration" />
 </template>
