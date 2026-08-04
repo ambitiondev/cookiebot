@@ -6,7 +6,7 @@ import type { ICookiebotPluginOptions } from "@ambitiondev/cookiebot-common";
 
 const cookieBot = {
   install: (app: App, options: ICookiebotPluginOptions) => {
-    app.provide("cookieBotOptions", options);
+    app.provide("cookieBotOptions", options || {});
 
     requestAnimationFrame(() => {
       if (typeof app.config.globalProperties.$router === "object") {

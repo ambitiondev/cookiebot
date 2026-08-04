@@ -39,6 +39,7 @@ export function useCookiebot(settings?: ICookiebotPluginOptions) {
     processingCB.value = true;
 
     if (document.getElementById(CB_NAME) !== null) {
+      processingCB.value = false;
       return warn("Consent banner already initialized. Skipping...");
     }
 
@@ -71,12 +72,14 @@ export function useCookiebot(settings?: ICookiebotPluginOptions) {
     processingCD.value = true;
 
     if (!_ref) {
+      processingCD.value = false;
       return warn(
         "No HTML element or element ref is given to inject cookie declaration script. Skipping...",
       );
     }
 
     if (!_options.cookiebotId) {
+      processingCD.value = false;
       return warn("No Cookiebot ID found. Please set a valid ID");
     }
 
@@ -84,6 +87,7 @@ export function useCookiebot(settings?: ICookiebotPluginOptions) {
       document.getElementById(CD_NAME) !== null ||
       document.querySelector(`[data-cp-id=${CD_NAME}]`) !== null
     ) {
+      processingCD.value = false;
       return warn("Consent page already initialized. Skipping...");
     }
 
@@ -141,8 +145,7 @@ export function useCookiebot(settings?: ICookiebotPluginOptions) {
 
   async function resetConsentBanner() {
     await destroyConsentBanner();
-
-    consentBanner();
+    await consentBanner();
   }
 
   function renew() {
