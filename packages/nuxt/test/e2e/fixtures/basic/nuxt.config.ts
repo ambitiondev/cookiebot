@@ -11,5 +11,10 @@ export default defineNuxtConfig({
   modules: [CookiebotModule],
   cookiebot: {
     cookiebotId: import.meta.env.COOKIEBOT_ID as string,
+    blockingMode: "auto",
+    consentmode: false,
+    culture: "nl-NL",
+    level: "strict",
+    type: "optinout",
   },
 });

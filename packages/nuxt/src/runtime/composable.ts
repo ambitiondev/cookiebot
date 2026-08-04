@@ -15,6 +15,7 @@ import {
   COOKIE_DECLARATION_URL,
   createScriptWithOptions,
   removeScript,
+  isScriptAttribute,
   type ICookiebotOptions,
 } from "@ambitiondev/cookiebot-common";
 
@@ -31,7 +32,24 @@ import {
 // utils
 import { buildConsentBannerScriptOptions } from "./script-helper";
 
-export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
+function normalizeConsentModeAttribute(
+  consentmode:
+    | Partial<ICookiebotOptions>["consentmode"]
+    | "disabled"
+    | undefined,
+) {
+  if (consentmode === false || consentmode === "disabled") {
+    return "disabled";
+  }
+
+  if (consentmode === true) {
+    return "true";
+  }
+
+  return undefined;
+}
+
+export function useCookiebot(settings?: ICookiebotOptions) {
   const { $i18n } = useNuxtApp();
   const {
     blockingMode: blockingModeOverride,
@@ -84,14 +102,43 @@ export function useCookiebot(settings?: Partial<ICookiebotOptions>) {
       });
     }
 
-    const _settings = [];
-
-    if (culture.value) {
-      _settings.push({
+    const _settings = [
+      {
+        name: "data-type",
+        value: typeOverride || typeFromOptions,
+      },
+      {
+        name: "data-level",
+        value: levelOverride || levelFromOptions,
+      },
+      {
         name: "data-culture",
         value: culture.value,
-      });
-    }
+      },
+      {
+        name: "data-blockingmode",
+        value: blockingModeOverride || blockingModeFromOptions,
+      },
+      {
+        name: "data-consentmode",
+        value: normalizeConsentModeAttribute(
+          consentmodeOverride ?? consentmodeFromOptions,
+        ),
+      },
+    ].filter((value) => value && isScriptAttribute(value));
+
+    console.log(
+      _settings,
+      typeOverride,
+      typeFromOptions,
+      levelOverride,
+      levelFromOptions,
+      culture.value,
+      blockingModeOverride,
+      blockingModeFromOptions,
+      consentmodeOverride,
+      consentmodeFromOptions,
+    );
 
     const script = await createScriptWithOptions(
       _settings,

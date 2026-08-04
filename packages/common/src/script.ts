@@ -4,6 +4,17 @@ interface ScriptAttribute {
   value: string;
 }
 
+export const isScriptAttribute = (obj: unknown): obj is ScriptAttribute => {
+  return (
+    typeof obj === "object" &&
+    obj !== null &&
+    "name" in obj &&
+    "value" in obj &&
+    typeof (obj as ScriptAttribute).name === "string" &&
+    typeof (obj as ScriptAttribute).value === "string"
+  );
+};
+
 export const createScriptWithOptions = async (
   options: ScriptAttribute[],
   src: string,
