@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## v4.0.0-6
+
+[compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-5...v4.0.0-6)
+
+### 🩹 Fixes
+
+- **vue:** Reset pending states on early returns ([e2a0baf](https://github.com/ambitiondev/cookiebot/commit/e2a0baf))
+- **nuxt:** Reset processing state on throw ([de1db05](https://github.com/ambitiondev/cookiebot/commit/de1db05))
+
+### ✅ Tests
+
+- **vue:** Early return branch scenarios ([e271afe](https://github.com/ambitiondev/cookiebot/commit/e271afe))
+
+### ❤️ Contributors
+
+- Berrie Nachtweh <info@ambitiondev.io>
+
 ## v4.0.0-5
 
 [compare changes](https://github.com/ambitiondev/cookiebot/compare/v4.0.0-4...v4.0.0-5)
