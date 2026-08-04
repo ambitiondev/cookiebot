@@ -21,6 +21,16 @@ const CookiebotComponent = defineComponent({
     "resetConsentBanner",
     "renew",
   ],
+  global: {
+    plugins: [
+      [
+        cookieBot,
+        {
+          cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
+        },
+      ],
+    ],
+  },
   setup() {
     const cdElement = ref<HTMLDivElement | null>(null);
 
@@ -62,9 +72,7 @@ const CookiebotComponent = defineComponent({
 const CookiebotRawDeclarationComponent = defineComponent({
   name: "CookiebotRawDeclarationComponent",
   setup() {
-    const { cookieDeclaration } = useCookiebot({
-      cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
-    });
+    const { cookieDeclaration } = useCookiebot();
 
     return {
       cookieDeclarationRaw: cookieDeclaration,
@@ -122,41 +130,6 @@ describe("Cookiebot - composable", () => {
     const cbId = cbScriptTag?.getAttribute("data-cbid");
 
     expect(cbId).toContain(import.meta.env.VITE_COOKIEBOT_ID);
-  });
-
-  test("Adds all Cookiebot attributes to consent banner", async () => {
-    const wrapper = await mount(CookiebotComponent, {
-      global: {
-        plugins: [
-          [
-            cookieBot,
-            {
-              cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
-              type: "optinout",
-              level: "strict",
-              culture: "nl-NL",
-              blockingMode: "auto",
-              consentmode: false,
-            },
-          ],
-        ],
-      },
-    });
-
-    await wrapper.vm.consentBanner();
-
-    await wrapper.vm.$nextTick();
-    await wrapper.vm.$nextTick();
-
-    const cbScriptTag = document.getElementById(
-      "AppCookiebotConsentBanner",
-    ) as HTMLScriptElement | null;
-
-    expect(cbScriptTag?.getAttribute("data-type")).toBe("optinout");
-    expect(cbScriptTag?.getAttribute("data-level")).toBe("strict");
-    expect(cbScriptTag?.getAttribute("data-culture")).toBe("nl-NL");
-    expect(cbScriptTag?.getAttribute("data-blockingmode")).toBe("auto");
-    expect(cbScriptTag?.getAttribute("data-consentmode")).toBe("disabled");
   });
 
   test("Injects cookiedeclaration accordingly", async () => {
@@ -367,7 +340,6 @@ describe("Cookiebot - composable", () => {
         const cdElement = ref<HTMLDivElement | null>(null);
         const { cookieDeclaration } = useCookiebot({
           culture: "en",
-          cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
         });
 
         return {
@@ -380,49 +352,22 @@ describe("Cookiebot - composable", () => {
 
     const wrapper = await mount(CookiebotCultureComponent, {
       attachTo: document.body,
+      global: {
+        plugins: [
+          [
+            cookieBot,
+            {
+              cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
+            },
+          ],
+        ],
+      },
     });
 
     await wrapper.vm.cookieDeclaration();
 
     const cdScriptTag = wrapper.find("[data-cp-id]");
     expect(cdScriptTag.attributes("data-culture")).toBe("en");
-  });
-
-  test("Adds all Cookiebot attributes to cookiedeclaration script", async () => {
-    const CookiebotAttributesComponent = defineComponent({
-      template: '<div ref="cdElement"></div>',
-      setup() {
-        const cdElement = ref<HTMLDivElement | null>(null);
-        const { cookieDeclaration } = useCookiebot({
-          cookiebotId: import.meta.env.VITE_COOKIEBOT_ID,
-          type: "optinout",
-          level: "strict",
-          culture: "nl-NL",
-          blockingMode: "auto",
-          consentmode: false,
-        });
-
-        return {
-          cdElement,
-          cookieDeclaration: () =>
-            cdElement.value && cookieDeclaration(cdElement.value),
-        };
-      },
-    });
-
-    const wrapper = await mount(CookiebotAttributesComponent, {
-      attachTo: document.body,
-    });
-
-    await wrapper.vm.cookieDeclaration();
-
-    const cdScriptTag = wrapper.find("[data-cp-id]");
-
-    expect(cdScriptTag.attributes("data-type")).toBe("optinout");
-    expect(cdScriptTag.attributes("data-level")).toBe("strict");
-    expect(cdScriptTag.attributes("data-culture")).toBe("nl-NL");
-    expect(cdScriptTag.attributes("data-blockingmode")).toBe("auto");
-    expect(cdScriptTag.attributes("data-consentmode")).toBe("disabled");
   });
 
   test("Warns when destroy cookiedeclaration is called without an element", async () => {
